@@ -1,0 +1,44 @@
+// ===== VARIABLES =====
+$min-width: 320px;
+
+// Media Breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  min: 321px, // Min width
+  xss: 375px, // iPhone SE
+  xsm: 390px, // iPhone 14
+  xsl: 420px, // iPhone Plus/Max
+  sm: 540px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1600px
+) !default;
+
+// Paths
+$img: '../img';
+$fonts: '../fonts';
+
+// Fonts
+$font-default: 'Aktiv Grotesk', sans-serif;
+
+// Colors
+$color-black: #080522;
+$color-mute: #2c2d3a;
+$color-black-marlin: #393741;
+$color-dark-gray: #75728a;
+$color-gray: #959fb1;
+$color-sky: #5ddcff;
+$color-blueish: #ecf0f2;
+
+// Transition Settings
+$bezier: cubic-bezier(.250, .460, .450, .940);
+$easing: ease;
+$effect: .3s $easing;
+$effect-s: .2s $easing;
+
+// Mixins
+@mixin pseudo {content: '';display: block;overflow: hidden;}
+@mixin clearfix {content: '';display: table;clear: both;}
+@mixin user-select {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}

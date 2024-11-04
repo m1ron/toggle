@@ -2,16 +2,15 @@ var gulp = require('gulp'),
   scss = require('gulp-sass')(require('sass')),
   sourcemaps = require('gulp-sourcemaps'),
   autoprefixer = require('gulp-autoprefixer'),
-  browserSync = require('browser-sync').create(),
-  twig = require('gulp-twig');
+  browserSync = require('browser-sync').create();
 
 gulp.task('scss', function () {
-  return gulp.src('./scss/style.scss')
+  return gulp.src('./assets/scss/style.scss')
     .pipe(sourcemaps.init())
-    .pipe(scss({outputStyle: 'compressed'}).on('error', scss.logError))
+    .pipe(scss({ outputStyle: 'compressed' }).on('error', scss.logError))
     .pipe(autoprefixer('last 2 version'))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./css'))
+    .pipe(gulp.dest('./assets/css'))
     .pipe(browserSync.stream());
 });
 
@@ -22,7 +21,7 @@ gulp.task('serve', gulp.series('scss', function () {
     open: 'external'
   });
 
-  gulp.watch('./scss/**/*.scss', gulp.series('scss'));
+  gulp.watch('./assets/scss/**/*.scss', gulp.series('scss'));
 }));
 
 gulp.task('default', gulp.series('serve'));

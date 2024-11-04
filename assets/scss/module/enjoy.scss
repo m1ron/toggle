@@ -1,0 +1,120 @@
+/* ==========================================================================
+   ENJOY
+   ========================================================================== */
+.enjoy {
+  margin: 0;
+  font-size: 40px;
+  line-height: 125%;
+  font-weight: 300;
+  color: white;
+  display: none;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  z-index: 2;
+  white-space: nowrap;
+  transform: translate3d(-50%, -50%, 0);
+  mix-blend-mode: overlay;
+  animation: 1.4s enjoy-fly-in;
+  animation-play-state: paused;
+  -webkit-backface-visibility: hidden;
+  @include media-breakpoint-down(xss) {
+    font-size: 36px;
+  }
+  @include media-breakpoint-up(md) {
+    font-size: 48px;
+    top: 70%;
+  }
+  @include media-breakpoint-up(xl) {
+    font-size: 64px;
+    top: 60%;
+  }
+
+  strong {
+    font-weight: normal;
+  }
+
+  span {
+    min-width: 12px;
+    position: relative;
+    text-shadow: 0 0 6px white;
+    animation: 1s enjoy-blur forwards;
+    animation-play-state: paused;
+    filter: blur(.2em);
+    top: .2em;
+    opacity: 0;
+    @for $i from 1 through 20 {
+      &:nth-child(#{$i}) {
+        animation-delay: $i * .06s;
+      }
+    }
+
+    &.b {font-weight: normal;}
+  }
+
+  .s {
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    translate: -50% -50%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="none"><g filter="url(%23a)" opacity=".6"><path fill="%23fff" fill-rule="evenodd" d="M24.41 20.689c-.312-.09-.468-.134-.596-.218a1.002 1.002 0 0 1-.285-.285c-.084-.128-.128-.284-.218-.596l-.388-1.36c-.276-.964-.413-1.446-.626-1.568a.6.6 0 0 0-.594 0c-.213.122-.35.604-.626 1.569l-.388 1.359c-.09.312-.134.468-.218.596-.075.113-.172.21-.285.285-.128.084-.284.128-.596.218l-1.36.388c-.964.276-1.446.413-1.568.626a.6.6 0 0 0 0 .594c.122.213.604.35 1.569.626l1.359.388c.312.09.468.134.596.218.113.075.21.172.285.285.084.128.128.284.218.596l.388 1.36c.276.964.413 1.446.626 1.568a.6.6 0 0 0 .594 0c.213-.122.35-.604.626-1.569l.388-1.359c.09-.312.134-.468.218-.596.075-.113.172-.21.285-.285.128-.084.284-.128.596-.218l1.36-.388c.964-.276 1.446-.413 1.568-.626a.6.6 0 0 0 0-.594c-.122-.213-.604-.35-1.569-.626l-1.359-.388Z" clip-rule="evenodd"/></g><path fill="%23fff" fill-rule="evenodd" d="M24.41 17.689c-.312-.09-.468-.134-.596-.218a1.002 1.002 0 0 1-.285-.285c-.084-.128-.128-.284-.218-.596l-.388-1.36c-.276-.964-.413-1.446-.626-1.568a.6.6 0 0 0-.594 0c-.213.122-.35.604-.626 1.569l-.388 1.359c-.09.312-.134.468-.218.596-.075.113-.172.21-.285.285-.128.084-.284.128-.596.218l-1.36.388c-.964.276-1.446.413-1.568.626a.6.6 0 0 0 0 .594c.122.213.604.35 1.569.626l1.359.388c.312.09.468.134.596.218.113.075.21.172.285.285.084.128.128.284.218.596l.388 1.36c.276.964.413 1.446.626 1.568a.6.6 0 0 0 .594 0c.213-.122.35-.604.626-1.569l.388-1.359c.09-.312.134-.468.218-.596.075-.113.172-.21.285-.285.128-.084.284-.128.596-.218l1.36-.388c.964-.276 1.446-.413 1.568-.626a.6.6 0 0 0 0-.594c-.122-.213-.604-.35-1.569-.626l-1.359-.388Z" clip-rule="evenodd"/><defs><filter id="a" width="42.828" height="42.832" x=".586" y=".584" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="bgf"/><feBlend in="SourceGraphic" in2="bgf" result="shape"/><feGaussianBlur stdDeviation="8"/></filter></defs></svg>') no-repeat center center;
+    transform: scale(.1);
+    animation: 4s star-animation forwards;
+    animation-play-state: paused;
+
+    &:nth-of-type(1) {top: 0;left: -5%;}
+    &:nth-of-type(2) {top: 50%;left: -6%;animation-delay: 2s;}
+    &:nth-of-type(3) {top: 120%;left: 20%;animation-delay: .4s;}
+    &:nth-of-type(4) {top: 65%;left: 64%;animation-delay: .8s;}
+    &:nth-of-type(5) {top: -20%;left: 70%;animation-delay: 2.4s;}
+    &:nth-of-type(6) {top: 95%;left: 90%;animation-delay: 1.2s;}
+    &:nth-of-type(7) {top: 50%;left: 110%;animation-delay: 1.6s;}
+  }
+
+  &.visible {
+    display: block;
+    &, span, .s {
+      animation-play-state: running;
+    }
+  }
+
+  &.done {
+    animation: 1s .075s enjoy-fly-out forwards;
+    animation-play-state: running;
+  }
+
+  &.hidden {
+    animation-play-state: paused;
+    display: none;
+  }
+}
+
+@keyframes enjoy-fly-in {
+  0% {transform: translate3d(125%, -50%, 0) scale(300%); opacity: .5;}
+  100% {transform: translate3d(-50%, -50%, 0) scale(100%); opacity: 1;}
+}
+
+@keyframes enjoy-fly-out {
+  0% {transform: translate3d(-50%, -50%, 0); opacity: 1;}
+  60% {opacity: 0;}
+  100% {transform: translate3d(-50%, -200%, 0);opacity: 0;}
+}
+
+@keyframes enjoy-blur {
+  0% {filter: blur(.2em); top: .25em; opacity: 0; text-shadow: 0 0 6px white;}
+  50% {filter: blur(0); top: 0;opacity: 1;}
+  75% {filter: blur(.01em); opacity: .9;}
+  100% {filter: blur(0); top: 0; opacity: 1; text-shadow: 0 0 1px white;}
+}
+
+@keyframes star-animation {
+  0% {transform: scale(.1);opacity: 0;}
+  20% {opacity: 1;}
+  40% {transform: scale(1);opacity: 0;}
+  60% {transform: scale(1);opacity: 0;}
+  80% {opacity: .1;}
+  100% {transform: scale(.1);opacity: 0;}
+}

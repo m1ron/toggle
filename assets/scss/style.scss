@@ -1,0 +1,22 @@
+@use 'vendor/normalize';
+
+@use 'var';
+@use 'breakpoints';
+@use 'fonts';
+@use 'default';
+
+@use 'layout/main';
+@use 'layout/header';
+@use 'layout/content';
+@use 'layout/footer';
+
+@use 'section/hero';
+
+/*
+@import 'module/animation',
+        'module/welcome',
+        'module/enjoy',
+        'module/ai',
+        'module/order',
+        'module/menu';
+ */
