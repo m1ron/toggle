@@ -1,5 +1,14 @@
 /* ===== MAIN ===== */
 @use '../var' as *;
+
 .main {
   min-height: 100%;
+  position: relative;
+  background: url('#{$img}/stars.svg') repeat top center;
+  background-attachment: fixed;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
 }

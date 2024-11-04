@@ -21,7 +21,7 @@ $img: '../img';
 $fonts: '../fonts';
 
 // Fonts
-$font-default: 'Aktiv Grotesk', sans-serif;
+$font-default: 'Clash Display', sans-serif;
 
 // Colors
 $color-black: #080522;
@@ -41,4 +41,4 @@ $effect-s: .2s $easing;
 // Mixins
 @mixin pseudo {content: '';display: block;overflow: hidden;}
 @mixin clearfix {content: '';display: table;clear: both;}
-@mixin user-select {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+@mixin user-select {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;-webkit-user-drag: none;user-drag: none;}
