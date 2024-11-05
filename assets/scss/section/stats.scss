@@ -44,9 +44,11 @@
       gap: 12px;
       position: relative;
       z-index: 1;
-      backdrop-filter: blur(8px);
       -webkit-backface-visibility: hidden;
       @include media-breakpoint-down(lg) {
+        &:nth-child(1) {
+          backdrop-filter: blur(20px);
+        }
         &:nth-child(2), &:nth-child(3) {
           flex-basis: calc(50% - 6px);
         }
@@ -146,6 +148,7 @@
     max-width: 860px;
     margin: 32px auto 0;
     text-align: center;
+    cursor: default;
     @include font-smooth;
     @include media-breakpoint-down(md) {
       padding: 0 4px;

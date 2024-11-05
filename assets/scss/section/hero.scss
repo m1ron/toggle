@@ -15,7 +15,6 @@
   &__content {
     max-width: 280px;
     position: relative;
-    top: -7px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,11 +23,8 @@
     cursor: default;
     @include media-breakpoint-up(lg) {
       max-width: none;
-      top: -41px;
+      top: -35px;
       @include font-smooth;
-    }
-    @include media-breakpoint-up(xl) {
-      top: -28px;
     }
 
     > *:last-child {margin-bottom: 0;}
@@ -36,13 +32,30 @@
 
   &__logo {
     padding: 0;
-    margin: 0 0 2px;
+    margin: 0 0 22px;
     display: block;
+    position: relative;
     @include media-breakpoint-up(lg) {
-      margin-bottom: 0;
+      margin-bottom: 26px;
     }
     @include media-breakpoint-up(xl) {
-      margin-bottom: -8px;
+      margin-bottom: 19px;
+    }
+
+    video {
+      width: 99px;
+      height: 62px;
+      margin: 0 auto;
+      display: block;
+      position: relative;
+      z-index: 1;
+      cursor: default;
+      @include user-select;
+      @include user-drag;
+      @include media-breakpoint-up(lg) {
+        width: 128px;
+        height: 80px;
+      }
     }
 
     img {
@@ -56,6 +69,16 @@
       @include media-breakpoint-up(lg) {
         height: 122px;
       }
+    }
+
+    &::after {
+      @include pseudo;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
     }
   }
 
@@ -117,6 +140,7 @@
     transition: box-shadow $effect, text-shadow $effect, opacity $effect;
     outline: none;
     @include user-select;
+    @include user-drag;
     @include font-smooth;
     @include media-breakpoint-up(lg) {
       margin-top: 40px;
