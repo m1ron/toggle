@@ -1,14 +1,24 @@
 /* ===== MAIN ===== */
 
 .main {
-  min-height: 100%;
   position: relative;
-  background: url('#{$img}/stars.svg') repeat top center;
-  background-attachment: fixed;
+  z-index: 1;
+
+  .stars {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: url('#{$img}/stars.svg') repeat 50% 0;
+    background-attachment: fixed;
+    -webkit-backface-visibility: hidden;
+  }
 }
 
 .wrapper {
-  max-width: 1300px;
+  max-width: 1340px;
   padding: 0 20px;
   margin: 0 auto;
 }

@@ -11,9 +11,9 @@ $grid-breakpoints: (
   sm: 540px,
   md: 768px,
   lg: 992px,
-  xl: 1200px,
-  xxl: 1400px,
-  xxxl: 1600px
+  xl: 1340px,
+  xxl: 1600px,
+  xxxl: 1900px
 ) !default;
 
 // Paths
@@ -22,6 +22,7 @@ $fonts: '../fonts';
 
 // Fonts
 $font-default: 'Clash Display', sans-serif;
+$font-secondary: 'Inter', sans-serif;
 
 // Colors
 $color-black: #080522;

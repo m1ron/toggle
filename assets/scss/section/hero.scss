@@ -23,7 +23,11 @@
     cursor: default;
     @include media-breakpoint-up(lg) {
       max-width: none;
-      top: -14px;
+      top: -41px;
+      @include font-smooth;
+    }
+    @include media-breakpoint-up(xl) {
+      top: -28px;
     }
 
     > *:last-child {margin-bottom: 0;}
@@ -31,7 +35,7 @@
 
   &__logo {
     padding: 0;
-    margin: 0 0 3px;
+    margin: 0 0 2px;
     display: block;
     @include media-breakpoint-up(lg) {
       margin-bottom: 0;
@@ -72,7 +76,7 @@
     @include media-breakpoint-up(xl) {
       margin-bottom: 0;
       font-size: 82px;
-      line-height: normal;
+      line-height: 101px;
       background-image: linear-gradient(180deg, white 20%, rgba(white, .3) 75%);
     }
   }
@@ -80,7 +84,7 @@
   &__subheading {
     margin-bottom: 0;
     font-size: 14px;
-    line-height: normal;
+    line-height: 125%;
     font-weight: 300;
     @include media-breakpoint-up(lg) {
       font-size: 24px;
@@ -88,7 +92,7 @@
     }
     @include media-breakpoint-up(xl) {
       font-size: 28px;
-      line-height: normal;
+      line-height: 34px;
     }
   }
 

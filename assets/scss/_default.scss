@@ -30,6 +30,7 @@ body {
   letter-spacing: .02em;
   color: white;
   background: black;
+  font-optical-sizing: auto;
   text-rendering: optimizeLegibility;
   @include media-breakpoint-up(lg) {
     font-size: 24px;

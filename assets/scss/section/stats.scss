@@ -1,5 +1,180 @@
 /* ===== STATS ===== */
 
 .stats {
-  display: none;
+  position: relative;
+
+  &__list {
+    max-width: 350px;
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    @include font-smooth;
+    @include user-select;
+    cursor: default;
+    @include media-breakpoint-down(xss) {
+      font-size: 14px;
+    }
+    @include media-breakpoint-down(lg) {
+      flex-wrap: wrap;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 860px;
+      font-size: 16px;
+    }
+    @include media-breakpoint-up(xl) {
+      max-width: none;
+      gap: 30px;
+    }
+
+    li {
+      width: 100%;
+      min-height: 123px;
+      padding: 20px 12px;
+      border-radius: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(8px);
+      -webkit-backface-visibility: hidden;
+      @include media-breakpoint-down(lg) {
+        &:nth-child(2), &:nth-child(3) {
+          flex-basis: calc(50% - 6px);
+        }
+      }
+      @include media-breakpoint-up(lg) {
+        min-height: 226px;
+        letter-spacing: .02em;
+        backdrop-filter: blur(12px);
+        @include media-breakpoint-down(xl) {
+          width: 192.5px;
+          flex-basis: 192.5px;
+        }
+      }
+      @include media-breakpoint-up(xl) {
+        width: 25%;
+        padding-right: 40px;
+        padding-left: 40px;
+        &:nth-child(1) {
+          width: auto;
+          padding-right: 64px;
+          padding-left: 64px;
+        }
+        &:nth-child(4) {
+          width: auto;
+          padding-right: 57px;
+          padding-left: 57px;
+        }
+      }
+
+      strong {
+        margin-top: -1px;
+        display: block;
+        font: 900 48px/36px $font-secondary;
+        letter-spacing: -.03em;
+        @include media-breakpoint-up(lg) {
+          margin-top: 1px;
+          margin-bottom: -3.5px;
+          font-size: 56px;
+          line-height: 46px;
+        }
+        @include media-breakpoint-up(xl) {
+          font-size: 80px;
+          line-height: 60px;
+        }
+
+        span {
+          margin-left: .05em;
+          position: relative;
+          top: -.075em;
+          left: -.05em;
+        }
+
+        &, span {
+          background: linear-gradient(180deg, white 0%, rgba(white, .3) 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-fill-color: transparent;
+        }
+      }
+
+      &::before {
+        border: 1.5px solid rgba(white, .1);
+        border-radius: 44px;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -2;
+        background: rgba(black, .15);
+        box-shadow: 0 0 40px rgba(black, .15);
+      }
+
+      &::after {
+        border: 1.5px solid rgba(white, .2);
+        border-radius: 40px;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        bottom: 4px;
+        left: 4px;
+        z-index: -1;
+        background: rgba(black, .3);
+        -webkit-backface-visibility: hidden;
+      }
+    }
+  }
+
+  &__content {
+    max-width: 860px;
+    margin: 32px auto 0;
+    text-align: center;
+    @include font-smooth;
+    @include media-breakpoint-down(md) {
+      padding: 0 4px;
+    }
+    @include media-breakpoint-up(lg) {
+      margin-top: 60px;
+    }
+  }
+
+  &::before {
+    @include pseudo;
+    height: 65vw;
+    min-height: 258px;
+    max-height: 415px;
+    position: absolute;
+    top: 0;
+    right: -20px;
+    left: -20px;
+    z-index: -2;
+    background: url('#{$img}/shape-1-mobile.webp') no-repeat top center;
+    background-size: auto 100%;
+    transform: translateY(-50%);
+    @include media-breakpoint-up(lg) {
+      width: 100vw;
+      height: 935px;
+      min-height: 0;
+      max-height: none;
+      right: auto;
+      left: 50%;
+      background-image: url('#{$img}/shape-1.webp');
+      transform: translate3d(-50%, -50%, 0);
+    }
+  }
 }
+

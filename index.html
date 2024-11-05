@@ -8,14 +8,10 @@
     <title>Toggle</title>
     <meta name="description" content="">
 
-    <link href="assets/fonts/ClashDisplay-Variable.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
-    <style>@font-face {
-        font-family: 'Clash Display';
-        src: url('assets/fonts/ClashDisplay-Variable.woff2') format('woff2'), url('assets/fonts/ClashDisplay-Variable.woff') format('woff'), url('assets/fonts/ClashDisplay-Variable.ttf') format('truetype');
-        font-weight: 200 700;
-        font-display: swap;
-        font-style: normal;
-    }</style>
+    <link href="assets/fonts/clash.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
+    <style>@font-face {font-family: 'Clash Display';font-weight: 200 700;font-display: swap;font-style: normal;src: url('assets/fonts/clash.woff2') format('woff2');}</style>
+    <link href="assets/fonts/inter.woff" rel="preload" crossorigin="anonymous" as="font" type="font/woff">
+    <style>@font-face {font-family: 'Inter';font-weight: 900;font-display: swap;font-style: normal;src: url('assets/fonts/inter.woff') format('woff');}</style>
 
     <link href="assets/css/style.css" rel="stylesheet">
     <script src="assets/js/script.js" defer></script>
@@ -54,19 +50,18 @@
         </header>
 
         <section class="stats">
+            <ul class="stats__list">
+                <li><strong>15М<span>+</span></strong> downloads</li>
+                <li><strong>1М<span>+</span></strong> MAU</li>
+                <li><strong>4.8</strong> average&nbsp;rating</li>
+                <li><strong>35M<span>+</span></strong> connected&nbsp;devices</li>
+            </ul>
             <div class="stats__content">
-                <ul class="stats__list">
-                    <li><strong>15М+</strong> downloads</li>
-                    <li><strong>1М+</strong> MAU</li>
-                    <li><strong>4.8</strong> average rating</li>
-                    <li><strong>35M+</strong> connected devices</li>
-                </ul>
-            </div>
-            <div class="stats__content">
-                <p>In just a few years since 2020, toggle apps has reshaped how people engage with home appliances. Our innovative iOS applications have empowered over 15 million users worldwide</p>
+                <p>In just a few years since 2020, toggle apps has&nbsp;reshaped how people engage with home appliances. Our innovative iOS applications have empowered over 15 million users worldwide</p>
             </div>
         </section>
     </article>
+    <div class="stars"></div>
 </main>
 
 <footer class="footer">
