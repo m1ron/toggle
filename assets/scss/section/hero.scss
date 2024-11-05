@@ -33,7 +33,6 @@
     padding: 0;
     margin: 0 0 3px;
     display: block;
-    @include user-select;
     @include media-breakpoint-up(lg) {
       margin-bottom: 0;
     }
@@ -48,6 +47,7 @@
       display: block;
       cursor: default;
       @include user-select;
+      @include user-drag;
       @include media-breakpoint-up(lg) {
         height: 122px;
       }
@@ -64,6 +64,7 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
+    @include font-smooth;
     @include media-breakpoint-up(lg) {
       font-size: 64px;
     }
@@ -107,6 +108,7 @@
     position: relative;
     background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
     @include user-select;
+    @include font-smooth;
     @include media-breakpoint-up(lg) {
       margin-top: 40px;
     }

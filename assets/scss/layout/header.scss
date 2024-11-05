@@ -7,4 +7,102 @@
   right: 0;
   left: 0;
   z-index: 100;
+
+  &__brand {
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    @include media-breakpoint-up(lg) {
+      left: 77px;
+      transform: none;
+    }
+
+    span {
+      width: 0;
+      height: 0;
+      display: block;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      white-space: nowrap;
+      text-indent: -1000px;
+      @include user-select;
+    }
+
+
+    img {
+      height: auto;
+      display: none;
+      position: relative;
+      @include user-select;
+      @include user-drag;
+
+      &.d {
+        width: 119px;
+        @include media-breakpoint-up(lg) {
+          display: block;
+        }
+      }
+
+      &.m {
+        width: 91px;
+        @include media-breakpoint-down(lg) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &__menu {
+    display: none;
+  }
+
+  &__join {
+    padding: 9px 21px;
+    border: 1px solid transparent;
+    border-radius: 24px 24px 0 24px;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, .35);
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+    background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
+    @include user-select;
+    opacity: .8;
+    transition: opacity .3s;
+    @include media-breakpoint-up(lg) {
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 51px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      z-index: -1;
+      transform: translate3d(-50%, -50%, 0);
+      background: conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6a20da 43.2deg, #2baeff 100deg, #2634ef 168deg, #5f16c1 234deg, #a01784 300deg, #12c6ff 360deg), linear-gradient(0deg, #000, #000), #d9d9d9;
+      transition: opacity .3s;
+      filter: blur(6px);
+      opacity: .3;
+    }
+
+    &:hover, &:focus {
+      opacity: 1;
+      &::after {
+        opacity: .6;
+      }
+    }
+  }
 }
