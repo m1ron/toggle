@@ -1,8 +1,10 @@
-@use './var' as *;
+/* ===== DEFAULT ===== */
 
 :root {
-  --app-height: 100%;
+  --page-height: 100%;
 }
+
+* {box-sizing: border-box;}
 
 html {
   width: 100%;

@@ -1,16 +1,16 @@
 @use 'vendor/normalize';
 
-@use 'var';
-@use 'breakpoints';
-@use 'fonts';
-@use 'default';
+@import 'var',
+        'breakpoints',
+//        'fonts',
+        'default';
 
-@use 'layout/main';
-@use 'layout/header';
-@use 'layout/content';
-@use 'layout/footer';
+@import 'layout/main',
+        'layout/header',
+        'layout/content',
+        'layout/footer';
 
-@use 'section/hero';
+@import 'section/hero';
 
 /*
 @import 'module/animation',

@@ -1,19 +1,45 @@
 /* ===== HERO ===== */
-@use '../var' as *;
 
 .hero {
   height: 100vh;
-  height: var(--app-height);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  body.inited & {
+    height: var(--page-height);
+  }
+
+  &__content {
+    max-width: 280px;
+    position: relative;
+    top: -7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: default;
+    @include media-breakpoint-up(lg) {
+      max-width: none;
+      top: -14px;
+    }
+
+    > *:last-child {margin-bottom: 0;}
+  }
 
   &__logo {
     padding: 0;
     margin: 0 0 3px;
     display: block;
     @include user-select;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 0;
+    }
+    @include media-breakpoint-up(xl) {
+      margin-bottom: -8px;
+    }
 
     img {
       width: auto;
@@ -22,12 +48,10 @@
       display: block;
       cursor: default;
       @include user-select;
+      @include media-breakpoint-up(lg) {
+        height: 122px;
+      }
     }
-  }
-
-  &__content {
-    text-align: center;
-    cursor: default;
   }
 
   &__title {
@@ -40,12 +64,72 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
+    @include media-breakpoint-up(lg) {
+      font-size: 64px;
+    }
+    @include media-breakpoint-up(xl) {
+      margin-bottom: 0;
+      font-size: 82px;
+      line-height: normal;
+      background-image: linear-gradient(180deg, white 20%, rgba(white, .3) 75%);
+    }
   }
 
   &__subheading {
+    margin-bottom: 0;
     font-size: 14px;
     line-height: normal;
     font-weight: 300;
     letter-spacing: .02em;
+    @include media-breakpoint-up(lg) {
+      font-size: 24px;
+      letter-spacing: .03em;
+    }
+    @include media-breakpoint-up(xl) {
+      font-size: 28px;
+      line-height: normal;
+    }
+  }
+
+  &__button {
+    min-width: 206px;
+    padding: 16px 40px;
+    border: 1px solid transparent;
+    border-radius: 32px;
+    margin: 32px auto 0;
+    font-size: 19px;
+    line-height: 24px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
+    @include user-select;
+    @include media-breakpoint-up(lg) {
+      margin-top: 40px;
+    }
+
+    &::after {
+      height: 12px;
+      border-radius: 32px;
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: -10px;
+      left: 0;
+      background: conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #2baeff 90deg, #2634ef 160deg, #2634ef 195deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 360deg);
+      filter: blur(8px);
+      opacity: .5;
+      transition: bottom .4s ease;
+    }
+
+    &:hover, &:focus {
+      &::after {
+        bottom: -8px;
+      }
+    }
   }
 }

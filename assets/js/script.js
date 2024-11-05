@@ -1,12 +1,13 @@
-const init = () => {
-  const appHeight = () => {
-    const doc = document.documentElement;
-    doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+const adjustHeight = () => {
+  const doc = document.documentElement;
+  const pageHeight = () => {
+    doc.style.setProperty('--page-height', `${window.innerHeight}px`);
   }
-  window.addEventListener('resize', appHeight);
-  appHeight();
+  window.addEventListener('resize', pageHeight);
+  pageHeight();
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  init();
+  adjustHeight();
+  document.body.classList.add('inited');
 });

@@ -1,5 +1,4 @@
 /* ===== MAIN ===== */
-@use '../var' as *;
 
 .main {
   min-height: 100%;
@@ -10,5 +9,6 @@
 
 .container {
   max-width: 1300px;
+  padding: 0 20px;
   margin: 0 auto;
 }
