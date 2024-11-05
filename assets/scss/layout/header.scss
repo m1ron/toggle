@@ -58,7 +58,100 @@
   }
 
   &__menu {
-    display: none;
+    min-width: 96px;
+    background: radial-gradient(50% 62.22% at 50% 50%, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.06) 100%);
+    backdrop-filter: blur(35px);
+    border-radius: 20px;
+    border: .5px solid rgba(white, .2);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    @include media-breakpoint-up(lg) {
+      border-radius: 24px 24px 4px 4px;
+    }
+    @include media-breakpoint-up(lg) {
+      padding-right: 100px;
+      border-radius: 24px 24px 0 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &-toggle {
+      padding: 8px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      @include media-breakpoint-up(lg) {
+        display: none;
+      }
+
+      &::before {
+        @include pseudo;
+        content: 'Menu';
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: 400;
+        letter-spacing: .04em;
+      }
+    }
+
+    &-nav {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background: rgba(255, 255, 255, .05);
+      list-style: none;
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: 400;
+      letter-spacing: .04em;
+      text-align: center;
+      display: none;
+      visibility: hidden;
+      @include media-breakpoint-up(lg) {
+        visibility: visible;
+        display: flex;
+
+      }
+
+      li {
+        position: relative;
+        @include media-breakpoint-down(lg) {
+          border-bottom: .5px solid rgba(black, .5);
+        }
+
+        &:not(:last-child)::after {
+          @include media-breakpoint-up(lg) {
+            @include pseudo;
+            width: 3px;
+            height: 3px;
+            background: rgba(white, .15);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+          }
+        }
+
+
+        a {
+          padding: 8px;
+          display: block;
+          text-decoration: none;
+          color: white;
+          @include media-breakpoint-up(lg) {
+            padding: 9px 27px;
+          }
+        }
+      }
+    }
+
+    &.active {
+      .header__menu-toggle::before {content: 'Close';}
+      .header__menu-nav {display: block; visibility: visible;}
+    }
   }
 
   &__join {
@@ -79,6 +172,9 @@
     opacity: .95;
     transition: box-shadow $effect, text-shadow $effect, opacity $effect;
     @include media-breakpoint-up(lg) {
+      position: absolute;
+      right: 10px;
+      top: 5px;
     }
 
     &::after {
