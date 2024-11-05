@@ -67,7 +67,6 @@
     border-radius: 24px 24px 0 24px;
     font-size: 14px;
     letter-spacing: .04em;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, .35);
     text-decoration: none;
     display: block;
     overflow: hidden;
@@ -99,7 +98,7 @@
     }
 
     &:hover, &:focus {
-      text-shadow: 0 0 4px rgba(white, .5);
+      text-shadow: 0 0 3px rgba(white, .5);
       box-shadow: 0px -2px 8px rgba(#2259e4, .55), 0px 2px 12px rgba(#9f1885, .65), inset 0px -2px 24px rgba(white, .15);
       opacity: 1;
 

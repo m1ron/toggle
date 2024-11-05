@@ -59,6 +59,7 @@
     font-size: 32px;
     line-height: 100%;
     font-weight: 600;
+    letter-spacing: 0;
     background: linear-gradient(180deg, white 0%, rgba(white, .3) 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -81,7 +82,6 @@
     font-size: 14px;
     line-height: normal;
     font-weight: 300;
-    letter-spacing: .02em;
     @include media-breakpoint-up(lg) {
       font-size: 24px;
       letter-spacing: .03em;
@@ -101,7 +101,6 @@
     font-size: 19px;
     line-height: 24px;
     font-weight: 500;
-    letter-spacing: .02em;
     text-shadow: 0 0 2px rgba(white, 0);
     text-decoration: none;
     display: block;
@@ -135,7 +134,7 @@
 
     &:hover, &:focus {
       text-shadow: 0 0 4px rgba(white, .5);
-      box-shadow: 0px -3px 14px rgba(#2259e4, .55), 0px 3px 16px rgba(#9f1885, .65), inset 0px -3px 36px rgba(white, .15);
+      box-shadow: 0px -3px 13px rgba(#2259e4, .55), 0px 3px 15px rgba(#9f1885, .65), inset 0px -3px 36px rgba(white, .15);
       opacity: 1;
 
       &::after {opacity: .55;bottom: -10px;}
