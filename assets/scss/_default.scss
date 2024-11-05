@@ -4,7 +4,7 @@
   --page-height: 100%;
 }
 
-* {box-sizing: border-box;}
+*, *::before, *::after {box-sizing: border-box;}
 
 html {
   width: 100%;

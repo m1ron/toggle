@@ -77,8 +77,8 @@
     z-index: 1;
     background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
     @include user-select;
-    opacity: .8;
-    transition: opacity .3s;
+    opacity: .95;
+    transition: box-shadow $effect, text-shadow $effect, opacity $effect;
     @include media-breakpoint-up(lg) {
     }
 
@@ -95,14 +95,15 @@
       background: conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6a20da 43.2deg, #2baeff 100deg, #2634ef 168deg, #5f16c1 234deg, #a01784 300deg, #12c6ff 360deg), linear-gradient(0deg, #000, #000), #d9d9d9;
       transition: opacity .3s;
       filter: blur(6px);
-      opacity: .3;
+      opacity: .4;
     }
 
     &:hover, &:focus {
+      text-shadow: 0 0 4px rgba(white, .5);
+      box-shadow: 0px -2px 8px rgba(#2259e4, .55), 0px 2px 12px rgba(#9f1885, .65), inset 0px -2px 24px rgba(white, .15);
       opacity: 1;
-      &::after {
-        opacity: .6;
-      }
+
+      &::after {opacity: .55;}
     }
   }
 }
