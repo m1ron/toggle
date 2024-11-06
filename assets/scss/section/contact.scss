@@ -1,0 +1,33 @@
+/* ===== CONTACT ===== */
+.contact {
+  min-height: 664px;
+  position: relative;
+
+  &__talk {
+    min-height: 664px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__form {
+    padding-right: 150px;
+    border: 1px solid white;
+    position: relative;
+  }
+
+  &__copy {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &__title {
+    margin: 0;
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    white-space: nowrap;
+  }
+}

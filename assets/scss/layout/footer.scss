@@ -82,7 +82,7 @@
           position: absolute;
           height: .5px;
           right: 0;
-          bottom: 1px;
+          bottom: 2px;
           left: 0;
           background: white;
           opacity: 0;
@@ -91,7 +91,7 @@
         }
 
         &:hover, &:focus {
-          &::after {opacity: .9;}
+          &::after {opacity: .8;}
         }
       }
     }

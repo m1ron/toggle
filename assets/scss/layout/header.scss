@@ -11,9 +11,12 @@
     margin: 0;
     overflow: hidden;
     position: absolute;
-    top: 32px;
+    top: 31px;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
+    @include media-breakpoint-down(xss) {
+      top: 33px;
+    }
     @include media-breakpoint-up(lg) {
       left: 77px;
       transform: none;
@@ -55,9 +58,11 @@
       }
 
       &.m {
-        width: 91px;
+        width: 99px;
+        height: 23px;
         @include media-breakpoint-down(xss) {
-          width: 86px;
+          width: 92px;
+          height: auto;
         }
         @include media-breakpoint-down(lg) {
           display: block;
@@ -128,7 +133,7 @@
     }
 
     &-toggle {
-      padding: 8px;
+      padding: 7px;
       color: white;
       display: flex;
       justify-content: center;
@@ -232,7 +237,7 @@
     border: 1px solid transparent;
     border-radius: 24px 24px 0 24px;
     font-size: 14px;
-    line-height: 30px;
+    line-height: 20px;
     letter-spacing: .04em;
     text-decoration: none;
     display: block;
@@ -257,6 +262,7 @@
       right: 6px;
       top: 5px;
       z-index: 101;
+      line-height: 30px;
       letter-spacing: .05em;
     }
     @include media-breakpoint-up(xl) {
