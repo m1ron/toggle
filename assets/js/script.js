@@ -1,28 +1,53 @@
+const doc = document.documentElement;
+
 const adjustHeight = () => {
-  const doc = document.documentElement;
-  const pageHeight = () => {
+  const onResize = () => {
     doc.style.setProperty('--page-height', `${window.innerHeight}px`);
   }
-  window.addEventListener('resize', pageHeight);
-  pageHeight();
+
+  if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    onResize();
+    window.addEventListener('resize', onResize);
+  }
 };
 
-const initStars = () => {
+const starsParallax = () => {
   const stars = document.querySelector('.stars');
-  let scroll = window.pageYOffset;
-  let speed = 0.25;
+  const speed = .25;
+  const onScroll = () => {
+    doc.style.setProperty('--parallax-offset', `-${window.pageYOffset * speed}px`);
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll)
+};
 
-  const pageScroll = () => {
-    scroll = window.pageYOffset;
-    stars.style.backgroundPositionY = `-${scroll * speed}px`;
+const scrollAnimation = () => {
+  const elements = document.querySelectorAll('[data-animation]');
+
+  const onScroll = () => {
+    elements.forEach((el) => {
+      if (elementIn(el, el.dataset.offset)) {
+        startAnimation(el);
+      }
+    })
   }
 
-  window.addEventListener('scroll', pageScroll)
-  pageScroll();
+  const elementIn = (el, end = 1) => {
+    const elementTop = el.getBoundingClientRect().top;
+    return (elementTop <= (window.innerHeight || doc.clientHeight) / end);
+  };
+
+  const startAnimation = (el) => {
+    el.classList.add('animated');
+  };
+
+  onScroll();
+  window.addEventListener('scroll', onScroll);
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  adjustHeight();
-  initStars();
+document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('inited');
+  adjustHeight();
+  starsParallax();
+  scrollAnimation();
 });

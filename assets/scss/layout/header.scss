@@ -1,15 +1,11 @@
 /* ===== HEADER ===== */
-
 .header {
   min-width: $min-width;
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   left: 0;
   z-index: 100;
-  @include media-breakpoint-up(lg) {
-    position: absolute;
-  }
 
   &__brand {
     margin: 0;
@@ -21,6 +17,10 @@
     @include media-breakpoint-up(lg) {
       left: 77px;
       transform: none;
+    }
+    @include media-breakpoint-up(xl) {
+      top: 28px;
+      left: 64px;
     }
 
     span {
@@ -49,10 +49,16 @@
         @include media-breakpoint-up(lg) {
           display: block;
         }
+        @include media-breakpoint-up(xl) {
+          width: 147px;
+        }
       }
 
       &.m {
         width: 91px;
+        @include media-breakpoint-down(xss) {
+          width: 86px;
+        }
         @include media-breakpoint-down(lg) {
           display: block;
         }
@@ -75,14 +81,19 @@
       top: 20px;
       left: 20px;
       z-index: 100;
+      @include media-breakpoint-down(xss) {
+        min-width: 84px;
+      }
       @include media-breakpoint-up(lg) {
-        padding-right: 100px;
+        padding-right: 97px;
+        border-radius: 23px 23px 2px 2px;
         position: relative;
         top: auto;
         left: auto;
+        backdrop-filter: blur(10px);
       }
       @include media-breakpoint-up(xl) {
-        padding-right: 105px;
+        padding-right: 100px;
       }
 
       &::before, &::after {
@@ -94,27 +105,25 @@
         bottom: 0;
         left: 0;
         @include media-breakpoint-up(lg) {
-          border-radius: 24px 24px 0 0;
+          border-radius: 23px 23px 2px 2px;
         }
       }
 
       &::before {
-        background: linear-gradient(to bottom, rgba(#fff, .2), rgba(#fff, .05));
         padding: 1px;
-        mask: linear-gradient(#000 0 0) exclude,
-        linear-gradient(#000 0 0) content-box;
+        mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
         inset: 0;
         z-index: -2;
+        background: linear-gradient(to bottom, rgba(white, .2), rgba(white, .05));
         @include media-breakpoint-up(lg) {
-          background: linear-gradient(to bottom, rgba(#fff, .2), rgba(#fff, .08));
+          background: linear-gradient(to bottom, rgba(white, .2), rgba(white, .08));
         }
       }
 
       &::after {
         border: 1px solid transparent;
-        background: radial-gradient(ellipse at center, rgba(#fff, .2) 0%,rgba(#fff, .6) 100%);
-        opacity: .1;
         z-index: -1;
+        background: radial-gradient(ellipse at center, rgba(white, .02) 0%, rgba(white, .06) 100%), rgba(black, .3);
       }
     }
 
@@ -149,12 +158,18 @@
       font-weight: 400;
       letter-spacing: .04em;
       text-align: center;
-      @include media-breakpoint-up(lg) {
-        display: flex;
-      }
+      @include user-select;
+      @include font-smooth;
       @include media-breakpoint-down(lg) {
         display: none;
         visibility: hidden;
+      }
+      @include media-breakpoint-up(lg) {
+        display: flex;
+        letter-spacing: .05em;
+      }
+      @include media-breakpoint-up(xl) {
+        letter-spacing: .03em;
       }
 
       li {
@@ -188,11 +203,17 @@
           display: block;
           text-decoration: none;
           color: white;
+          transition: text-shadow .3s;
+          transform: translateZ(0);
           @include media-breakpoint-up(lg) {
-            padding: 9px 21px;
+            padding: 9px 20px;
           }
           @include media-breakpoint-up(xl) {
             padding: 9px 27px;
+          }
+
+          &:hover, &:focus {
+            text-shadow: 0 0 8px rgba(white, .75), 0 0 8px rgba(white, .75);
           }
         }
       }
@@ -220,14 +241,25 @@
     right: 20px;
     z-index: 1;
     background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
-    @include user-select;
     opacity: .95;
+    transform: translateZ(0);
     transition: box-shadow $effect, text-shadow $effect, opacity $effect;
+    @include user-select;
+    @include user-drag;
+    @include media-breakpoint-down(xss) {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
     @include media-breakpoint-up(lg) {
       padding: 0 21px;
       position: absolute;
-      right: 10px;
+      right: 6px;
       top: 5px;
+      z-index: 101;
+      letter-spacing: .05em;
+    }
+    @include media-breakpoint-up(xl) {
+      top: 6px;
     }
 
     &::after {
@@ -250,8 +282,10 @@
       text-shadow: 0 0 3px rgba(white, .5);
       box-shadow: 0px -2px 8px rgba(#2259e4, .55), 0px 2px 12px rgba(#9f1885, .65), inset 0px -2px 24px rgba(white, .15);
       opacity: 1;
-
-      &::after {opacity: .55;}
+      &::after {opacity: .65;}
+      @include media-breakpoint-up(lg) {
+        box-shadow: 0px -2px 6px rgba(#2259e4, .55), 0px 2px 9px rgba(#9f1885, .65), inset 0px -2px 24px rgba(white, .1);
+      }
     }
   }
 }

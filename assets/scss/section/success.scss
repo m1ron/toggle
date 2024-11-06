@@ -1,41 +1,137 @@
 /* ===== SUCCESS ===== */
-
 .success {
-  min-height: 620px;
+  height: 620px;
   position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  @include media-breakpoint-up(lg) {
+    height: 1197px;
+    margin-top: 50px;
+  }
 
   &__content {
     max-width: 350px;
     margin: 0 auto;
     font-size: 20px;
-    line-height: 25px;
+    line-height: 125%;
     font-weight: 600;
+    letter-spacing: .02em;
     position: relative;
-    z-index: 1;
+    left: -1px;
+    z-index: 5;
     @include font-smooth;
     @include user-select;
     cursor: default;
+    opacity: 0;
+    transition: opacity .8s ease .6s;
+    @include media-breakpoint-down(xss) {
+      width: 290px;
+      font-size: 18px;
+      left: -5px;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 700px;
+      font-size: 40px;
+    }
 
     p {
       margin: 0;
     }
   }
 
+  &.animated &__content {
+    opacity: .5;
+  }
+
   &__animation {
+    position: absolute;
+    top: 0;
+    right: -20px;
+    bottom: 0;
+    left: -20px;
+  }
+
+  &__swirl {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: -1;
-    background: url('#{$img}/swirl.png') no-repeat center center;
-    background-size: contain;
+    z-index: -3;
+    background: url('#{$img}/swirl.webp') no-repeat center center;
+    background-size: auto 100%;
+    opacity: 0;
+    transform: translateZ(0);
+    transition: opacity .7s linear;
+  }
+
+  &.animated &__swirl {
+    opacity: 1;
+  }
+
+  &__galaxy {
+    height: 350px;
+    margin: auto;
+    position: absolute;
+    top: -10px;
+    right: 2px;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    background: url('#{$img}/galaxy-mobile.webp') no-repeat center center;
+    background-size: auto 100%;
+    transform: scale(.8) translateZ(0);
+    transition: transform .5s ease .25s, opacity .5s linear .25s;
+    @include media-breakpoint-up(lg) {
+      height: 675px;
+      top: -21px;
+      right: 2px;
+      background-image: url('#{$img}/galaxy.webp');
+    }
+  }
+
+  &.animated &__galaxy {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+
+  &__eclipse {
+    width: 233px;
+    height: 233px;
+    border-radius: 50%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    opacity: 0;
+    background: black url('#{$img}/eclipse.svg') no-repeat center center;
+    background-size: 222px 222px;
+    box-shadow: 0 0 4.5px 2.5px black;
+    transform: scale(.8) translateZ(0);
+    transition: transform .5s ease .325s, opacity .5s linear .325s;
+    @include media-breakpoint-up(lg) {
+      width: 449px;
+      height: 449px;
+      top: 1px;
+      right: -2px;
+      background-size: 427.59px 427.59px;
+    }
+  }
+
+  &.animated &__eclipse {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
   }
 }
 
+@keyframes fade-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

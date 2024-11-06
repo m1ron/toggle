@@ -1,31 +1,41 @@
 /* ===== FOOTER ===== */
-
 .footer {
-  padding: 48px 10px;
+  padding: 40px 20px;
   margin: 0;
   text-align: center;
   position: relative;
   z-index: 1;
+  background: #010002 url('#{$img}/footer.webp') no-repeat top center;
+  background-size: auto 100%;
+  @include font-smooth;
+  @include media-breakpoint-up(lg) {
+    padding-top: 61px;
+    padding-bottom: 39px;
+  }
 
-  &__logo {
-    margin-top: 38px;
-
-    img {
-      width: 56px;
-      height: auto;
-      margin: 0 auto;
-      display: block;
-    }
+  &::before {
+    @include pseudo;
+    height: 1px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(white, 0) 0%, white 50%, rgba(white, 0) 100%);
+    opacity: .3;
   }
 
   &__title {
-    max-width: 520px;
-    margin: 0 auto 45px;
+    max-width: 400px;
+    margin: 0 auto 43px;
     font-size: 30px;
-    line-height: 37px;
+    line-height: 125%;
     letter-spacing: .02em;
+    @include media-breakpoint-down(xss) {
+      font-size: 26px;
+    }
     @include media-breakpoint-up(lg) {
-      margin-bottom: 55px;
+      max-width: 520px;
+      margin-bottom: 60px;
       font-size: 39px;
       line-height: 48px;
     }
@@ -33,34 +43,56 @@
 
   &__nav {
     max-width: 400px;
-    padding: 0 0 44px;
+    padding: 0 0 45px;
     margin: 0 auto 44px;
     list-style: none;
     display: flex;
+    gap: 30px;
     font-size: 16px;
+    line-height: 125%;
     font-weight: 500;
-    letter-spacing: .02em;
     position: relative;
     @include media-breakpoint-up(lg) {
-      padding-bottom: 55px;
+      padding-bottom: 61px;
+      gap: 50px;
     }
 
     &::after {
       @include pseudo;
       height: 1px;
-      background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
-      opacity: .3;
       position: absolute;
+      right: 0;
       bottom: 0;
       left: 0;
-      right: 0;
+      background: linear-gradient(90deg, rgba(white, 0) 0%, white 50%, rgba(white, 0) 100%);
+      opacity: .3;
     }
 
     li {
       width: 50%;
 
       a {
+        position: relative;
+        display: inline-block;
         text-decoration: none;
+        outline: none;
+
+        &::after {
+          @include pseudo;
+          position: absolute;
+          height: .5px;
+          right: 0;
+          bottom: 1px;
+          left: 0;
+          background: white;
+          opacity: 0;
+          transform-origin: bottom right;
+          transition: opacity $effect;
+        }
+
+        &:hover, &:focus {
+          &::after {opacity: .9;}
+        }
       }
     }
   }
@@ -73,6 +105,14 @@
     font-size: 14px;
     font-weight: 500;
     letter-spacing: .02em;
+    position: relative;
+    z-index: 2;
+    @include media-breakpoint-up(lg) {
+      max-width: 534px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 400;
+    }
 
     li {
       margin-bottom: 13px;
@@ -80,7 +120,29 @@
       a {
         opacity: .6;
         text-decoration: none;
+        outline: none;
+        transition: opacity $effect;
+        &:hover, &:focus {opacity: 1;}
       }
+    }
+  }
+
+  &__logo {
+    margin: 38px 0 0;
+    position: relative;
+    z-index: 1;
+    @include media-breakpoint-up(lg) {
+      margin-top: -48px;
+      left: -1px;
+    }
+
+    img {
+      width: 56px;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+      @include user-select;
+      @include user-drag;
     }
   }
 
@@ -90,10 +152,17 @@
     line-height: 24px;
     letter-spacing: .02em;
     opacity: .5;
+    @include media-breakpoint-up(lg) {
+      margin-top: 41px;
+      line-height: 19px;
+    }
 
     span {
       font-size: 14px;
       display: block;
+      @include media-breakpoint-up(lg) {
+        font-size: inherit;
+      }
     }
   }
 }

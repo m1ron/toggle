@@ -9,9 +9,21 @@
     <meta name="description" content="">
 
     <link href="assets/fonts/clash.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
-    <style>@font-face {font-family: 'Clash Display';font-weight: 200 700;font-display: swap;font-style: normal;src: url('assets/fonts/clash.woff2') format('woff2');}</style>
+    <style>@font-face {
+        font-family: 'Clash Display';
+        font-weight: 200 700;
+        font-display: swap;
+        font-style: normal;
+        src: url('assets/fonts/clash.woff2') format('woff2');
+    }</style>
     <link href="assets/fonts/inter.woff" rel="preload" crossorigin="anonymous" as="font" type="font/woff">
-    <style>@font-face {font-family: 'Inter';font-weight: 900;font-display: swap;font-style: normal;src: url('assets/fonts/inter.woff') format('woff');}</style>
+    <style>@font-face {
+        font-family: 'Inter';
+        font-weight: 900;
+        font-display: swap;
+        font-style: normal;
+        src: url('assets/fonts/inter.woff') format('woff');
+    }</style>
 
     <link href="assets/css/style.css" rel="stylesheet">
     <script src="assets/js/script.js" defer></script>
@@ -25,7 +37,7 @@
         <img class="m" src="assets/img/logo-mobile.png" width="91" alt="toggle apps">
         <img class="d" src="assets/img/logo.png" width="119" alt="toggle apps">
     </h1>
-    <div class="header__menu active">
+    <div class="header__menu">
         <div class="header__menu-space">
             <div class="header__menu-toggle"></div>
             <ul class="header__menu-nav">
@@ -47,7 +59,7 @@
             <div class="hero__content">
                 <figure class="hero__logo">
                     <video width="97" height="60" playsinline autoplay muted loop poster="" preload="none">
-                        <source src="assets/video/logo.mp4" type="video/mp4">
+                        <source src="assets/img/logo.mp4" type="video/mp4">
                     </video>
                 </figure>
                 <h2 class="hero__title">Think&nbsp;Smart. Make&nbsp;Simple</h2>
@@ -56,7 +68,7 @@
             </div>
         </header>
 
-        <section class="stats">
+        <section class="stats" data-animation data-offset="1.25">
             <ul class="stats__list">
                 <li><strong>15М<span>+</span></strong> downloads</li>
                 <li><strong>1М<span>+</span></strong> MAU</li>
@@ -68,11 +80,15 @@
             </div>
         </section>
 
-        <section class="success">
+        <section class="success" data-animation data-offset="2">
             <div class="success__content">
                 <p>Our success is driven by deep user empathy and a passion for groundbreaking tech&hellip;</p>
             </div>
-            <div class="success__animation"></div>
+            <div class="success__animation">
+                <div class="success__eclipse"></div>
+                <div class="success__galaxy"></div>
+                <div class="success__swirl"></div>
+            </div>
         </section>
 
         <div class="stars"></div>

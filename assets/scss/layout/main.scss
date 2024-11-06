@@ -1,5 +1,4 @@
 /* ===== MAIN ===== */
-
 .main {
   position: relative;
   z-index: 1;
@@ -13,12 +12,8 @@
     z-index: -1;
     background: url('#{$img}/stars.svg') repeat 50% 0;
     background-attachment: fixed;
+    background-position-y: var(--parallax-offset);
+    transform: translateZ(0);
     -webkit-backface-visibility: hidden;
   }
-}
-
-.wrapper {
-  max-width: 1340px;
-  padding: 0 20px;
-  margin: 0 auto;
 }
