@@ -16,6 +16,7 @@
     cursor: default;
     @include media-breakpoint-down(xss) {
       font-size: 14px;
+      line-height: 18px;
     }
     @include media-breakpoint-down(lg) {
       flex-wrap: wrap;
@@ -23,11 +24,13 @@
     @include media-breakpoint-up(lg) {
       max-width: 860px;
       font-size: 16px;
+      line-height: 20px;
     }
     @include media-breakpoint-up(xl) {
       max-width: none;
       gap: 30px;
       font-size: 24px;
+      line-height: 30px;
     }
 
     li {
@@ -146,6 +149,8 @@
   &__content {
     max-width: 860px;
     margin: 32px auto 0;
+    font-size: 16px;
+    line-height: 20px;
     text-align: center;
     cursor: default;
     @include font-smooth;

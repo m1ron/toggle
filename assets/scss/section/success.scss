@@ -16,7 +16,7 @@
     max-width: 350px;
     margin: 0 auto;
     font-size: 20px;
-    line-height: 125%;
+    line-height: 25px;
     font-weight: 600;
     letter-spacing: .02em;
     position: relative;
@@ -30,11 +30,13 @@
     @include media-breakpoint-down(xss) {
       width: 290px;
       font-size: 18px;
+      line-height: 23px;
       left: -5px;
     }
     @include media-breakpoint-up(lg) {
       max-width: 700px;
       font-size: 40px;
+      line-height: 50px;
     }
 
     p {
