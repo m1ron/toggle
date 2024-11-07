@@ -164,7 +164,6 @@
       letter-spacing: .04em;
       text-align: center;
       @include user-select;
-      @include font-smooth;
       @include media-breakpoint-down(lg) {
         display: none;
         visibility: hidden;
@@ -208,17 +207,19 @@
           display: block;
           text-decoration: none;
           color: white;
-          transition: text-shadow .3s;
+          transition: opacity .3s, text-shadow .3s;
           transform: translateZ(0);
           @include media-breakpoint-up(lg) {
             padding: 9px 20px;
+            opacity: .8;
           }
           @include media-breakpoint-up(xl) {
             padding: 9px 27px;
           }
 
           &:hover, &:focus {
-            text-shadow: 0 0 8px rgba(white, .75), 0 0 8px rgba(white, .75);
+            opacity: 1;
+            text-shadow: 0 0 8px rgba(white, .65), 0 0 8px rgba(white, .65);
           }
         }
       }

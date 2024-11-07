@@ -12,7 +12,7 @@
     margin-top: 50px;
   }
 
-  &__content {
+  &__title {
     max-width: 350px;
     margin: 0 auto;
     font-size: 20px;
@@ -44,7 +44,7 @@
     }
   }
 
-  &.animated &__content {
+  &.animated &__title {
     opacity: .5;
   }
 

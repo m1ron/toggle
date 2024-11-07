@@ -29,21 +29,21 @@
         <div class="header__menu-space">
             <div class="header__menu-toggle"></div>
             <ul class="header__menu-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Team</a></li>
-                <li><a href="#">Contacts</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contacts">Contacts</a></li>
             </ul>
         </div>
-        <a href="#" class="header__join">Join us</a>
+        <a href="#join" class="header__join">Join us</a>
     </div>
 </header>
 
 <main class="main">
     <article class="wrapper">
 
-        <header class="hero">
+        <header id="home" class="hero">
             <div class="hero__content">
                 <figure class="hero__logo">
                     <video width="97" height="60" playsinline autoplay muted loop poster="" preload="none">
@@ -56,20 +56,21 @@
             </div>
         </header>
 
-        <div class="stats" data-animation data-offset="1.25">
-            <ul class="stats__list">
+        <div class="about" data-animation data-offset="1.25">
+            <div id="about" class="about__anchor"></div>
+            <ul class="about__stats">
                 <li><strong>15М<span>+</span></strong> downloads</li>
                 <li><strong>1М<span>+</span></strong> MAU</li>
                 <li><strong>4.8</strong> average&nbsp;rating</li>
                 <li><strong>35M<span>+</span></strong> connected&nbsp;devices</li>
             </ul>
-            <div class="stats__content">
-                <p>In just a few years since 2020, toggle apps has&nbsp;reshaped how people engage with home appliances. Our innovative iOS applications have empowered over 15 million users worldwide</p>
+            <div class="about__text">
+                <p>In just a few years since 2020, toggle apps has&nbsp;reshaped how people engage with home appliances. Our innovative iOS applications have empowered over 15 million users worldwide.</p>
             </div>
         </div>
 
         <div class="success" data-animation data-offset="2">
-            <div class="success__content">
+            <div class="success__title">
                 <p>Our success is driven by deep user empathy and a passion for groundbreaking tech&hellip;</p>
             </div>
             <div class="success__animation">
@@ -79,7 +80,27 @@
             </div>
         </div>
 
-        <section class="contact">
+        <div class="commit" data-animation data-offset="1.25">
+            <div class="commit__content">
+                <p class="commit__heading">&hellip;amplified by <br>our commitment to&hellip;</p>
+                <div class="cards" data-card="1">
+                    <div class="cards__card">
+                        <img class="cards__image" src="assets/img/card-1.webp" srcset="assets/img/card-1.webp, assets/img/card-1@2x.webp 2x, assets/img/card-1@3x.webp 3x" width="100" height="100" alt="" loading="lazy" draggable="false">
+                        <p class="cards__title">Quality Without Compromise</p>
+                    </div>
+                    <div class="cards__card">
+                        <img class="cards__image" src="assets/img/card-1.webp" srcset="assets/img/card-2.webp, assets/img/card-2@2x.webp 2x, assets/img/card-2@3x.webp 3x" width="100" height="100" alt="" loading="lazy" draggable="false">
+                        <p class="cards__title">Excellence of Execution</p>
+                    </div>
+                    <div class="cards__card">
+                        <img class="cards__image" src="assets/img/card-3.webp" srcset="assets/img/card-3.webp, assets/img/card-3@2x.webp 2x, assets/img/card-3@3x.webp 3x" width="100" height="100" alt="" loading="lazy" draggable="false">
+                        <p class="cards__title">Pushing the Boundaries</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="contacts" class="contact">
             <div class="contact__explore">
                 <h3 class="contact__heading">Join Toggle Apps</h3>
                 <p>Work with top talent from leading companies to create groundbreaking mobile solutions</p>

@@ -1,11 +1,12 @@
 const doc = document.documentElement;
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 const adjustHeight = () => {
   const onResize = () => {
     doc.style.setProperty('--page-height', `${window.innerHeight}px`);
   }
 
-  if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  if (!isMobile) {
     onResize();
     window.addEventListener('resize', onResize);
   }
@@ -47,6 +48,9 @@ const scrollAnimation = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('inited');
+  if (isMobile) {
+    document.body.classList.add('mobile');
+  }
   adjustHeight();
   starsParallax();
   scrollAnimation();

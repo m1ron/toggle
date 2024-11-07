@@ -1,0 +1,164 @@
+/* ===== COMMIT ===== */
+.commit {
+  height: 620px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  @include media-breakpoint-up(lg) {
+    height: 900px;
+  }
+
+  &__content {
+    max-width: 390px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+    transition: opacity .8s ease .6s;
+    @include media-breakpoint-down(xss) {
+      width: 290px;
+      font-size: 18px;
+      line-height: 23px;
+      left: -5px;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 700px;
+      font-size: 40px;
+      line-height: 50px;
+    }
+  }
+
+  &__heading {
+    margin-bottom: 32px;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    @include font-smooth;
+    @include user-select;
+    cursor: default;
+  }
+
+  /*
+  &.animated &__content {
+    opacity: .5;
+  }
+   */
+}
+
+.cards {
+  height: 205px;
+  position: relative;
+
+  &__card {
+    width: 165px;
+    height: 205px;
+    padding: 113px 10px 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 56px;
+    font-size: 16px;
+    line-height: 20px;
+    @include user-select;
+    cursor: default;
+    transform: translate3d(-50%, -50%, 0);
+    -webkit-backface-visibility: hidden;
+    transition: transform .6s $bezier;
+    transform-origin: bottom center;
+
+    &::before {
+      @include pseudo;
+      border: 1.5px solid rgba(white, .3);
+      border-radius: 28px;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      bottom: 4px;
+      left: 4px;
+      z-index: -1;
+      background: black url('#{$img}/card-background.webp') no-repeat center center;
+      background-size: cover;
+      transition: filter .5s linear;
+    }
+
+    &::after {
+      @include pseudo;
+      border: 1.5px solid rgba(white, .1);
+      border-radius: 32px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -2;
+      box-shadow: 0 4px 25px rgba(black, .55);
+    }
+
+    &:nth-child(2), &:nth-child(3) {display: none;}
+  }
+
+  &[data-card] .cards__card:nth-child(2), &[data-card] .cards__card:nth-child(3) {display: flex;}
+
+  &[data-card="1"] .cards__card:nth-child(2), &[data-card="1"] .cards__card:nth-child(3),
+  &[data-card="2"] .cards__card:nth-child(3), &[data-card="2"] .cards__card:nth-child(1),
+  &[data-card="3"] .cards__card:nth-child(1), &[data-card="3"] .cards__card:nth-child(2) {
+    transition-duration: .4s;
+    &::before {filter: grayscale(1);}
+    .cards__image {filter: grayscale(1);transform: translate3d(0, -5px, 0);opacity: .75;}
+    .cards__title {opacity: 0;}
+  }
+
+  &[data-card="1"] .cards__card:nth-child(2),
+  &[data-card="2"] .cards__card:nth-child(3),
+  &[data-card="3"] .cards__card:nth-child(1) {
+    z-index: 1;
+    transform: translate3d(calc(-50% + 76px), calc(-50% - 25px), 0) rotate(10deg) scale(0.765);
+  }
+
+  &[data-card="1"] .cards__card:nth-child(3),
+  &[data-card="2"] .cards__card:nth-child(1),
+  &[data-card="3"] .cards__card:nth-child(2) {
+    z-index: 2;
+    transform: translate3d(calc(-50% - 76px), calc(-50% - 25px), 0) rotate(-10deg) scale(0.765);
+  }
+
+  &__image {
+    width: 103px;
+    height: 103px;
+    margin: auto;
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    z-index: -1;
+    opacity: 1;
+    filter: none;
+    transition: opacity .5s linear, filter .5s linear, transform .6s ease;
+    transform: translate3d(0, -23px, 0);
+    -webkit-backface-visibility: hidden;
+    @include user-select;
+    @include user-drag;
+  }
+
+  &__title {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    transition: opacity .4s linear;
+  }
+}
+
+@keyframes fade-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
