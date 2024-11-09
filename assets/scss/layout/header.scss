@@ -48,12 +48,13 @@
       @include user-drag;
 
       &.d {
-        width: 119px;
         @include media-breakpoint-up(lg) {
+          width: 119px;
           display: block;
         }
         @include media-breakpoint-up(xl) {
           width: 147px;
+          height: 35px;
         }
       }
 
@@ -61,8 +62,8 @@
         width: 99px;
         height: 23px;
         @include media-breakpoint-down(xss) {
-          width: 92px;
-          height: auto;
+          width: 91px;
+          height: 21px;
         }
         @include media-breakpoint-down(lg) {
           display: block;
@@ -209,6 +210,7 @@
           color: white;
           transition: opacity .3s, text-shadow .3s;
           transform: translateZ(0);
+          outline: none;
           @include media-breakpoint-up(lg) {
             padding: 9px 20px;
             opacity: .8;
@@ -251,6 +253,7 @@
     opacity: .95;
     transform: translateZ(0);
     transition: box-shadow $effect, text-shadow $effect, opacity $effect;
+    outline: none;
     @include user-select;
     @include user-drag;
     @include media-breakpoint-down(xss) {

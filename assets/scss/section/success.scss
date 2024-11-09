@@ -39,13 +39,25 @@
       line-height: 50px;
     }
 
-    p {
-      margin: 0;
+    span {
+      position: relative;
+      animation: .2s animation-letter forwards;
+      animation-play-state: paused;
+      opacity: .5;
+
+      @for $i from 1 through 100 {
+        &:nth-child(#{$i}) {
+          animation-delay: 1.25s + $i * .0225s;
+        }
+      }
     }
   }
 
   &.animated &__title {
-    opacity: .5;
+    opacity: 1;
+  }
+  &.animated &__title span {
+    animation-play-state: running;
   }
 
   &__animation {
@@ -133,7 +145,7 @@
   }
 }
 
-@keyframes fade-in {
-  from {opacity: 0;}
-  to {opacity: 1;}
+@keyframes animation-letter {
+  50% {text-shadow: 0 0 6px white;}
+  100% {text-shadow: 0 0 0 white;opacity: 1;}
 }
