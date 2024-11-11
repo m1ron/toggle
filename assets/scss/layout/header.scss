@@ -1,6 +1,8 @@
 /* ===== HEADER ===== */
 .header {
   min-width: $min-width;
+  max-width: $max-width;
+  margin: 0 auto;
   position: absolute;
   top: 0;
   right: 0;

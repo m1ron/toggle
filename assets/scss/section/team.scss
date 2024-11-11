@@ -1,0 +1,81 @@
+/* ===== TEAM ===== */
+.team {
+  height: 612px;
+  margin-top: -113px;
+  margin-bottom: 144px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include media-breakpoint-up(md) {
+    margin-bottom: 125px;
+  }
+  @include media-breakpoint-up(lg) {
+    height: 737px;
+    margin-top: 0;
+    margin-bottom: 270px;
+  }
+
+  &__anchor {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50vh, 0);
+  }
+
+  &::after {
+    @include pseudo;
+    position: absolute;
+    top: 0;
+    right: -20px;
+    bottom: 0;
+    left: -20px;
+    z-index: -1;
+    background: url('#{$img}/blackhole.webp') no-repeat center center;
+    background-size: auto 510px;
+    @include media-breakpoint-up(lg) {
+      background-size: cover;
+    }
+  }
+
+  &__title {
+    max-width: 160px;
+    margin: 0 auto;
+    position: relative;
+    left: 1px;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    text-align: center;
+    text-shadow: 0 0 4px rgba(black, .2);
+    cursor: default;
+    @include user-select;
+    @include media-breakpoint-up(lg) {
+      max-width: 240px;
+      font-size: 30px;
+      line-height: 36px;
+    }
+  }
+
+  &__content {
+    max-width: 740px;
+    margin: 0 auto;
+    position: absolute;
+    top: calc(50% + 188px);
+    right: 0;
+    left: 0;
+    text-align: center;
+    @include media-breakpoint-up(lg) {
+      max-width: 660px;
+      top: calc(50% + 303px);
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

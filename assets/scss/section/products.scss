@@ -51,10 +51,10 @@
   }
 
   &__animation {
-    min-height: 640px;
+    height: 640px;
     position: relative;
     @include media-breakpoint-up(lg) {
-      min-height: 900px;
+      height: 900px;
       margin-top: 80px;
     }
     @include media-breakpoint-up(xl) {
@@ -64,34 +64,63 @@
     &::after {
       @include pseudo;
       width: 100vw;
+      height: 100%;
+      margin-top: 35px;
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: 50%;
       left: 50%;
       z-index: -1;
-      background: url('#{$img}/products-bg.webp') no-repeat center 100%;
+      background: url('#{$img}/products-bg.webp') no-repeat center center;
       background-size: auto 90%;
-      transform: translate3d(-50%, 0, 0);
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0);
+      transition: opacity 1.2s ease;
+      @include media-breakpoint-up(lg) {
+        margin-top: 0;
+      }
     }
   }
 
   &__screenshot {
-    padding: 0;
-    margin: 0;
+    width: 132px;
+    height: 272px;
+    border: .5px solid rgba(white, .15);
+    border-radius: 22px;
+    margin: auto;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     z-index: 5;
-    transform: translate3d(-50%, -50%, 0);
+    background: rgba(black, .3);
+    box-shadow: 0 6px 18px rgba(black, .67);
+    transform: scale(.95);
+    transition: opacity .8s ease .4s, transform 1.2s ease .4s;
+    opacity: 0;
+    backdrop-filter: blur(10px);
+    @include media-breakpoint-up(lg) {
+      width: 254px;
+      height: 524px;
+      padding: 10px;
+      border-width: 1px;
+      border-radius: 42px;
+      box-shadow: 0 12px 36px rgba(black, .67);
+    }
 
     img {
       width: 120px;
       height: 260px;
       border: .5px solid rgba(white, .1);
+      margin: auto;
       box-sizing: content-box;
       border-radius: 16px;
       display: block;
-      position: relative;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       z-index: 5;
       object-fit: cover;
       @include user-select;
@@ -99,66 +128,53 @@
       @include media-breakpoint-up(lg) {
         width: 230px;
         height: 500px;
-        border: 1px solid rgba(white, .1);
+        border-width: 1px;
         border-radius: 32px;
       }
     }
 
-    &::before {
-      @include pseudo;
-      width: 100%;
-      height: 100%;
-      box-sizing: content-box;
-      padding: 5.5px;
-      border: .5px solid rgba(white, .2);
-      border-radius: 22px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      z-index: -1;
-      transform: translate3d(-50%, -50%, 0);
-      background: rgba(black, .3);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 6px 18px rgba(black, .67);
-      @include media-breakpoint-up(lg) {
-        padding: 10px;
-        border: 1px solid rgba(white, .2);
-        border-radius: 42px;
-        backdrop-filter: blur(20px);
-        box-shadow: 0 12px 36px rgba(black, .67);
-      }
-    }
-
     &:nth-child(2), &:nth-child(3) {
-      margin-left: 95px;
+      width: 100px;
+      height: 208px;
+      border-radius: 22px;
       z-index: 4;
+      transition-delay: .8s, .8s;
+      transition-duration: .8s, .8s;
+      @include media-breakpoint-up(lg) {
+        width: 191px;
+        height: 400px;
+        border-radius: 34px;
+      }
+
       img {
         width: 88px;
         height: 196px;
+        border-radius: 12px;
         @include media-breakpoint-up(lg) {
           width: 167px;
           height: 376px;
           border-radius: 22px;
         }
       }
-
-      &::before {
-        @include media-breakpoint-up(lg) {
-          border-radius: 32px;
-        }
-      }
     }
+  }
 
+  &.animated &__animation {
+    &::after {opacity: 1;}
+  }
+  &.animated &__screenshot {
+    transform: scale(1);
+    opacity: 1;
     &:nth-child(2) {
-      margin-left: 95px;
+      transform: scale(1) translateX(95px);
       @include media-breakpoint-up(lg) {
-        margin-left: 190px;
+        transform: scale(1) translateX(190px);
       }
     }
     &:nth-child(3) {
-      margin-left: -95px;
+      transform: scale(1) translateX(-95px);
       @include media-breakpoint-up(lg) {
-        margin-left: -190px;
+        transform: scale(1) translateX(-190px);
       }
     }
   }
