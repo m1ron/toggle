@@ -54,6 +54,13 @@ const initAbout = () => {
     }
   };
 
+  const onAnimate = () => {
+    setTimeout(function () {
+      about.classList.add('done')
+    }, 1000);
+  };
+
+  about.addEventListener('animate', onAnimate);
   window.addEventListener('resize', onResize, true);
   onResize();
 }
@@ -128,7 +135,7 @@ const initCommit = () => {
           i = 0;
         }
       }, 3000);
-    }, 500);
+    }, 400);
   };
 
   commit.addEventListener('animate', onAnimate);
