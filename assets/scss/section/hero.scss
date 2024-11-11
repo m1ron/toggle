@@ -39,11 +39,17 @@
     margin: 0 0 22px;
     display: block;
     position: relative;
+    opacity: 0;
+    transition: opacity $effect;
     @include media-breakpoint-up(lg) {
       margin-bottom: 26px;
     }
     @include media-breakpoint-up(xl) {
       margin-bottom: 19px;
+    }
+
+    &.loaded {
+      opacity: 1;
     }
 
     video {
