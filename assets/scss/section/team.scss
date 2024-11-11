@@ -36,6 +36,9 @@
     z-index: -1;
     background: url('#{$img}/blackhole.webp') no-repeat center center;
     background-size: auto 510px;
+    transform: scale(1.25);
+    opacity: 0;
+    transition: transform .8s $bezier, opacity .8s linear;
     @include media-breakpoint-up(lg) {
       background-size: cover;
     }
@@ -52,6 +55,9 @@
     letter-spacing: .02em;
     text-align: center;
     text-shadow: 0 0 4px rgba(black, .2);
+    transform: scale(1.35);
+    opacity: 0;
+    transition: transform .8s $bezier, opacity .8s linear;
     cursor: default;
     @include user-select;
     @include media-breakpoint-up(lg) {
@@ -74,8 +80,151 @@
       top: calc(50% + 303px);
     }
 
-    p {
-      margin: 0;
+    p {margin: 0;}
+  }
+
+  &__members {
+    width: 232px;
+    height: 232px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: scale(.7);
+    transition: transform .6s $bezier .2s;
+    @include media-breakpoint-up(lg) {
+
     }
   }
+
+  &__member {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 19px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(black, .15);
+    background: linear-gradient(180deg, rgba(white, .3) -333.33%, rgba(black, .3) 100%);
+    box-shadow: 0 4px 6px rgba(black, .38), inset 0 1px 1px rgba(white, .25);
+    backdrop-filter: blur(15px);
+    animation: orbit 16s forwards infinite;
+    animation-timing-function: linear;
+    transition: opacity .8s linear .2s;
+    opacity: 0;
+    @include media-breakpoint-up(lg) {
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      @include user-select;
+      @include user-drag;
+    }
+
+    &:nth-child(1) {animation-name: orbit-1;}
+    &:nth-child(2) {animation-name: orbit-2;}
+    &:nth-child(3) {animation-name: orbit-3;}
+    &:nth-child(4) {animation-name: orbit-4;}
+    &:nth-child(5) {animation-name: orbit-5;}
+    &:nth-child(6) {animation-name: orbit-6;}
+    &:nth-child(7) {animation-name: orbit-7;}
+    &:nth-child(8) {animation-name: orbit-8;}
+    @include media-breakpoint-up(lg) {
+      &:nth-child(1) {animation-name: orbit-1b;}
+      &:nth-child(2) {animation-name: orbit-2b;}
+      &:nth-child(3) {animation-name: orbit-3b;}
+      &:nth-child(4) {animation-name: orbit-4b;}
+      &:nth-child(5) {animation-name: orbit-5b;}
+      &:nth-child(6) {animation-name: orbit-6b;}
+      &:nth-child(7) {animation-name: orbit-7b;}
+      &:nth-child(8) {animation-name: orbit-8b;}
+    }
+  }
+
+  &.animated::after,
+  &.animated &__title {transform: scale(1);opacity: 1;}
+  &.animated &__members {transform: scale(1);}
+  &.animated &__member {opacity: 1;}
+}
+
+
+@keyframes orbit-1 {
+  from { transform: rotate(0deg) translate3d(100px, 0, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(100px, 0, 0) rotate(-360deg); }
+}
+@keyframes orbit-2 {
+  from { transform: rotate(0deg) translate3d(70px, 70px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(70px, 70px, 0) rotate(-360deg); }
+}
+@keyframes orbit-3 {
+  from { transform: rotate(0deg) translate3d(0, 100px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(0, 100px, 0) rotate(-360deg); }
+}
+@keyframes orbit-4 {
+  from { transform: rotate(0deg) translate3d(-70px, 70px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(-70px, 70px, 0) rotate(-360deg); }
+}
+@keyframes orbit-5 {
+  from { transform: rotate(0deg) translate3d(-100px, 0, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(-100px, 0, 0) rotate(-360deg); }
+}
+@keyframes orbit-6 {
+  from { transform: rotate(0deg) translate3d(-70px, -70px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(-70px, -70px, 0) rotate(-360deg); }
+}
+@keyframes orbit-7 {
+  from { transform: rotate(0deg) translate3d(0, -100px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(0, -100px, 0) rotate(-360deg); }
+}
+@keyframes orbit-8 {
+  from { transform: rotate(0deg) translate3d(70px, -70px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(70px, -70px, 0) rotate(-360deg); }
+}
+
+@keyframes orbit-1b {
+  from { transform: rotate(0deg) translate3d(155px, 0, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(155px, 0, 0) rotate(-360deg); }
+}
+@keyframes orbit-2b {
+  from { transform: rotate(0deg) translate3d(108px, 108px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(108px, 108px, 0) rotate(-360deg); }
+}
+@keyframes orbit-3b {
+  from { transform: rotate(0deg) translate3d(0, 155px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(0, 155px, 0) rotate(-360deg); }
+}
+@keyframes orbit-4b {
+  from { transform: rotate(0deg) translate3d(-108px, 108px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(-108px, 108px, 0) rotate(-360deg); }
+}
+@keyframes orbit-5b {
+  from { transform: rotate(0deg) translate3d(-155px, 0, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(-155px, 0, 0) rotate(-360deg); }
+}
+@keyframes orbit-6b {
+  from { transform: rotate(0deg) translate3d(-108px, -108px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(-108px, -108px, 0) rotate(-360deg); }
+}
+@keyframes orbit-7b {
+  from { transform: rotate(0deg) translate3d(0, -155px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(0, -155px, 0) rotate(-360deg); }
+}
+@keyframes orbit-8b {
+  from { transform: rotate(0deg) translate3d(108px, -108px, 0) rotate(0deg); }
+  to { transform: rotate(360deg) translate3d(108px, -108px, 0) rotate(-360deg); }
 }
