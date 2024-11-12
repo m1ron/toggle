@@ -2,19 +2,14 @@
 .team {
   height: 612px;
   margin-top: -113px;
-  margin-bottom: 144px;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @include media-breakpoint-up(md) {
-    margin-bottom: 125px;
-  }
   @include media-breakpoint-up(lg) {
     height: 737px;
     margin-top: 0;
-    margin-bottom: 270px;
   }
 
   &__anchor {
@@ -36,7 +31,7 @@
     z-index: -1;
     background: url('#{$img}/blackhole.webp') no-repeat center center;
     background-size: auto 510px;
-    transform: scale(1.25);
+    transform: scale(1.25) translate3d(0, 0, 0);
     opacity: 0;
     transition: transform .8s $bezier, opacity .8s linear;
     @include media-breakpoint-up(lg) {
@@ -55,7 +50,7 @@
     letter-spacing: .02em;
     text-align: center;
     text-shadow: 0 0 4px rgba(black, .2);
-    transform: scale(1.35);
+    transform: scale(1.35) translate3d(0, 0, 0);
     opacity: 0;
     transition: transform .8s $bezier, opacity .8s linear;
     cursor: default;
@@ -114,7 +109,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    transform: scale(.7);
+    transform: scale(.7) translate3d(0, 0, 0);
     transition: transform .6s $bezier .2s;
     @include media-breakpoint-up(lg) {
 
@@ -142,6 +137,7 @@
     backdrop-filter: blur(15px);
     animation: orbit 16s forwards infinite;
     animation-timing-function: linear;
+    animation-play-state: paused;
     transition: opacity .8s linear .2s;
     opacity: 0;
     @include media-breakpoint-up(lg) {
@@ -179,9 +175,9 @@
   }
 
   &.animated::after,
-  &.animated &__title {transform: scale(1);opacity: 1;}
-  &.animated &__members {transform: scale(1);}
-  &.animated &__member {opacity: 1;}
+  &.animated &__title {transform: scale(1) translate3d(0, 0, 0);opacity: 1;}
+  &.animated &__members {transform: scale(1) translate3d(0, 0, 0);}
+  &.animated &__member {opacity: 1;animation-play-state: running;}
 }
 
 

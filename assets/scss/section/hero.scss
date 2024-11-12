@@ -40,6 +40,7 @@
     display: block;
     position: relative;
     opacity: 0;
+    transform: translate3d(0, 0, 0);
     transition: opacity $effect;
     @include media-breakpoint-up(lg) {
       margin-bottom: 26px;
@@ -49,6 +50,7 @@
     }
 
     &.loaded {
+      transform: translate3d(0, 0, 0);
       opacity: 1;
     }
 

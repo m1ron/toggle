@@ -9,9 +9,21 @@
     <meta name="description" content="">
 
     <link href="assets/fonts/clash.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
-    <style>@font-face {font-family: 'Clash Display';font-weight: 200 700;font-display: swap;font-style: normal;src: url('assets/fonts/clash.woff2') format('woff2');}</style>
+    <style>@font-face {
+        font-family: 'Clash Display';
+        font-weight: 200 700;
+        font-display: swap;
+        font-style: normal;
+        src: url('assets/fonts/clash.woff2') format('woff2');
+    }</style>
     <link href="assets/fonts/inter.woff" rel="preload" crossorigin="anonymous" as="font" type="font/woff">
-    <style>@font-face {font-family: 'Inter';font-weight: 900;font-display: swap;font-style: normal;src: url('assets/fonts/inter.woff') format('woff');}</style>
+    <style>@font-face {
+        font-family: 'Inter';
+        font-weight: 900;
+        font-display: swap;
+        font-style: normal;
+        src: url('assets/fonts/inter.woff') format('woff');
+    }</style>
 
     <link href="assets/css/style.css" rel="stylesheet">
     <script src="assets/js/script.js" defer></script>
@@ -36,7 +48,7 @@
                 <li><a href="#contacts">Contacts</a></li>
             </ul>
         </div>
-        <a href="https://www.linkedin.com" target="_blank" class="header__join">Join us</a>
+        <a href="#join" class="header__join">Join us</a>
     </div>
 </header>
 
@@ -59,10 +71,18 @@
         <div class="about" data-animation data-offset="1.25">
             <div id="about" class="about__anchor"></div>
             <ul class="about__stats">
-                <li><div><strong>15М<span>+</span></strong> downloads</div><span></span></li>
-                <li><div><strong>1М<span>+</span></strong> MAU</div><span></span></li>
-                <li><div><strong>4.8</strong> average&nbsp;rating</div><span></span></li>
-                <li><div><strong>35M<span>+</span></strong> connected&nbsp;devices</div><span></span></li>
+                <li>
+                    <div><strong>15М<span>+</span></strong> downloads</div>
+                    <span></span></li>
+                <li>
+                    <div><strong>1М<span>+</span></strong> MAU</div>
+                    <span></span></li>
+                <li>
+                    <div><strong>4.8</strong> average&nbsp;rating</div>
+                    <span></span></li>
+                <li>
+                    <div><strong>35M<span>+</span></strong> connected&nbsp;devices</div>
+                    <span></span></li>
             </ul>
             <div class="about__text">In just a few years since 2020, toggle apps has&nbsp;reshaped how people engage with home appliances. Our innovative iOS applications have empowered over 15 million users worldwide.</div>
         </div>
@@ -133,19 +153,23 @@
             </div>
         </section>
 
-        <section id="contacts" class="contact">
-            <div class="contact__explore">
-                <h3 class="contact__heading">Join Toggle Apps</h3>
+        <section class="join" data-animation data-offset="2">
+            <div id="join" class="join__anchor"></div>
+            <div class="join__content">
+                <figure class="join__logo"><img src="assets/img/logo-tiny.png" width="40" height="24" alt=""></figure>
+                <h3 class="join__heading">Join Toggle Apps</h3>
                 <p>Work with top talent from leading companies to create groundbreaking mobile solutions</p>
                 <hr>
-                <a href="#" class="contact__button">Explore careers</a>
+                <a href="https://indeed.com" target="_blank" class="join__button">Explore careers</a>
             </div>
-            <div class="contact__talk">
-                <div class="contact__form">
-                    <p class="contact__title">Any questions? Let’s talk</p>
-                    <div class="contact__email">hello@toggleapps.io</div>
-                    <span class="contact__copy">Copy</span>
-                </div>
+        </section>
+
+        <section class="contacts" data-animation data-offset="2">
+            <div id="contacts" class="contacts__anchor"></div>
+            <div class="contacts__form">
+                <p class="contacts__title">Any questions? Let’s talk</p>
+                <span class="contacts__copy">Copy</span>
+                <div class="contacts__email">hello@toggleapps.io</div>
             </div>
         </section>
 
@@ -158,7 +182,7 @@
     <p class="footer__title">Let’s make something amazing together.</p>
     <ul class="footer__nav">
         <li><a href="https://www.linkedin.com" target="_blank">LinkedIn</a></li>
-        <li><a href="#">Careers</a></li>
+        <li><a href="https://indeed.com" target="_blank">Careers</a></li>
     </ul>
     <ul class="footer__links">
         <li><a href="#">Privacy policy</a></li>

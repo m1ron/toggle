@@ -1,0 +1,180 @@
+/* ===== CONTACTS ===== */
+.join {
+  padding: 5px;
+  margin-top: 144px;
+  position: relative;
+  @include media-breakpoint-up(md) {
+    margin-top: 125px;
+  }
+  @include media-breakpoint-up(lg) {
+    margin-top: 270px;
+  }
+
+  &__anchor {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50vh, 0);
+  }
+
+  &__content {
+    max-width: 332px;
+    padding: 43.5px 37px 27.5px;
+    border-radius: 38px;
+    margin: 0 auto;
+    position: relative;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    letter-spacing: .02em;
+    background: url('#{$img}/join.webp') no-repeat center bottom;
+    background-size: 600px auto;
+    @include media-breakpoint-up(lg) {
+      max-width: 764px;
+      padding: 67px 60px 55px;
+      border-radius: 63px;
+      font-size: 20px;
+      line-height: 25px;
+      background-size: 766px auto;
+    }
+
+    &::before {
+      @include pseudo;
+      background: linear-gradient(to bottom, rgba(black, .2) 0%, rgba(black, .5) 100%);
+      border: 1.5px solid rgba(white, .1);
+      border-radius: 44px;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      bottom: -5px;
+      left: -5px;
+      z-index: -2;
+      @include media-breakpoint-up(lg) {
+        border-radius: 68px;
+      }
+    }
+
+    &::after {
+      @include pseudo;
+      padding: 1.5px;
+      border-radius: 40px;
+      inset: 0;
+      opacity: .3;
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      left: -1px;
+      z-index: -1;
+      background: linear-gradient(45deg, rgba(white, .8), rgba(white, .4), rgba(white, .8));
+      mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
+      @include media-breakpoint-up(lg) {
+        border-radius: 64px;
+      }
+    }
+
+    p {
+      color: rgba(white, .5);
+      @include media-breakpoint-up(lg) {
+        max-width: 500px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+
+    hr {
+      height: 1px;
+      margin: 24px 0;
+      border: none;
+      background: linear-gradient(to right, rgba(#59efd4, 0) 0%, rgba(#59b0ef, 1) 48%, rgba(#59efd4, 0) 100%);
+      opacity: .1;
+      @include media-breakpoint-up(lg) {
+        margin: 40px 0;
+      }
+    }
+  }
+
+  &__logo {
+    padding: 0;
+    margin: 0 0 9px;
+    display: block;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 0;
+    }
+
+    img {
+      width: 48px;
+      height: 32px;
+      margin: 0 auto;
+      display: block;
+      @include user-select;
+      @include user-drag;
+    }
+  }
+
+  &__heading {
+    margin-bottom: 7px;
+    position: relative;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    @include font-smooth;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 16px;
+      font-size: 32px;
+      line-height: 40px;
+    }
+  }
+
+  &__button {
+    max-width: 250px;
+    padding: 15px 10px;
+    margin: 0 auto;
+    border-radius: 44px;
+    display: block;
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 15px 20px rgba(black, .4), 0 4px 10px rgba(black, .4);
+    @include font-smooth;
+    outline: none;
+
+    &::before, &::after {
+      @include pseudo;
+      border-radius: 44px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &::before {
+      padding: 1px;
+      background: linear-gradient(to bottom, rgba(white, .5), rgba(white, .2));
+      mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
+      inset: 0;
+      z-index: -2;
+    }
+
+    &::after {
+      border: 1px solid transparent;
+      background: radial-gradient(50.83% 87.16% at 50% 50.71%, rgba(34, 65, 235, .1) 30%, rgba(34, 65, 235, .05) 100%), rgba(black, .6);
+      transition: background-color $effect;
+      z-index: -1;
+    }
+
+    &:hover, &:focus {
+      &::after {
+        background: radial-gradient(50.83% 87.16% at 50% 50.71%, rgba(34, 65, 235, .23) 30%, rgba(34, 65, 235, .05) 100%), rgba(black, .6);
+      }
+    }
+  }
+}

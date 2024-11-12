@@ -26,6 +26,7 @@
     @include user-select;
     cursor: default;
     opacity: 0;
+    transform: translate3d(0, 0, 0);
     transition: opacity .8s ease .6s;
     @include media-breakpoint-down(xss) {
       width: 290px;
@@ -78,12 +79,13 @@
     background: url('#{$img}/swirl.webp') no-repeat center center;
     background-size: auto 100%;
     opacity: 0;
-    transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
     transition: opacity .7s linear;
   }
 
   &.animated &__swirl {
     opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 
   &__galaxy {
@@ -98,19 +100,19 @@
     opacity: 0;
     background: url('#{$img}/galaxy-mobile.webp') no-repeat center center;
     background-size: auto 100%;
-    transform: scale(.8) translateZ(0);
+    transform: scale(.8) translate3d(0, 0, 0);
     transition: transform .5s ease .25s, opacity .5s linear .25s;
     @include media-breakpoint-up(lg) {
       height: 675px;
       top: -21px;
       right: 2px;
-      background-image: url('#{$img}/galaxy.webp');
+      background-image: url('#{$img}/galaxy.png');
     }
   }
 
   &.animated &__galaxy {
     opacity: 1;
-    transform: scale(1) translateZ(0);
+    transform: scale(1) translate3d(0, 0, 0);
   }
 
   &__eclipse {
@@ -128,7 +130,7 @@
     background: black url('#{$img}/eclipse.svg') no-repeat center center;
     background-size: 222px 222px;
     box-shadow: 0 0 4.5px 2.5px black;
-    transform: scale(.8) translateZ(0);
+    transform: scale(.8) translate3d(0, 0, 0);
     transition: transform .5s ease .325s, opacity .5s linear .325s;
     @include media-breakpoint-up(lg) {
       width: 449px;
@@ -141,11 +143,11 @@
 
   &.animated &__eclipse {
     opacity: 1;
-    transform: scale(1) translateZ(0);
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 
 @keyframes animation-letter {
-  50% {text-shadow: 0 0 6px white;}
-  100% {text-shadow: 0 0 0 white;opacity: 1;}
+  50% {text-shadow: 0 0 6px white;transform: translate3d(0, 0, 0);}
+  100% {text-shadow: 0 0 0 white;transform: translate3d(0, 0, 0);opacity: 1;}
 }

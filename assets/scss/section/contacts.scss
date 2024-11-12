@@ -1,0 +1,204 @@
+/* ===== CONTACTS ===== */
+.contacts {
+  min-height: 664px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  @include media-breakpoint-up(lg) {
+    min-height: 1081px;
+  }
+
+  &__anchor {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50vh, 0);
+  }
+
+  &__form {
+    width: 100%;
+    max-width: 543px;
+    transform: translate(0, -18px);
+    position: relative;
+    z-index: 10;
+    @include media-breakpoint-up(lg) {
+      transform: translate(0, -22px);
+    }
+
+    &::before {
+      @include pseudo;
+      background: linear-gradient(to right, rgba(white, .8) 0, rgba(white, .15) 100%);
+      border-radius: 58px 58px 0 58px;
+      opacity: .05;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      @include media-breakpoint-up(lg) {
+        border-radius: 58px 68px 0 58px;
+      }
+    }
+  }
+
+  &__copy {
+    padding: 10px 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    @include font-smooth;
+    @include media-breakpoint-up(lg) {
+      padding: 11px 37px;
+      font-size: 20px;
+      line-height: 25px;
+      top: 20px;
+      right: 20px;
+    }
+
+    &::before, &::after {
+      @include pseudo;
+      border-radius: 58px 58px 0 58px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &::before {
+      padding: 1px;
+      opacity: .15;
+      background: linear-gradient(135deg, rgba(white, .8), rgba(white, .15));
+      mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
+      inset: 0;
+      z-index: -1;
+      transition: opacity $effect;
+    }
+
+    &::after {
+      border: 1px solid transparent;
+      background: linear-gradient(135deg, rgba(white, .8), rgba(black, .15));
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .81);
+      opacity: .1;
+      z-index: -2;
+      transform: translate3d(0, 0, 0);
+      transition: opacity $effect;
+    }
+
+    &:hover {
+      &::before {opacity: .3;}
+      &::after {opacity: .15;}
+      ~ .contacts__email::before {
+        opacity: .7;
+        background: conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
+        transition: opacity .4s ease;
+      }
+    }
+
+    &:active {
+      &::before {opacity: .4;transition: none;}
+      &::after {opacity: .25;transition: none;}
+    }
+  }
+
+  &__email {
+    padding: 22px 90px 22px 24px;
+    text-align: left;
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: .02em;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 15px rgba(black, .5);
+    cursor: default;
+    @include font-smooth;
+    @include media-breakpoint-up(lg) {
+      padding-right: 150px;
+      padding-left: 44px;
+      font-size: 34px;
+      line-height: 42px;
+    }
+
+    &::before, &::after {
+      @include pseudo;
+      border-radius: 58px 58px 0 58px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      @include media-breakpoint-up(lg) {
+        border-radius: 58px 68px 0 58px;
+      }
+    }
+
+    &::before {
+      padding: 1px;
+      opacity: .3;
+      background: linear-gradient(45deg, rgba(white, .5), rgba(white, .15) 60%, rgba(white, 1));
+      mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
+      inset: 0;
+      z-index: -1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    &::after {
+      border: 1px solid transparent;
+      background: rgba(black, .5);
+      backdrop-filter: blur(25px);
+      box-shadow: 0 16px 24px 0 rgba(black, .4);
+      z-index: -2;
+      @include media-breakpoint-up(lg) {
+        background: rgba(black, .55);
+      }
+    }
+  }
+
+  &__title {
+    margin: 0;
+    white-space: nowrap;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    position: absolute;
+    transform: translate3d(16px, 12px, 0);
+    top: 100%;
+    right: 0;
+    opacity: 0;
+    transition: transform .8s ease, opacity .8s ease;
+    cursor: default;
+    @include font-smooth;
+    @include media-breakpoint-up(lg) {
+      font-size: 24px;
+      line-height: 30px;
+      transform: translate3d(65px, 21px, 0);
+    }
+  }
+
+  &::before {
+    @include pseudo;
+    position: absolute;
+    top: 0;
+    right: -20px;
+    bottom: 0;
+    left: -20px;
+    z-index: -1;
+    background: url('#{$img}/ray.webp') 50% 0 no-repeat;
+    background-size: auto 100%;
+  }
+
+  &.animated &__title {
+    transform: translate3d(0, 12px, 0);
+    opacity: 1;
+    @include media-breakpoint-up(lg) {
+      transform: translate3d(49px, 21px, 0);
+    }
+  }
+}

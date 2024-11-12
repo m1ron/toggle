@@ -166,6 +166,26 @@ const initTeam = () => {
   onResize();
 }
 
+async function copyContent(s) {
+  try {
+    await navigator.clipboard.writeText(s);
+    console.log('Content copied to clipboard');
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+}
+
+const initContacts = () => {
+  const contacts = document.querySelector('.contacts');
+  const copy = contacts.querySelector('.contacts__copy');
+  const email = contacts.querySelector('.contacts__email').innerText;
+
+  copy.addEventListener('click', () => {
+    copyContent(email);
+    return false;
+  });
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
   if (isMobile) {
@@ -180,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSuccess();
   initCommit();
   initTeam();
+  initContacts();
 });
 
 

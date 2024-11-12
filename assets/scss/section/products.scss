@@ -95,7 +95,7 @@
     z-index: 5;
     background: rgba(black, .3);
     box-shadow: 0 6px 18px rgba(black, .67);
-    transform: scale(.95);
+    transform: scale(.95) translate3d(0, 0, 0);;
     transition: opacity .8s ease .4s, transform 1.2s ease .4s;
     opacity: 0;
     backdrop-filter: blur(10px);
@@ -163,18 +163,18 @@
     &::after {opacity: 1;}
   }
   &.animated &__screenshot {
-    transform: scale(1);
+    transform: scale(1) translate3d(0, 0, 0);
     opacity: 1;
     &:nth-child(2) {
-      transform: scale(1) translateX(95px);
+      transform: scale(1) translate3d(95px, 0, 0);
       @include media-breakpoint-up(lg) {
-        transform: scale(1) translateX(190px);
+        transform: scale(1) translate3d(190px, 0, 0);
       }
     }
     &:nth-child(3) {
-      transform: scale(1) translateX(-95px);
+      transform: scale(1) translate3d(-95px, 0, 0);
       @include media-breakpoint-up(lg) {
-        transform: scale(1) translateX(-190px);
+        transform: scale(1) translate3d(-190px, 0, 0);
       }
     }
   }

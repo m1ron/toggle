@@ -54,7 +54,7 @@
       @include media-breakpoint-up(lg) {
         transition: transform .5s ease;
         &:hover {
-          transform: scale(1.065);
+          transform: scale(1.065) translate3d(0, 0, 0);
           > span::after {
             transform: translate3d(480px, -50%, 0) rotate(-14deg);
             transition: transform 1.4s ease;
@@ -88,7 +88,7 @@
         text-align: center;
         gap: 12px;
         opacity: 0;
-        transform: scale(.95);
+        transform: scale(.95) translate3d(0, 0, 0);
         transition: opacity .6s linear, transform .6s ease;
         -webkit-backface-visibility: hidden;
         @include media-breakpoint-up(lg) {
@@ -96,7 +96,7 @@
           padding-top: 24px;
           letter-spacing: .02em;
           backdrop-filter: blur(16px);
-          transform: scale(.85);
+          transform: scale(.85) translate3d(0, 0, 0);
         }
 
         &::before {
@@ -193,7 +193,7 @@
 
   &.animated &__stats {
     li {
-      > div {transform: scale(1);opacity: 1;}
+      > div {transform: scale(1) translate3d(0, 0, 0);opacity: 1;}
       > span {display: block;}
       &:nth-child(1) > div {transition-delay: 0s;}
       &:nth-child(2) > div, &:nth-child(3) > div {transition-delay: .15s;}
@@ -209,7 +209,7 @@
     li {
       @include media-breakpoint-up(lg) {
         &:hover {
-          transform: scale(1.065);
+          transform: scale(1.065) translate3d(0, 0, 0);
           > span::after {
             transform: translate3d(480px, -50%, 0) rotate(-14deg);
             transition: transform 1.4s ease;
