@@ -75,6 +75,11 @@
   }
 
   &__menu {
+    @include media-breakpoint-down(lg) {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
     @include media-breakpoint-up(lg) {
       position: fixed;
       top: 20px;

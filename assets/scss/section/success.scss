@@ -44,6 +44,7 @@
       position: relative;
       animation: .2s animation-letter forwards;
       animation-play-state: paused;
+      transform: translate3d(0, 0, 0);
       opacity: .5;
 
       @for $i from 1 through 100 {

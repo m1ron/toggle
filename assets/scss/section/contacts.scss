@@ -53,6 +53,10 @@
     right: 12px;
     z-index: 10;
     @include font-smooth;
+    @include media-breakpoint-down(xss) {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
     @include media-breakpoint-up(lg) {
       padding: 11px 37px;
       font-size: 20px;
@@ -95,7 +99,7 @@
       &::before {opacity: .3;}
       &::after {opacity: .15;}
       ~ .contacts__email::before {
-        opacity: .7;
+        opacity: .6;
         background: conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
         transition: opacity .4s ease;
       }
@@ -108,7 +112,8 @@
   }
 
   &__email {
-    padding: 22px 90px 22px 24px;
+    width: 100%;
+    padding: 22px 110px 22px 24px;
     text-align: left;
     font-size: 20px;
     line-height: 20px;
@@ -118,6 +123,9 @@
     text-shadow: 0 0 15px rgba(black, .5);
     cursor: default;
     @include font-smooth;
+    @include media-breakpoint-down(xss) {
+      font-size: 16px;
+    }
     @include media-breakpoint-up(lg) {
       padding-right: 150px;
       padding-left: 44px;
@@ -175,6 +183,9 @@
     transition: transform .8s ease, opacity .8s ease;
     cursor: default;
     @include font-smooth;
+    @include media-breakpoint-down(xss) {
+      font-size: 16px;
+    }
     @include media-breakpoint-up(lg) {
       font-size: 24px;
       line-height: 30px;

@@ -241,6 +241,7 @@
     }
 
     > div {
+      position: relative;
       opacity: 0;
       transform: translate3d(0, 16px, 0);
       transition: opacity .75s linear, transform .75s $bezier;

@@ -1,6 +1,18 @@
 const doc = document.documentElement;
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+const initMenu = () => {
+  const header = document.querySelector('.header');
+  const menu = header.querySelector('.header__menu');
+  const toggle = menu.querySelector('.header__menu-toggle');
+
+  const onClick = () => {
+    menu.classList.toggle('active');
+  };
+
+  toggle.addEventListener('click', onClick);
+};
+
 const initHero = () => {
   const hero = document.querySelector('.hero');
   const logo = hero.querySelector('.hero__logo');
@@ -196,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   starsParallax();
   scrollAnimation();
 
+  initMenu();
   initAbout();
   initSuccess();
   initCommit();
