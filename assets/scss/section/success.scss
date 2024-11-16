@@ -1,6 +1,7 @@
 /* ===== SUCCESS ===== */
 .success {
-  height: 620px;
+  min-height: 620px;
+  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,8 +9,12 @@
   align-items: center;
   text-align: center;
   @include media-breakpoint-up(lg) {
-    height: 1196px;
+    //height: 1196px;
     margin-top: 50px;
+  }
+
+  .pin-spacer > & {
+    z-index: -1;
   }
 
   &__title {
@@ -42,24 +47,20 @@
 
     span {
       position: relative;
-      animation: .2s animation-letter forwards;
-      animation-play-state: paused;
+      transition: opacity .15s linear;
       transform: translate3d(0, 0, 0);
       opacity: .5;
+    }
 
-      @for $i from 1 through 100 {
-        &:nth-child(#{$i}) {
-          animation-delay: 1.25s + $i * .0225s;
-        }
+    @for $i from 1 through 100 {
+      &[data-progress="#{$i}"] span:nth-child(-n+#{$i}) {
+        opacity: 1;
       }
     }
   }
 
   &.animated &__title {
     opacity: 1;
-  }
-  &.animated &__title span {
-    animation-play-state: running;
   }
 
   &__animation {
@@ -146,9 +147,4 @@
     opacity: 1;
     transform: scale(1) translate3d(0, 0, 0);
   }
-}
-
-@keyframes animation-letter {
-  50% {text-shadow: 0 0 6px white;transform: translate3d(0, 0, 0);}
-  100% {text-shadow: 0 0 0 white;transform: translate3d(0, 0, 0);opacity: 1;}
 }

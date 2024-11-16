@@ -1,4 +1,5 @@
-@use 'vendor/normalize';
+@import 'vendor/normalize',
+        'vendor/lenis';
 
 @import 'var',
         'breakpoints',

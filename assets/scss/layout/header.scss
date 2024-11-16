@@ -75,11 +75,6 @@
   }
 
   &__menu {
-    @include media-breakpoint-down(lg) {
-      position: fixed;
-      top: 0;
-      left: 0;
-    }
     @include media-breakpoint-up(lg) {
       position: fixed;
       top: 20px;
@@ -96,6 +91,13 @@
       z-index: 100;
       @include media-breakpoint-down(xss) {
         min-width: 84px;
+      }
+      @include media-breakpoint-down(lg) {
+        border-radius: 20px;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        backdrop-filter: blur(15px);
       }
       @include media-breakpoint-up(lg) {
         padding-right: 97px;

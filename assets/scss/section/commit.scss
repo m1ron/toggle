@@ -1,6 +1,7 @@
 /* ===== COMMIT ===== */
 .commit {
-  height: 620px;
+  min-height: 620px;
+  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,7 +9,7 @@
   align-items: center;
   text-align: center;
   @include media-breakpoint-up(lg) {
-    height: 900px;
+    min-height: 900px;
   }
 
   &__content {
@@ -89,9 +90,14 @@
     bottom: 0;
     left: -10px;
     z-index: -2;
-    opacity: .9;
+    opacity: .7;
     background: url('#{$img}/dots.svg') no-repeat center center;
     background-size: auto 100%;
+  }
+
+
+  .pin-spacer > & {
+    //z-index: -1;
   }
 
   &.animated .cards {opacity: 1;}
@@ -297,41 +303,18 @@
       top: 0;
       left: 0;
       background: linear-gradient(180deg, rgba(white, 0) 0%, rgba(white, .7) 100%);
-      animation: 9s animation-progress infinite;
-      animation-delay: .5s;
-      animation-timing-function: linear;
-      animation-play-state: paused;
+      transition: height .6s ease;
       @include media-breakpoint-up(lg) {
         border-radius: 2px;
       }
     }
-    /*
-    &::after {
-      height: 0;
-      margin-top: -40px;
-      margin-bottom: 0;
-      top: 50%;
-      z-index: 2;
-      background: linear-gradient(180deg, rgba(white, 0) 0%, rgba(white, .7) 100%);
-      @include media-breakpoint-up(lg) {
-        margin-top: -90px;
-      }
-    }
-     */
   }
 
-  &[data-card="1"]::after {height: 0;}
-  &[data-card="2"]::after {height: 40px;}
-  &[data-card="3"]::after {height: 80px;}
+  &[data-card="0"] &__progress::after, &[data-card="1"] &__progress::after {height: 0 !important;}
+  &[data-card="2"] &__progress::after {height: 40px !important;}
+  &[data-card="3"] &__progress::after {height: 80px !important;}
   @include media-breakpoint-up(lg) {
-    &[data-card="2"]::after {height: 90px;}
-    &[data-card="3"]::after {height: 180px;}
+    &[data-card="2"] &__progress::after {height: 90px !important;}
+    &[data-card="3"] &__progress::after {height: 180px !important;}
   }
-}
-
-@keyframes animation-progress {
-  0% {height: 0;}
-  33.3% {height: 33.3%;}
-  66.66% {height: 66.6%;}
-  100% {height: 100%;}
 }
