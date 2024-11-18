@@ -9,7 +9,7 @@
     width: 0;
     height: 0;
     position: absolute;
-    top: 170px;
+    top: 150px;
     left: 50%;
     transform: translate3d(-50%, -50vh, 0);
     @include media-breakpoint-up(lg) {
@@ -29,7 +29,7 @@
     align-items: center;
     font-size: 22px;
     line-height: 28px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: .02em;
     text-align: center;
     @include font-smooth;
@@ -47,6 +47,38 @@
 
     p {
       margin: 0;
+    }
+  }
+
+  &__title {
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    @include media-breakpoint-down(sm) {
+      margin: 0 auto;
+      display: block;
+
+      & + .products__coma {display: none;}
+    }
+
+    > span {
+      position: relative;
+      display: inline-block;
+    }
+  }
+
+  &__duplicate {
+    white-space: nowrap;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    cursor: default;
+    @include user-select;
+    @include media-breakpoint-up(sm) {
+      transform-origin: top left;
     }
   }
 

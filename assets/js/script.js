@@ -141,18 +141,21 @@ const initAbout = () => {
   const onResize = () => {
     splitToLines(p);
   };
-
-  ScrollTrigger.create({
-    trigger: '.about', start: '20% bottom', onEnter: () => {
-      about.classList.add('animated');
-      setTimeout(function () {
-        about.classList.add('done')
-      }, 1000);
-    }
-  });
-
   window.addEventListener('resize', onResize, true);
   onResize();
+
+  gsap.to('.about', {
+    scrollTrigger: {
+      trigger: '.about',
+      start: '20% bottom',
+      onEnter: () => {
+        about.classList.add('animated');
+        setTimeout(function () {
+          about.classList.add('done')
+        }, 1000);
+      }
+    }
+  });
 }
 
 const initSuccess = () => {
@@ -161,32 +164,35 @@ const initSuccess = () => {
 
   splitToLetters(title);
 
-  ScrollTrigger.create({
-    trigger: '.success',
-    start: '20% center',
-    onEnter: () => {
-      success.classList.add('animated');
-    },
-    //markers: {startColor: 'red', endColor: 'red'},
+  gsap.to('.success', {
+    scrollTrigger: {
+      trigger: '.success',
+      start: '20% center',
+      onEnter: self => {
+        self.trigger.classList.add('animated');
+      },
+    }
   });
 
-  ScrollTrigger.create({
-    trigger: '.success',
-    start: 'top top',
-    end: 'bottom 35%',
-    pin: true,
-    //markers: {startColor: 'yellow', endColor: 'yellow'},
+  gsap.to('.success', {
+    scrollTrigger: {
+      trigger: '.success',
+      start: 'top top',
+      end: '150% top',
+      pin: true,
+    }
   });
 
-  ScrollTrigger.create({
-    trigger: '.success',
-    start: 'top top',
-    end: 'bottom 25%',
-    scrub: true,
-    onUpdate: self => {
-      title.setAttribute('data-progress', Math.floor(self.progress * 100));
-    },
-    //markers: {startColor: 'green', endColor: 'green'},
+  gsap.to('.success', {
+    scrollTrigger: {
+      trigger: '.success',
+      start: 'top top',
+      end: '145% top',
+      scrub: true,
+      onUpdate: self => {
+        title.setAttribute('data-progress', Math.floor(self.progress * 100));
+      }
+    }
   });
 }
 
@@ -194,69 +200,135 @@ const initCommit = () => {
   const commit = document.querySelector('.commit');
   const cards = commit.querySelector('.cards');
 
-  /*
-  const onAnimate = () => {
-    let i = 1;
-    setTimeout(() => {
-      cards.setAttribute('data-card', i);
-      setInterval(function () {
-        i++;
-        cards.setAttribute('data-card', i);
-        if (i === 3) {
-          i = 0;
-        }
-      }, 3000);
-    }, 400);
-  };
-  commit.addEventListener('animate', onAnimate);
-   */
+  gsap.to('.commit', {
+    scrollTrigger: {
+      trigger: '.commit',
+      start: '20% center',
+      onEnter: () => {
+        commit.classList.add('animated');
+        setTimeout(() => {
+          cards.setAttribute('data-card', 1);
+        }, 400);
+      }
+    }
+  });
 
-  ScrollTrigger.create({
-    trigger: '.commit',
-    start: '20% center',
-    onEnter: () => {
-      commit.classList.add('animated');
-      setTimeout(() => {
+  gsap.to('.commit', {
+    scrollTrigger: {
+      trigger: '.commit',
+      start: '30% top',
+      end: '130% top',
+      scrub: .2,
+      onEnter: () => {
+        cards.setAttribute('data-card', 2);
+      },
+      onLeaveBack: () => {
         cards.setAttribute('data-card', 1);
-      }, 400);
-    },
-    //markers: {startColor: 'red', endColor: 'red'},
+      }
+    }
   });
 
-  ScrollTrigger.create({
-    trigger: '.commit',
-    start: '30% top',
-    end: '100% top',
-    scrub: true,
-    onEnter: self => {
-      cards.setAttribute('data-card', 2);
-    },
-    onLeaveBack: self => {
-      cards.setAttribute('data-card', 1);
-    },
-    //markers: {startColor: 'green', endColor: 'green'},
+  gsap.to('.commit', {
+    scrollTrigger: {
+      trigger: '.commit',
+      start: '130% top',
+      end: '200% top',
+      scrub: .2,
+      onEnter: () => {
+        cards.setAttribute('data-card', 3);
+      },
+      onLeaveBack: () => {
+        cards.setAttribute('data-card', 2);
+      }
+    }
   });
 
-  ScrollTrigger.create({
-    trigger: '.commit',
-    start: '100% top',
-    end: '150% top',
-    scrub: true,
-    onUpdate: self => {
-      cards.setAttribute('data-card', 3);
-    },
-    onLeaveBack: self => {
-      cards.setAttribute('data-card', 2);
-    },
-    //markers: {startColor: 'red', endColor: 'red'},
+  gsap.to('.commit', {
+    scrollTrigger: {
+      trigger: '.commit',
+      start: 'top top',
+      end: '200% top',
+      pin: true
+    }
+  });
+}
+
+const initProducts = () => {
+  const products = document.querySelector('.products');
+  const heading = products.querySelector('.products__heading');
+  const title = products.querySelector('.products__title');
+  const dupe = title.children[0];
+  const animation = products.querySelector('.products__animation');
+  const wrapper = document.querySelector('.wrapper');
+
+  let offsetX = 0, offsetY = 0;
+  const scale = 2.25;
+
+  const calculateOffsets = () => {
+    offsetX = 0;
+    if (window.innerWidth >= 540) {
+      offsetX = (window.innerWidth - dupe.clientWidth * scale) / 2 - title.offsetLeft - heading.offsetLeft - wrapper.offsetLeft - 20;
+    }
+    let m = +window.getComputedStyle(animation).marginTop.replace('px', '');
+    offsetY = ((heading.clientHeight - title.offsetTop) + animation.clientHeight / 2 + m - title.clientHeight * scale / 2);
+    //console.log(offsetX, offsetY);
+  };
+
+  const adjustTitle = () => {
+    let span = document.createElement('span');
+    let text = document.createTextNode(dupe.innerText);
+    span.classList.add('products__duplicate');
+    span.appendChild(text);
+    dupe.append(span);
+  };
+
+  const onResize = () => {
+    calculateOffsets();
+  };
+
+  adjustTitle();
+  window.addEventListener('resize', onResize, true);
+  onResize();
+
+  gsap.to('.products', {
+    scrollTrigger: {
+      trigger: '.products',
+      start: '25% center',
+      onEnter: self => {
+        self.trigger.classList.add('animated');
+      },
+      onLeaveBack: self => {
+        self.trigger.classList.remove('animated');
+      },
+    }
   });
 
-  ScrollTrigger.create({
-    trigger: '.commit',
-    start: 'top top',
-    end: '150% top',
-    pin: true,
-    //markers: {startColor: 'yellow', endColor: 'yellow'},
+  gsap.to('.products__duplicate', {
+    scrollTrigger: {
+      trigger: '.products',
+      start: '15% center',
+      end: 'bottom bottom',
+      scrub: true,
+      //markers: true,
+      id: 'scrub'
+    },
+    color: 'rgba(255, 255, 255, .3)',
+    scale: scale,
+    x: offsetX,
+    y: offsetY,
+    ease: 'none'
+  });
+
+  gsap.to('.products__heading', {
+    scrollTrigger: {
+      trigger: '.products',
+      start: '15% center',
+      end: '60% bottom',
+      scrub: true,
+      //markers: true,
+      id: 'heading'
+    },
+    color: 'rgba(255, 255, 255, 0)'
   });
 }
 
@@ -302,6 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAbout();
   initSuccess();
   initCommit();
+  initProducts();
   initTeam();
   initContacts();
 });
