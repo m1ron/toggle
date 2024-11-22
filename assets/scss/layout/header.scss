@@ -173,6 +173,7 @@
       font-weight: 400;
       letter-spacing: .04em;
       text-align: center;
+      transition: max-height .4s $bezier;
       @include user-select;
       @include media-breakpoint-down(lg) {
         display: none;
@@ -236,10 +237,22 @@
       }
     }
 
-    &.active {
-      @include media-breakpoint-down(lg) {
-        .header__menu-toggle::before {content: 'Close';}
-        .header__menu-nav {display: block; visibility: visible;}
+    @include media-breakpoint-down(lg) {
+      &.visible {
+        .header__menu-toggle::before {
+          content: 'Close';
+        }
+        .header__menu-nav {
+          max-height: 0;
+          display: block;
+          overflow: hidden;
+          visibility: visible;
+        }
+      }
+      &.active {
+        .header__menu-nav {
+          max-height: 240px;
+        }
       }
     }
   }

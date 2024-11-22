@@ -1,7 +1,6 @@
 const doc = document.documentElement;
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-
 const splitToLines = (p) => {
   let text = p.innerText;
   let arr = text.split('');
@@ -107,7 +106,17 @@ const initMenu = () => {
   const nav = menu.querySelector('.header__menu-nav');
 
   const onClick = () => {
-    menu.classList.toggle('active');
+    if (menu.classList.contains('active')) {
+      menu.classList.remove('active');
+      setTimeout(() => {
+        menu.classList.remove('visible');
+      }, 400)
+    } else {
+      menu.classList.add('visible');
+      setTimeout(() => {
+        menu.classList.add('active');
+      }, 50)
+    }
   };
 
   toggle.addEventListener('click', onClick);
@@ -150,7 +159,7 @@ const initAbout = () => {
       start: '20% bottom',
       onEnter: () => {
         about.classList.add('animated');
-        setTimeout(function () {
+        setTimeout(() => {
           about.classList.add('done')
         }, 1000);
       }
@@ -354,7 +363,6 @@ const initContacts = () => {
     return false;
   });
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
   if (isMobile) {

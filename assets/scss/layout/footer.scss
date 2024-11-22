@@ -12,6 +12,9 @@
     padding-top: 61px;
     padding-bottom: 39px;
   }
+  @media only screen and (min-width: 1280px) {
+    background-size: cover;
+  }
 
   &::before {
     @include pseudo;
@@ -22,6 +25,10 @@
     left: 0;
     background: linear-gradient(90deg, rgba(white, 0) 0%, white 50%, rgba(white, 0) 100%);
     opacity: .3;
+    @include media-breakpoint-up(lg) {
+      right: -10%;
+      left: -10%;
+    }
   }
 
   &__title {
@@ -42,9 +49,9 @@
   }
 
   &__nav {
-    max-width: 400px;
+    max-width: 770px;
     padding: 0 0 45px;
-    margin: 0 auto 44px;
+    margin: 0 auto 43px;
     list-style: none;
     display: flex;
     gap: 30px;
@@ -53,7 +60,9 @@
     font-weight: 500;
     position: relative;
     @include media-breakpoint-up(lg) {
+      max-width: 400px;
       padding-bottom: 61px;
+      margin-bottom: 44px;
       gap: 50px;
     }
 

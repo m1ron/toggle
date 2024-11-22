@@ -21,11 +21,12 @@
 
   &__form {
     width: 100%;
-    max-width: 543px;
+    max-width: 350px;
     transform: translate(0, -18px);
     position: relative;
     z-index: 10;
     @include media-breakpoint-up(lg) {
+      max-width: 543px;
       transform: translate(0, -22px);
     }
 
@@ -200,9 +201,47 @@
     right: -20px;
     bottom: 0;
     left: -20px;
-    z-index: -1;
+    z-index: 0;
     background: url('#{$img}/ray.webp') 50% 0 no-repeat;
     background-size: auto 100%;
+  }
+
+  &::after {
+    @include pseudo;
+    width: 180%;
+    min-width: $min-width;
+    max-width: 640px;
+    height: 20vw;
+    min-height: 64px;
+    max-height: 82px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: -1;
+    background: url('#{$img}/about-bg-mobile.webp') no-repeat top center;
+    background-size: 100% auto;
+    transform: scaleX(-1) translate3d(50%, 0, 0);
+    @include media-breakpoint-up(xsm) {
+      /*
+      width: 100vw;
+      max-width: 500px;
+      margin-right: auto;
+      margin-left: auto;
+      right: auto;
+      left: 50%;
+      transform: scaleX(-1) translate3d(50%, 0, 0);
+       */
+    }
+    @include media-breakpoint-up(lg) {
+      width: 100vw;
+      height: 935px;
+      min-height: 0;
+      max-height: none;
+      right: auto;
+      left: 50%;
+      background-image: url('#{$img}/about-bg.webp');
+      transform: translate3d(-50%, -50%, 0);
+    }
   }
 
   &.animated &__title {
