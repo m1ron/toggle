@@ -1,3 +1,6 @@
+@use '../var' as *;
+@use '../breakpoints' as *;
+
 /* ===== TEAM ===== */
 .team {
   height: 612px;
@@ -18,7 +21,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate3d(-50%, -50vh, 0);
+    transform: translate3d(-50%, -48vh, 0);
   }
 
   &::after {

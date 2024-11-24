@@ -1,3 +1,6 @@
+@use '../var' as *;
+@use '../breakpoints' as *;
+
 /* ===== COMMIT ===== */
 .commit {
   min-height: 620px;

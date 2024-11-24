@@ -1,3 +1,6 @@
+@use '../var' as *;
+@use '../breakpoints' as *;
+
 /* ===== SUCCESS ===== */
 .success {
   min-height: 620px;

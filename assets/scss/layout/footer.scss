@@ -1,16 +1,20 @@
+@use '../var' as *;
+@use '../breakpoints' as *;
+
 /* ===== FOOTER ===== */
 .footer {
   padding: 40px 20px;
   margin: 0;
   text-align: center;
+  overflow: hidden;
   position: relative;
   z-index: 1;
-  background: #010002 url('#{$img}/footer.webp') no-repeat top center;
+  background: black url('#{$img}/footer.webp') no-repeat top center;
   background-size: auto 100%;
   @include font-smooth;
   @include media-breakpoint-up(lg) {
-    padding-top: 61px;
-    padding-bottom: 39px;
+    padding-top: 60px;
+    padding-bottom: 40px;
   }
   @media only screen and (min-width: 1280px) {
     background-size: cover;
@@ -25,6 +29,10 @@
     left: 0;
     background: linear-gradient(90deg, rgba(white, 0) 0%, white 50%, rgba(white, 0) 100%);
     opacity: .3;
+    @include media-breakpoint-up(md) {
+      right: -5%;
+      left: -5%;
+    }
     @include media-breakpoint-up(lg) {
       right: -10%;
       left: -10%;
@@ -139,10 +147,10 @@
   &__logo {
     margin: 38px 0 0;
     position: relative;
+    left: -1px;
     z-index: 1;
     @include media-breakpoint-up(lg) {
       margin-top: -48px;
-      left: -1px;
     }
 
     img {

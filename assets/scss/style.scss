@@ -1,20 +1,20 @@
-@import 'vendor/normalize',
-        'vendor/lenis';
+@use 'vendor/normalize';
+@use 'vendor/lenis';
 
-@import 'var',
-        'breakpoints',
-        'default';
+@use 'var';
+@use 'breakpoints';
+@use 'default';
 
-@import 'layout/main',
-        'layout/header',
-        'layout/wrapper',
-        'layout/footer';
+@use 'layout/main';
+@use 'layout/header';
+@use 'layout/wrapper';
+@use 'layout/footer';
 
-@import 'section/hero',
-        'section/about',
-        'section/success',
-        'section/commit',
-        'section/products',
-        'section/team',
-        'section/join',
-        'section/contacts';
+@use 'section/hero';
+@use 'section/about';
+@use 'section/success';
+@use 'section/commit';
+@use 'section/products';
+@use 'section/team';
+@use 'section/join';
+@use 'section/contacts';

@@ -1,3 +1,6 @@
+@use '../var' as *;
+@use '../breakpoints' as *;
+
 /* ===== HEADER ===== */
 .header {
   min-width: $min-width;
