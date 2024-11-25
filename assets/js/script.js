@@ -216,7 +216,12 @@ const initCommit = () => {
       onEnter: () => {
         commit.classList.add('animated');
         setTimeout(() => {
+          cards.setAttribute('data-reverse', false);
+          cards.setAttribute('data-delayed', true);
           cards.setAttribute('data-card', 1);
+          setTimeout(() => {
+            cards.setAttribute('data-delayed', false);
+          }, 200);
         }, 400);
       }
     }
@@ -230,9 +235,19 @@ const initCommit = () => {
       scrub: .2,
       onEnter: () => {
         cards.setAttribute('data-card', 2);
+        cards.setAttribute('data-reverse', false);
+        cards.setAttribute('data-delayed', true);
+        setTimeout(() => {
+          cards.setAttribute('data-delayed', false);
+        }, 200);
       },
       onLeaveBack: () => {
         cards.setAttribute('data-card', 1);
+        cards.setAttribute('data-reverse', true);
+        cards.setAttribute('data-delayed', false);
+        setTimeout(() => {
+          cards.setAttribute('data-delayed', true);
+        }, 200);
       }
     }
   });
@@ -245,9 +260,19 @@ const initCommit = () => {
       scrub: .2,
       onEnter: () => {
         cards.setAttribute('data-card', 3);
+        cards.setAttribute('data-reverse', false);
+        cards.setAttribute('data-delayed', true);
+        setTimeout(() => {
+          cards.setAttribute('data-delayed', false);
+        }, 200);
       },
       onLeaveBack: () => {
         cards.setAttribute('data-card', 2);
+        cards.setAttribute('data-reverse', true);
+        cards.setAttribute('data-delayed', false);
+        setTimeout(() => {
+          cards.setAttribute('data-delayed', true);
+        }, 200);
       }
     }
   });
