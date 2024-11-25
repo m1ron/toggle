@@ -28,18 +28,53 @@
     border-radius: 38px;
     margin: 0 auto;
     position: relative;
+    z-index: 1;
     font-size: 14px;
     line-height: 18px;
     text-align: center;
     letter-spacing: .02em;
-    background: url('#{$img}/join.webp') no-repeat center bottom;
-    background-size: 600px auto;
     @include media-breakpoint-up(lg) {
       max-width: 764px;
       padding: 67px 60px 55px;
       border-radius: 63px;
       font-size: 20px;
       line-height: 25px;
+    }
+
+    p {
+      color: rgba(white, .5);
+      @include media-breakpoint-up(lg) {
+        max-width: 500px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+
+    hr {
+      height: 1px;
+      margin: 24px 0;
+      border: none;
+      background: linear-gradient(to right, rgba(#59efd4, 0) 0%, rgba(#59b0ef, 1) 48%, rgba(#59efd4, 0) 100%);
+      opacity: .1;
+      @include media-breakpoint-up(lg) {
+        margin: 40px 0;
+      }
+    }
+  }
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: url('#{$img}/join.webp') no-repeat center bottom;
+    background-size: 600px auto;
+    transform: scale(.9);
+    opacity: 0;
+    transition: transform .5s ease-out, opacity .5s linear;
+    @include media-breakpoint-up(lg) {
       background-size: 766px auto;
     }
 
@@ -77,26 +112,22 @@
         border-radius: 64px;
       }
     }
+  }
 
-    p {
-      color: rgba(white, .5);
-      @include media-breakpoint-up(lg) {
-        max-width: 500px;
-        margin-right: auto;
-        margin-left: auto;
-      }
-    }
+  &.animated &__bg {
+    transform: scale(1);
+    opacity: 1;
+  }
 
-    hr {
-      height: 1px;
-      margin: 24px 0;
-      border: none;
-      background: linear-gradient(to right, rgba(#59efd4, 0) 0%, rgba(#59b0ef, 1) 48%, rgba(#59efd4, 0) 100%);
-      opacity: .1;
-      @include media-breakpoint-up(lg) {
-        margin: 40px 0;
-      }
-    }
+  &__space {
+    transform: translate3d(0, 20px, 0);
+    opacity: 0;
+    transition: transform .5s .1s ease-out, opacity .5s .1s linear;
+  }
+
+  &.animated &__space {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
 
   &__logo {
@@ -148,6 +179,11 @@
     box-shadow: 0 15px 20px rgba(black, .4), 0 4px 10px rgba(black, .4);
     @include font-smooth;
     outline: none;
+    opacity: 0;
+    transform: scale(.3);
+    animation: bounce-in 1s ease forwards;
+    animation-play-state: paused;
+    animation-delay: .6s;
 
     &::before, &::after {
       @include pseudo;
@@ -180,4 +216,15 @@
       }
     }
   }
+
+  &.animated &__button {
+    animation-play-state: running;
+  }
+}
+
+@keyframes bounce-in {
+  0% {opacity: 0;transform: scale(.3);}
+  50% {opacity: 1;transform: scale(1.05);}
+  70% { opacity: 1;transform: scale(.9); }
+  100% { opacity: 1;transform: scale(1); }
 }

@@ -63,33 +63,6 @@ async function copyContent(s) {
   }
 }
 
-const scrollAnimation = () => {
-  let elements = document.querySelectorAll('[data-animation]');
-
-  const elementIn = (el, end = 1) => {
-    const elementTop = el.getBoundingClientRect().top;
-    return (elementTop <= (window.innerHeight || doc.clientHeight) / end);
-  };
-
-  const onScroll = () => {
-    elements.forEach((el, index) => {
-      if (elementIn(el, el.dataset.offset)) {
-        el.classList.add('animated');
-        setTimeout(() => {
-          const event = new Event('animate');
-          el.dispatchEvent(event);
-        }, 50);
-        elements = [].slice.call(elements, 1);
-      }
-    })
-  }
-
-  setTimeout(() => {
-    onScroll();
-    window.addEventListener('scroll', onScroll);
-  }, 200);
-};
-
 const initParallax = () => {
   const speed = .15;
   const onScroll = () => {
@@ -215,13 +188,14 @@ const initCommit = () => {
       start: '20% center',
       onEnter: () => {
         commit.classList.add('animated');
+        cards.setAttribute('data-card', 1);
+        cards.setAttribute('data-reverse', false);
+        cards.setAttribute('data-delayed', true);
         setTimeout(() => {
-          cards.setAttribute('data-reverse', false);
-          cards.setAttribute('data-delayed', true);
-          cards.setAttribute('data-card', 1);
-          setTimeout(() => {
-            cards.setAttribute('data-delayed', false);
-          }, 200);
+          cards.setAttribute('data-delayed', false);
+        }, 200);
+        setTimeout(() => {
+          cards.setAttribute('data-loading', false);
         }, 400);
       }
     }
@@ -337,14 +311,26 @@ const initProducts = () => {
     }
   });
 
+  gsap.to('.products__heading', {
+    scrollTrigger: {
+      trigger: '.products',
+      start: '15% center',
+      end: '60% bottom',
+      scrub: true,
+      id: 'heading',
+      //markers: true
+    },
+    color: 'rgba(255, 255, 255, 0)'
+  });
+
   gsap.to('.products__duplicate', {
     scrollTrigger: {
       trigger: '.products',
       start: '15% center',
-      end: 'bottom bottom',
+      end: '100% bottom',
       scrub: true,
-      //markers: true,
-      id: 'scrub'
+      id: 'scrub',
+      //markers: {startColor: 'red', endColor: 'red'}
     },
     color: 'rgba(255, 255, 255, .3)',
     scale: scale,
@@ -353,16 +339,15 @@ const initProducts = () => {
     ease: 'none'
   });
 
-  gsap.to('.products__heading', {
+  gsap.to('.products', {
     scrollTrigger: {
       trigger: '.products',
-      start: '15% center',
-      end: '60% bottom',
-      scrub: true,
-      //markers: true,
-      id: 'heading'
-    },
-    color: 'rgba(255, 255, 255, 0)'
+      start: '100% bottom',
+      end: '125% bottom',
+      pin: true,
+      id: 'pin',
+      //markers: {startColor: 'white', endColor: 'white'}
+    }
   });
 }
 
@@ -374,8 +359,30 @@ const initTeam = () => {
     splitToLines(p);
   };
 
+  gsap.to('.team', {
+    scrollTrigger: {
+      trigger: '.team',
+      start: '20% center',
+      onEnter: self => {
+        self.trigger.classList.add('animated');
+      },
+    }
+  });
+
   window.addEventListener('resize', onResize, true);
   onResize();
+}
+
+const initJoin = () => {
+  gsap.to('.join', {
+    scrollTrigger: {
+      trigger: '.join',
+      start: '15% center',
+      onEnter: self => {
+        self.trigger.classList.add('animated');
+      },
+    }
+  });
 }
 
 const initContacts = () => {
@@ -386,6 +393,16 @@ const initContacts = () => {
   copy.addEventListener('click', () => {
     copyContent(email);
     return false;
+  });
+
+  gsap.to('.contacts', {
+    scrollTrigger: {
+      trigger: '.contacts',
+      start: '25% center',
+      onEnter: self => {
+        self.trigger.classList.add('animated');
+      },
+    }
   });
 }
 
@@ -400,7 +417,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Lenis
   const lenis = new Lenis({ autoRaf: true, });
 
-  scrollAnimation();
   initParallax();
   initMenu();
   initHero();
@@ -409,5 +425,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCommit();
   initProducts();
   initTeam();
+  initJoin();
   initContacts();
 });
