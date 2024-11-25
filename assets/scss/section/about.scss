@@ -276,7 +276,7 @@
     right: -20px;
     left: -20px;
     z-index: -2;
-    background: url('#{$img}/about-bg-mobile.webp') no-repeat top center;
+    background: url('#{$img}/about-mobile.webp') no-repeat top center;
     background-size: auto 100%;
     transform: translateY(-50%);
     @include media-breakpoint-up(lg) {
@@ -286,7 +286,7 @@
       max-height: none;
       right: auto;
       left: 50%;
-      background-image: url('#{$img}/about-bg.webp');
+      background-image: url('#{$img}/about.webp');
       transform: translate3d(-50%, -50%, 0);
     }
   }

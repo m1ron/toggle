@@ -1,6 +1,92 @@
 const doc = document.documentElement;
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+const initLoader = () => {
+  function getAsyncLoadingImageList(imageSourceList) {
+    const totalCount = imageSourceList.length;
+    let successCount = 0;
+    let failureCount = 0;
+
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+
+        image.onload = function () {
+          resolve({
+            image,
+            counts: {
+              total: totalCount,
+              success: ++successCount,
+              failure: failureCount
+            },
+            success: true,
+          });
+        };
+        image.onerror = image.onabort = function () {
+          reject({
+            image,
+            counts: {
+              total: totalCount,
+              success: successCount,
+              failure: ++failureCount
+            },
+            success: false,
+          });
+        };
+
+        image.src = 'assets/img/' + src;
+      });
+    }
+
+    // return list of *image loading* promises.
+    return imageSourceList.map(src => loadImage(src));
+  }
+
+  function renderImageLoadProgress(imageLoadData) {
+    let p = 0;
+    let a = Math.floor(imageLoadData.counts.success / imageLoadData.counts.total * 100);
+    if (a > 0) {
+      p = a;
+    }
+    percent.innerText = p + '%';
+    div.style.width = p + '%';
+    if (imageLoadData.counts.success === imageLoadData.counts.total) {
+      initApp();
+      setTimeout(function () {
+        loader.classList.add('done');
+        setTimeout(function () {
+          loader.classList.add('hidden');
+        }, 800);
+      }, 200);
+    }
+  }
+
+  const loader = document.querySelector('.loader');
+  const percent = loader.querySelector('.loader__percent');
+  const div = loader.querySelector('.loader__progress div');
+
+  const imageSourceList = [
+    'logo.png',
+    'logo-mobile.png',
+    'stars.svg',
+    'swirl.webp',
+    'galaxy.png',
+    'ray.webp',
+    'about.webp',
+    'blackhole.webp',
+    'footer.webp',
+    'dots.svg',
+    'card.webp',
+    'eclipse.svg'
+  ];
+
+  getAsyncLoadingImageList(imageSourceList).forEach(promise =>
+    promise
+      .then(renderImageLoadProgress)
+      .catch(renderImageLoadProgress)
+  );
+}
+
 const splitToLines = (p) => {
   let text = p.innerText;
   let arr = text.split('');
@@ -114,6 +200,7 @@ const initHero = () => {
   }
 
   document.body.classList.add('inited');
+  document.body.classList.remove('locked');
 };
 
 const initAbout = () => {
@@ -406,7 +493,7 @@ const initContacts = () => {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   if (isMobile) {
     document.body.classList.add('mobile');
   }
@@ -427,4 +514,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initTeam();
   initJoin();
   initContacts();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initLoader();
 });

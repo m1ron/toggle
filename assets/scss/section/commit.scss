@@ -158,7 +158,7 @@
       bottom: 4px;
       left: 4px;
       z-index: -1;
-      background: black url('#{$img}/card-bg.webp') no-repeat center center;
+      background: black url('#{$img}/card.webp') no-repeat center center;
       background-size: cover;
       transition: filter .4s ease;
       @include media-breakpoint-up(lg) {
