@@ -366,7 +366,8 @@ const initProducts = () => {
     }
     let m = +window.getComputedStyle(animation).marginTop.replace('px', '');
     offsetY = ((heading.clientHeight - title.offsetTop) + animation.clientHeight / 2 + m - title.clientHeight * scale / 2);
-    //console.log(offsetX, offsetY);
+    offset2 = offsetY + window.innerHeight / 2.5;
+    //console.log(offsetY, offset2);
   };
 
   const adjustTitle = () => {
@@ -400,9 +401,9 @@ const initProducts = () => {
 
   gsap.to('.products__heading', {
     scrollTrigger: {
-      trigger: '.products',
-      start: '15% center',
-      end: '60% bottom',
+      trigger: '.products__heading p',
+      start: 'top center',
+      end: '150% center',
       scrub: true,
       id: 'heading',
       //markers: true
@@ -412,12 +413,12 @@ const initProducts = () => {
 
   gsap.to('.products__duplicate', {
     scrollTrigger: {
-      trigger: '.products',
-      start: '15% center',
-      end: '100% bottom',
+      trigger: '.products__heading p',
+      start: 'top center',
+      end: offsetY + ' center',
       scrub: true,
       id: 'scrub',
-      //markers: {startColor: 'red', endColor: 'red'}
+      //markers: { startColor: 'red', endColor: 'red' }
     },
     color: 'rgba(255, 255, 255, .3)',
     scale: scale,
@@ -429,11 +430,11 @@ const initProducts = () => {
   gsap.to('.products', {
     scrollTrigger: {
       trigger: '.products',
-      start: '100% bottom',
-      end: '125% bottom',
+      start: offsetY + title.offsetTop + ' center',
+      end: offset2 + ' center',
       pin: true,
       id: 'pin',
-      //markers: {startColor: 'white', endColor: 'white'}
+      //markers: { startColor: 'white', endColor: 'white' }
     }
   });
 }

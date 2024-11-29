@@ -69,8 +69,6 @@
     bottom: 0;
     left: 0;
     z-index: -1;
-    background: url('#{$img}/join.webp') no-repeat center bottom;
-    background-size: 600px auto;
     transform: scale(.9);
     opacity: 0;
     transition: transform .5s ease-out, opacity .5s linear;
@@ -78,36 +76,61 @@
       background-size: 766px auto;
     }
 
-    &::before {
-      @include pseudo;
-      background: linear-gradient(to bottom, rgba(black, .2) 0%, rgba(black, .5) 100%);
-      border: 1.5px solid rgba(white, .1);
-      border-radius: 44px;
+    div {
       position: absolute;
-      top: -5px;
-      right: -5px;
-      bottom: -5px;
-      left: -5px;
-      z-index: -2;
-      @include media-breakpoint-up(lg) {
-        border-radius: 68px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+
+      &::before {
+        @include pseudo;
+        background: linear-gradient(to bottom, rgba(black, .2) 0%, rgba(black, .5) 100%);
+        border: 1.5px solid rgba(white, .1);
+        border-radius: 44px;
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        bottom: -5px;
+        left: -5px;
+        z-index: -2;
+        @include media-breakpoint-up(lg) {
+          border-radius: 68px;
+        }
+      }
+
+      &::after {
+        @include pseudo;
+        padding: 1.5px;
+        border-radius: 40px;
+        inset: 0;
+        opacity: .3;
+        position: absolute;
+        top: -1.5px;
+        right: -1.5px;
+        bottom: -1.5px;
+        left: -1.5px;
+        z-index: -1.5;
+        background: linear-gradient(45deg, rgba(white, .8), rgba(white, .4), rgba(white, .8));
+        mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
+        @include media-breakpoint-up(lg) {
+          border-radius: 64px;
+        }
       }
     }
 
     &::after {
       @include pseudo;
-      padding: 1.5px;
       border-radius: 40px;
-      inset: 0;
-      opacity: .3;
       position: absolute;
-      top: -1px;
-      right: -1px;
-      bottom: -1px;
-      left: -1px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       z-index: -1;
-      background: linear-gradient(45deg, rgba(white, .8), rgba(white, .4), rgba(white, .8));
-      mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
+      background: url('#{$img}/join.webp') no-repeat center bottom;
+      background-size: 600px auto;
       @include media-breakpoint-up(lg) {
         border-radius: 64px;
       }
