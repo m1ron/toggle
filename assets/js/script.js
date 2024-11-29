@@ -256,7 +256,7 @@ const initSuccess = () => {
     scrollTrigger: {
       trigger: '.success',
       start: 'top top',
-      end: '145% top',
+      end: '147.5% top',
       scrub: true,
       onUpdate: self => {
         title.setAttribute('data-progress', Math.floor(self.progress * 100));
@@ -356,7 +356,7 @@ const initProducts = () => {
   const animation = products.querySelector('.products__animation');
   const wrapper = document.querySelector('.wrapper');
 
-  let offsetX = 0, offsetY = 0;
+  let offsetX = 0, offsetY = 0, aniY = 0, startPin = 0, endPin = 0;
   const scale = 2.25;
 
   const calculateOffsets = () => {
@@ -365,9 +365,12 @@ const initProducts = () => {
       offsetX = (window.innerWidth - dupe.clientWidth * scale) / 2 - title.offsetLeft - heading.offsetLeft - wrapper.offsetLeft - 20;
     }
     let m = +window.getComputedStyle(animation).marginTop.replace('px', '');
-    offsetY = ((heading.clientHeight - title.offsetTop) + animation.clientHeight / 2 + m - title.clientHeight * scale / 2);
-    offset2 = offsetY + window.innerHeight / 2.5;
-    //console.log(offsetY, offset2);
+    offsetY = ((heading.clientHeight - title.offsetTop) + animation.clientHeight * .50 + m - title.clientHeight * scale / 2);
+    aniY = ((heading.clientHeight - title.offsetTop) + animation.clientHeight * .50 + m);
+    //offsetY = (animation.clientHeight / 2 + animation + 100 + heading.clientHeight / 2);
+    startPin = offsetY + title.clientHeight * scale / 2 + title.offsetTop;
+    endPin = startPin + window.innerHeight / 2.5;
+    //console.log(offsetY, endPin);
   };
 
   const adjustTitle = () => {
@@ -414,8 +417,8 @@ const initProducts = () => {
   gsap.to('.products__duplicate', {
     scrollTrigger: {
       trigger: '.products__heading p',
-      start: 'top center',
-      end: offsetY + ' center',
+      start: 'center 50%',
+      end: aniY + ' 50%',
       scrub: true,
       id: 'scrub',
       //markers: { startColor: 'red', endColor: 'red' }
@@ -430,8 +433,8 @@ const initProducts = () => {
   gsap.to('.products', {
     scrollTrigger: {
       trigger: '.products',
-      start: offsetY + title.offsetTop + ' center',
-      end: offset2 + ' center',
+      start: startPin + ' 50%',
+      end: endPin + ' 50%',
       pin: true,
       id: 'pin',
       //markers: { startColor: 'white', endColor: 'white' }
