@@ -4,19 +4,20 @@
 /* ===== PRODUCTS ===== */
 .products {
   position: relative;
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up(lg) {
     margin-top: 100px;
   }
 
   &__anchor {
     width: 0;
     height: 0;
-    position: absolute;
+    position: relative;
     top: 150px;
     left: 50%;
     transform: translate3d(-50%, -50vh, 0);
+    background: red;
     @include media-breakpoint-up(lg) {
-      top: 200px;
+      top: 300px;
     }
   }
 

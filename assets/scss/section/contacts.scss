@@ -82,7 +82,7 @@
     &::before {
       padding: 1px;
       opacity: .15;
-      background: linear-gradient(135deg, rgba(white, .8), rgba(white, .15));
+      background: linear-gradient(135deg, rgba(white, .9), rgba(white, .3));
       mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
       inset: 0;
       z-index: -1;
@@ -90,17 +90,17 @@
     }
 
     &::after {
-      border: 1px solid transparent;
-      background: linear-gradient(135deg, rgba(white, .8), rgba(black, .15));
+      //border: 1px solid transparent;
+      background: linear-gradient(135deg, rgba(white, .8), rgba(black, .1));
       box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .81);
-      opacity: .1;
+      opacity: .12;
       z-index: -2;
       transform: translate3d(0, 0, 0);
       transition: opacity $effect;
     }
 
     &:hover {
-      &::before {opacity: .3;}
+      &::before {opacity: .2;}
       &::after {opacity: .15;}
       ~ .contacts__email::before {
         opacity: .6;
