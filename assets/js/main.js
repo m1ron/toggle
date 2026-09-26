@@ -27,52 +27,96 @@ const onWidthResize = (fn) => {
   }));
 };
 
+// Keeps preloaded images alive so their decoded bitmaps are not garbage collected
+const preloadedImages = [];
+
+// Minimum time the progress bar takes to fill, so the loader is visible even on fast connections
+const LOADER_MIN_DURATION = 1.6; // s
+
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 const initLoader = () => {
   const loader = document.querySelector('.loader');
   const percent = loader.querySelector('.loader__percent');
   const bar = loader.querySelector('.loader__progress div');
 
-  // Resolved (hashed) URLs of the images used as section backgrounds
-  const urls = import.meta.glob('../img/*.{png,webp,svg}', { eager: true, query: '?url', import: 'default' });
-  const images = [
-    'logo.png',
-    'logo-mobile.png',
-    'stars.svg',
-    'swirl.webp',
-    'galaxy.png',
-    'ray.webp',
-    'about.webp',
-    'blackhole.webp',
-    'footer.webp',
-    'dots.svg',
-    'card.webp',
-    'eclipse.svg'
-  ].map(name => urls[`../img/${name}`]);
-
-  let settled = 0;
-  const onSettled = () => {
-    const p = Math.floor(++settled / images.length * 100);
-    percent.innerText = p + '%';
-    bar.style.width = p + '%';
+  // Everything the page shows at the current viewport size: CSS backgrounds
+  // (resolved through media queries, so phones get the mobile variants) and eager <img>s
+  const getImageUrls = () => {
+    const urls = new Set();
+    for (const el of document.querySelectorAll('body *')) {
+      for (const pseudo of [null, '::before', '::after']) {
+        for (const [, url] of getComputedStyle(el, pseudo).backgroundImage.matchAll(/url\("([^"]+)"\)/g)) {
+          if (!url.startsWith('data:')) urls.add(url);
+        }
+      }
+    }
+    for (const img of document.querySelectorAll('img:not([loading="lazy"])')) {
+      urls.add(img.src);
+    }
+    return [...urls];
   };
 
-  const loadImage = (src) => new Promise((resolve, reject) => {
+  // Download and decode up front, so sections don't decode big bitmaps mid-scroll.
+  // decode() can stall (e.g. in a background tab), so don't wait for it longer than a second.
+  const loadImage = (src) => new Promise((resolve) => {
     const image = new Image();
-    image.onload = resolve;
-    image.onerror = image.onabort = reject;
+    image.onload = () => {
+      image.decode().then(resolve, resolve);
+      setTimeout(resolve, 1000);
+    };
+    image.onerror = image.onabort = resolve;
     image.src = src;
-  }).finally(onSettled);
-
-  // Failed images must not block the app
-  Promise.allSettled(images.map(loadImage)).then(() => {
-    initApp();
-    setTimeout(() => {
-      loader.classList.add('done');
-      setTimeout(() => {
-        loader.classList.add('hidden');
-      }, 800);
-    }, 200);
+    preloadedImages.push(image);
   });
+
+  const images = getImageUrls();
+  let loaded = 0; // share of settled images, 0..1
+  images.forEach(src => loadImage(src).then(() => {
+    loaded += 1 / images.length;
+  }));
+
+  // Hide the loader, then fade the page in
+  const finish = async () => {
+    initApp(); // runs while the loader still covers the page
+    await wait(300);
+    loader.classList.add('done');
+    await wait(600);
+    loader.classList.add('hidden');
+    document.body.classList.remove('loading');
+    document.body.classList.add('revealing');
+    await wait(1600);
+    document.body.classList.remove('revealing');
+  };
+
+  // The displayed progress follows the real one, but never faster than LOADER_MIN_DURATION allows
+  const ease = gsap.parseEase('power1.inOut');
+  let startTime = null;
+  let shown = 0;
+  let shownPercent = -1;
+
+  const tick = (time, deltaTime) => {
+    startTime ??= time;
+    const timeLimit = ease(Math.min((time - startTime) / LOADER_MIN_DURATION, 1));
+    const target = Math.min(loaded > .999 ? 1 : loaded, timeLimit);
+
+    // Frame rate independent easing towards the target
+    shown += (target - shown) * (1 - Math.pow(.85, deltaTime / 16.67));
+    if (target - shown < .002) shown = target;
+
+    bar.style.transform = `scaleX(${shown})`;
+    const p = Math.round(shown * 100);
+    if (p !== shownPercent) {
+      shownPercent = p;
+      percent.innerText = p + '%';
+    }
+
+    if (shown === 1) {
+      gsap.ticker.remove(tick);
+      finish();
+    }
+  };
+  gsap.ticker.add(tick);
 };
 
 // Wraps every character of the text into its own span
@@ -452,7 +496,8 @@ function initApp() {
   }
 
   // Drive Lenis from the GSAP ticker so scrolling and ScrollTrigger update in the same frame
-  const lenis = new Lenis();
+  // Every wheel step glides for 1.5s with Lenis' default easeOutExpo: quick response, long soft stop
+  const lenis = new Lenis({ duration: 1.5 });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);

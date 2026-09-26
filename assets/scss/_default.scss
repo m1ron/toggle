@@ -46,6 +46,14 @@ body {
   &.locked {
     overflow: hidden;
   }
+
+  // Page stays hidden behind the loader, then fades in
+  &.loading {
+    .header, .main, .footer {opacity: 0;}
+  }
+  &.revealing {
+    .header, .main, .footer {transition: opacity .8s ease;}
+  }
 }
 
 a {

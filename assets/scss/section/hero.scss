@@ -185,4 +185,24 @@
       &::after {opacity: .55;bottom: -10px;}
     }
   }
+
+  // Entrance after the loader is gone
+  body.revealing & {
+    &__title,
+    &__subheading,
+    &__button {
+      animation: hero-in .9s cubic-bezier(.2, .7, .2, 1) backwards;
+    }
+    &__title {animation-delay: .15s;}
+    &__subheading {animation-delay: .3s;}
+    &__button {animation-delay: .45s;}
+  }
+}
+
+// Only `from`: animates to the element's own opacity/transform
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
 }
