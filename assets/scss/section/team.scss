@@ -36,7 +36,7 @@
     background-size: auto 510px;
     transform: scale(1.25) translate3d(0, 0, 0);
     opacity: 0;
-    transition: transform .8s $bezier, opacity .8s linear;
+    @include reveal($duration-reveal);
     @include media-breakpoint-up(lg) {
       background-size: cover;
     }
@@ -55,7 +55,7 @@
     text-shadow: 0 0 4px rgba(black, .2);
     transform: scale(1.35) translate3d(0, 0, 0);
     opacity: 0;
-    transition: transform .8s $bezier, opacity .8s linear;
+    @include reveal($duration-reveal);
     cursor: default;
     @include font-smooth;
     @include user-select;
@@ -84,13 +84,13 @@
     > div {
       opacity: 0;
       transform: translate3d(0, 16px, 0);
-      transition: opacity .75s linear, transform .75s $bezier;
+      @include reveal($duration-reveal-s);
       @include media-breakpoint-up(lg) {
       }
 
       @for $i from 1 through 10 {
         &:nth-child(#{$i}) {
-          transition-delay: .2s + $i * .25s;
+          transition-delay: $stagger * 2 + $i * $stagger;
         }
       }
     }
@@ -113,7 +113,7 @@
     bottom: 0;
     left: 0;
     transform: scale(.7) translate3d(0, 0, 0);
-    transition: transform .6s $bezier .2s;
+    transition: transform $duration-reveal $ease-out-quint $stagger * 2;
     @include media-breakpoint-up(lg) {
 
     }
@@ -141,7 +141,7 @@
     animation: orbit 16s forwards infinite;
     animation-timing-function: linear;
     animation-play-state: paused;
-    transition: opacity .8s linear .2s;
+    transition: opacity $duration-reveal-s $ease-out-quint $stagger * 2;
     opacity: 0;
     @include media-breakpoint-up(lg) {
       width: 60px;

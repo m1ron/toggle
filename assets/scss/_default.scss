@@ -52,7 +52,17 @@ body {
     .header, .main, .footer {opacity: 0;}
   }
   &.revealing {
-    .header, .main, .footer {transition: opacity .8s ease;}
+    .header, .main, .footer {transition: opacity $duration-reveal-s $ease-out-cubic;}
+  }
+}
+
+// Reduced motion: no movement, only quick fades; one-off and looping animations jump to their end
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-property: opacity !important;
+    animation-duration: .01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
   }
 }
 

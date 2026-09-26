@@ -37,14 +37,16 @@ $color-gray: #959fb1;
 $color-sky: #5ddcff;
 $color-blueish: #ecf0f2;
 
-// Transition Settings
-$bezier: cubic-bezier(.250, .460, .450, .940);
-$easing: ease;
-$effect: .3s $easing;
-$effect-s: .2s $easing;
-$ease-out-quint: cubic-bezier(.22, 1, .36, 1);
-$ease-out-cubic: cubic-bezier(.33, 1, .68, 1);
-$ease-in-out-quad: cubic-bezier(.45, 0, .55, 1);
+// Motion: one set of curves, durations and stagger for the whole page
+$ease-out-quint: cubic-bezier(.22, 1, .36, 1);     // entrances
+$ease-out-cubic: cubic-bezier(.33, 1, .68, 1);     // hovers and small UI feedback
+$ease-in-out-cubic: cubic-bezier(.65, 0, .35, 1);  // state changes, elements passing each other
+$ease-out-back: cubic-bezier(.34, 1.4, .64, 1);    // gentle overshoot, used sparingly
+
+$duration-intro: 1.6s;     // hero entrance after the loader
+$duration-reveal: 1.2s;    // large blocks
+$duration-reveal-s: .8s;   // text lines, cards, small elements
+$stagger: .12s;            // step between items of a cascade
 
 // Hover / focus feedback on buttons and links
 $effect-hover: .6s $ease-out-cubic;
@@ -55,3 +57,8 @@ $effect-hover: .6s $ease-out-cubic;
 @mixin font-smooth {-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 @mixin user-select {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 @mixin user-drag {-webkit-user-drag: none;user-drag: none;}
+
+// Entrance: transform eases over the full duration, opacity arrives a bit earlier on the same curve
+@mixin reveal($duration: $duration-reveal, $delay: 0s) {
+  transition: opacity $duration * .6 $ease-out-quint $delay, transform $duration $ease-out-quint $delay;
+}

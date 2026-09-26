@@ -2,6 +2,9 @@
 @use '../breakpoints' as *;
 
 /* ===== COMMIT ===== */
+
+// Card switch duration; the JS swaps card depth halfway through (CARD_SWITCH in main.js)
+$card-switch: .6s;
 .commit {
   min-height: 620px;
   height: 100vh;
@@ -49,7 +52,7 @@
         background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NDYiIGhlaWdodD0iNTMyIiBmaWxsPSJub25lIj48cGF0aCBmaWxsPSJ1cmwoI2EpIiBkPSJNMCAwaDF2NjRIMHoiIG9wYWNpdHk9Ii4yIiB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAtMSA3NDEgNzMpIi8+PHBhdGggZmlsbD0idXJsKCNiKSIgZD0iTTAgMGgxdjY0SDB6IiBvcGFjaXR5PSIuMiIgdHJhbnNmb3JtPSJtYXRyaXgoMCAxIDEgMCA2NzMgNCkiLz48Y2lyY2xlIGN4PSI0LjUiIGN5PSI0LjUiIHI9IjQiIHN0cm9rZT0iI2ZmZiIgb3BhY2l0eT0iLjM0IiB0cmFuc2Zvcm09Im1hdHJpeCgwIDEgMSAwIDczNyAwKSIvPjxwYXRoIGZpbGw9InVybCgjYykiIGQ9Ik01IDczaDF2NjRINXoiIG9wYWNpdHk9Ii4yIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTgwIDUgNzMpIi8+PHBhdGggZmlsbD0idXJsKCNkKSIgZD0iTTczIDRoMXY2NGgtMXoiIG9wYWNpdHk9Ii4yIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA3MyA0KSIvPjxjaXJjbGUgY3g9IjQuNSIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjZmZmIiBvcGFjaXR5PSIuMzQiIHRyYW5zZm9ybT0icm90YXRlKDkwIDQuNSA0LjUpIi8+PHBhdGggZmlsbD0idXJsKCNlKSIgZD0iTTc0MSA0NTloMXY2NGgtMXoiIG9wYWNpdHk9Ii4yIi8+PHBhdGggZmlsbD0idXJsKCNmKSIgZD0iTTY3MyA1MjhoMXY2NGgtMXoiIG9wYWNpdHk9Ii4yIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAgNjczIDUyOCkiLz48Y2lyY2xlIGN4PSI3NDEuNSIgY3k9IjUyNy41IiByPSI0IiBzdHJva2U9IiNmZmYiIG9wYWNpdHk9Ii4zNCIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDc0MS41IDUyNy41KSIvPjxwYXRoIGZpbGw9InVybCgjZykiIGQ9Ik0wIDBoMXY2NEgweiIgb3BhY2l0eT0iLjIiIHRyYW5zZm9ybT0ibWF0cml4KC0xIDAgMCAxIDUgNDU5KSIvPjxwYXRoIGZpbGw9InVybCgjaCkiIGQ9Ik0wIDBoMXY2NEgweiIgb3BhY2l0eT0iLjIiIHRyYW5zZm9ybT0ibWF0cml4KDAgLTEgLTEgMCA3MyA1MjgpIi8+PGNpcmNsZSBjeD0iNC41IiBjeT0iNC41IiByPSI0IiBzdHJva2U9IiNmZmYiIG9wYWNpdHk9Ii4zNCIgdHJhbnNmb3JtPSJtYXRyaXgoMCAtMSAtMSAwIDkgNTMyKSIvPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9Ii41IiB4Mj0iLjUiIHkxPSI2NCIgeTI9IjAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBzdG9wLWNvbG9yPSIjZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDE9Ii41IiB4Mj0iLjUiIHkxPSI2NCIgeTI9IjAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBzdG9wLWNvbG9yPSIjZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iYyIgeDE9IjUuNSIgeDI9IjUuNSIgeTE9IjEzNyIgeTI9IjczIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iI2ZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImQiIHgxPSI3My41IiB4Mj0iNzMuNSIgeTE9IjY4IiB5Mj0iNCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJlIiB4MT0iNzQxLjUiIHgyPSI3NDEuNSIgeTE9IjUyMyIgeTI9IjQ1OSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJmIiB4MT0iNjczLjUiIHgyPSI2NzMuNSIgeTE9IjU5MiIgeTI9IjUyOCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iLjUiIHgyPSIuNSIgeTE9IjY0IiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJoIiB4MT0iLjUiIHgyPSIuNSIgeTE9IjY0IiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==') no-repeat center center;
         transform: scale(75%);
         opacity: 0;
-        transition: opacity .4s, transform .6s $bezier;
+        @include reveal($duration-reveal);
       }
     }
   }
@@ -67,7 +70,7 @@
     position: relative;
     opacity: 0;
     transform: translate3d(0, 4em, 0);
-    transition: opacity .4s, transform .6s $bezier;
+    @include reveal($duration-reveal-s);
     cursor: default;
     @include font-smooth;
     @include user-select;
@@ -113,7 +116,7 @@
 .cards {
   height: 205px;
   position: relative;
-  transition: opacity 1s linear .1s;
+  transition: opacity $duration-reveal-s $ease-out-quint $stagger;
   opacity: 0;
   @include media-breakpoint-up(lg) {
     height: 322px;
@@ -139,7 +142,7 @@
     cursor: default;
     transform: translate3d(-50%, -50%, 0);
     -webkit-backface-visibility: hidden;
-    transition: transform .4s ease, opacity .4s linear;
+    transition: transform $card-switch $ease-in-out-cubic, opacity $card-switch $ease-in-out-cubic;
     transform-origin: bottom center;
     @include media-breakpoint-up(lg) {
       width: 260px;
@@ -162,7 +165,7 @@
       z-index: -1;
       background: black url('#{$img}/card.webp') no-repeat center center;
       background-size: cover;
-      transition: filter .4s ease;
+      transition: filter $card-switch $ease-in-out-cubic;
       @include media-breakpoint-up(lg) {
         border-radius: 40px;
       }
@@ -347,7 +350,7 @@
     z-index: -1;
     opacity: 1;
     filter: none;
-    transition: opacity .4s linear, filter .4s linear, transform .4s ease;
+    transition: opacity $card-switch $ease-in-out-cubic, filter $card-switch $ease-in-out-cubic, transform $card-switch $ease-in-out-cubic;
     transform: translate3d(0, -23px, 0);
     -webkit-backface-visibility: hidden;
     @include user-select;
@@ -363,7 +366,7 @@
     margin: 0;
     position: relative;
     z-index: 1;
-    transition: opacity .35s $easing;
+    transition: opacity .4s $ease-out-cubic;
   }
 
   &__progress {
@@ -388,7 +391,7 @@
       border-radius: 2px;
       margin-left: 380px;
       transform: translate3d(-80px, 0, 0);
-      transition: transform .8s ease;
+      transition: transform $duration-reveal $ease-out-quint;
     }
 
     &::after {
@@ -400,7 +403,7 @@
       top: 0;
       left: 0;
       background: linear-gradient(180deg, rgba(white, 0) 0%, rgba(white, .7) 100%);
-      transition: height .6s ease;
+      transition: height $card-switch $ease-in-out-cubic;
       @include media-breakpoint-up(lg) {
         border-radius: 2px;
       }

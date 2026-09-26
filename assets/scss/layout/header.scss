@@ -15,7 +15,7 @@
   &__brand {
     margin: 0;
     overflow: hidden;
-    position: absolute;
+    position: fixed; // stays visible while scrolling (as on production)
     top: 31px;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
@@ -176,7 +176,7 @@
       font-weight: 400;
       letter-spacing: .04em;
       text-align: center;
-      transition: max-height .4s $bezier;
+      transition: max-height .4s $ease-out-cubic;
       @include user-select;
       @include media-breakpoint-down(lg) {
         display: none;

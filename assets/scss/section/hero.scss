@@ -44,7 +44,7 @@
     position: relative;
     opacity: 0;
     transform: translate3d(0, 0, 0);
-    transition: opacity $effect;
+    transition: opacity $duration-reveal-s $ease-out-cubic;
     @include media-breakpoint-up(lg) {
       margin-bottom: 26px;
     }
@@ -191,11 +191,17 @@
     &__title,
     &__subheading,
     &__button {
-      animation: hero-in 1.6s $ease-out-quint backwards;
+      animation: hero-in $duration-intro $ease-out-quint backwards;
     }
     &__title {animation-delay: .2s;}
-    &__subheading {animation-delay: .5s;}
-    &__button {animation-delay: .8s;}
+    &__subheading {animation-delay: .4s;}
+    &__button {animation-delay: .6s;}
+  }
+  // Repeat visit: no initial pause
+  body.revealing.revisit & {
+    &__title {animation-delay: 0s;}
+    &__subheading {animation-delay: .2s;}
+    &__button {animation-delay: .4s;}
   }
 }
 

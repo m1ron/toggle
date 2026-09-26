@@ -184,7 +184,7 @@
     top: 100%;
     right: 0;
     opacity: 0;
-    transition: transform .8s ease, opacity .8s ease;
+    @include reveal($duration-reveal-s);
     cursor: default;
     @include font-smooth;
     @include media-breakpoint-down(xss) {

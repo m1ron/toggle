@@ -110,7 +110,7 @@
       background-size: auto 90%;
       opacity: 0;
       transform: translate3d(-50%, -50%, 0);
-      transition: opacity 1.2s ease;
+      transition: opacity $duration-reveal $ease-out-quint;
       @include media-breakpoint-up(lg) {
         margin-top: 0;
       }
@@ -132,7 +132,7 @@
     background: rgba(black, .3);
     box-shadow: 0 6px 18px rgba(black, .67);
     transform: scale(.95) translate3d(0, 0, 0);;
-    transition: opacity .8s ease .4s, transform 1.2s ease .4s;
+    @include reveal($duration-reveal, $stagger * 2);
     opacity: 0;
     backdrop-filter: blur(10px);
     @include media-breakpoint-up(lg) {
@@ -174,8 +174,7 @@
       height: 208px;
       border-radius: 18px;
       z-index: 4;
-      transition-delay: .8s, .8s;
-      transition-duration: .8s, .8s;
+      transition-delay: $stagger * 5;
       @include media-breakpoint-up(lg) {
         width: 191px;
         height: 400px;

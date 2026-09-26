@@ -9,6 +9,23 @@ const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/
   // iPadOS 13+ reports itself as a Mac
   || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 
+// Users who asked the OS for less motion get no parallax, no soft pins and a short intro
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Repeat visits get a shorter intro (the flag lives in this browser only)
+const isRepeatVisit = (() => {
+  try {
+    const visited = localStorage.getItem('toggle-visited') === '1';
+    localStorage.setItem('toggle-visited', '1');
+    return visited;
+  } catch {
+    return false;
+  }
+})();
+
+// Section entrances start when the section top passes the lower quarter of the viewport
+const REVEAL_START = 'top 75%';
+
 const debounce = (fn, delay = 150) => {
   let timer;
   return (...args) => {
@@ -31,7 +48,10 @@ const onWidthResize = (fn) => {
 const preloadedImages = [];
 
 // Minimum time the progress bar takes to fill, so the loader is visible even on fast connections
-const LOADER_MIN_DURATION = 1.6; // s
+const LOADER_MIN_DURATION = prefersReducedMotion ? .3 : isRepeatVisit ? .6 : 1.6; // s
+
+// Safety net for stalled requests (e.g. a bad mobile connection): show the site anyway
+const LOADER_TIMEOUT = 10000; // ms
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -75,17 +95,23 @@ const initLoader = () => {
   images.forEach(src => loadImage(src).then(() => {
     loaded += 1 / images.length;
   }));
+  // Treat loading as complete after the timeout: the bar eases to 100% and the page shows as usual
+  setTimeout(() => {
+    loaded = 1;
+  }, LOADER_TIMEOUT);
 
   // Hide the loader, then fade the page in
   const finish = async () => {
     initApp(); // runs while the loader still covers the page
-    await wait(300);
+    document.body.classList.toggle('revisit', isRepeatVisit);
+    await wait(isRepeatVisit ? 150 : 300);
     loader.classList.add('done');
     await wait(600);
     loader.classList.add('hidden');
     document.body.classList.remove('loading');
     document.body.classList.add('revealing');
-    await wait(2600); // longest hero entrance: .8s delay + 1.6s
+    // Longest hero entrance: button delay + $duration-intro (see hero.scss), plus a margin
+    await wait((isRepeatVisit ? 400 : 600) + 1600 + 200);
     document.body.classList.remove('revealing');
   };
 
@@ -164,6 +190,7 @@ const splitToLetters = (el) => {
 const STARS_TILE = 1441;
 
 const initParallax = (lenis) => {
+  if (prefersReducedMotion) return;
   const layer = document.querySelector('.stars__layer');
   const speed = .15;
   const onScroll = ({ scroll }) => {
@@ -190,6 +217,7 @@ const initAnchors = (lenis) => {
     lenis.scrollTo(target, {
       duration: Math.min(1.4 + distance / 3500, 3),
       easing: t => t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2, // easeInOutCubic
+      immediate: prefersReducedMotion,
     });
     history.pushState(null, '', hash);
   });
@@ -244,7 +272,7 @@ const initHero = () => {
   }
 
   // Barely-there parallax: the content lags slightly behind while the hero scrolls away
-  gsap.to('.hero__content', {
+  if (!prefersReducedMotion) gsap.to('.hero__content', {
     y: () => hero.offsetHeight * .12,
     ease: 'none',
     scrollTrigger: {
@@ -268,7 +296,7 @@ const initAbout = () => {
   onWidthResize(() => splitToLines(p));
 
   // Barely-there parallax for the background glow (::before), starts from its design position
-  gsap.to(about, {
+  if (!prefersReducedMotion) gsap.to(about, {
     '--about-parallax': '100px',
     ease: 'none',
     scrollTrigger: {
@@ -281,7 +309,7 @@ const initAbout = () => {
 
   ScrollTrigger.create({
     trigger: '.about',
-    start: '20% bottom',
+    start: REVEAL_START,
     onEnter: () => {
       about.classList.add('animated');
       setTimeout(() => {
@@ -294,15 +322,12 @@ const initAbout = () => {
 // Pin with eased entry and exit: instead of stopping dead, the section content keeps moving
 // and decelerates into place (and later accelerates out) over a short stretch of scroll.
 // The content is shifted through the --pin-shift variable (see .success / .commit styles).
-const SOFT_PIN_SHIFT = 100; // px the content travels during each ramp
+const SOFT_PIN_SHIFT = prefersReducedMotion ? 0 : 100; // px the content travels during each ramp
 
 const softPin = (section, end) => {
   const shift = SOFT_PIN_SHIFT;
   // A ramp twice as long as the shift makes power2 easing start/end at exactly the scroll speed
   const ramp = shift * 2;
-
-  // The content ends 2 × shift higher than the section box, pull the next section up to match
-  section.style.marginBottom = `${-2 * shift}px`;
 
   const pin = ScrollTrigger.create({
     trigger: section,
@@ -310,6 +335,10 @@ const softPin = (section, end) => {
     end,
     pin: true,
   });
+  if (!shift) return pin; // reduced motion: a plain pin
+
+  // The content ends 2 × shift higher than the section box, pull the next section up to match
+  section.style.marginBottom = `${-2 * shift}px`;
 
   gsap.fromTo(section, { '--pin-shift': '0px' }, {
     '--pin-shift': `${-shift}px`,
@@ -334,7 +363,7 @@ const initSuccess = () => {
 
   ScrollTrigger.create({
     trigger: '.success',
-    start: '20% center',
+    start: REVEAL_START,
     onEnter: self => {
       self.trigger.classList.add('animated');
     },
@@ -344,7 +373,7 @@ const initSuccess = () => {
 
   // Barely-there parallax: the background artwork drifts while the title stays put,
   // passing its design position exactly in the middle of the pinned stretch
-  gsap.fromTo(success, { '--success-drift': '40px' }, {
+  if (!prefersReducedMotion) gsap.fromTo(success, { '--success-drift': '40px' }, {
     '--success-drift': '-40px',
     ease: 'none',
     scrollTrigger: { start: () => pin.start, end: () => pin.end, scrub: true },
@@ -362,6 +391,10 @@ const initSuccess = () => {
   });
 }
 
+// Card switch duration in ms, matches $card-switch in commit.scss.
+// Cards pass each other halfway through, that's when their depth order is swapped.
+const CARD_SWITCH = 600;
+
 const initCommit = () => {
   const commit = document.querySelector('.commit');
   const cards = commit.querySelector('.cards');
@@ -375,18 +408,18 @@ const initCommit = () => {
     cards.setAttribute('data-delayed', !reverse);
     delayTimer = setTimeout(() => {
       cards.setAttribute('data-delayed', reverse);
-    }, 200);
+    }, CARD_SWITCH / 2);
   };
 
   ScrollTrigger.create({
     trigger: '.commit',
-    start: '20% center',
+    start: REVEAL_START,
     onEnter: () => {
       commit.classList.add('animated');
       setCard(1);
       setTimeout(() => {
         cards.setAttribute('data-loading', false);
-      }, 400);
+      }, CARD_SWITCH);
     }
   });
 
@@ -447,12 +480,9 @@ const initProducts = () => {
 
   ScrollTrigger.create({
     trigger: '.products',
-    start: '25% center',
+    start: REVEAL_START,
     onEnter: self => {
       self.trigger.classList.add('animated');
-    },
-    onLeaveBack: self => {
-      self.trigger.classList.remove('animated');
     },
   });
 
@@ -505,7 +535,7 @@ const initTeam = () => {
 
   ScrollTrigger.create({
     trigger: '.team',
-    start: '20% center',
+    start: REVEAL_START,
     onEnter: self => {
       self.trigger.classList.add('animated');
     },
@@ -518,7 +548,7 @@ const initTeam = () => {
 const initJoin = () => {
   ScrollTrigger.create({
     trigger: '.join',
-    start: '15% center',
+    start: REVEAL_START,
     onEnter: self => {
       self.trigger.classList.add('animated');
     },
@@ -548,7 +578,7 @@ const initContacts = () => {
 
   ScrollTrigger.create({
     trigger: '.contacts',
-    start: '25% center',
+    start: REVEAL_START,
     onEnter: self => {
       self.trigger.classList.add('animated');
     },
