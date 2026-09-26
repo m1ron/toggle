@@ -19,3 +19,7 @@ HTML markup with animations
 
 ## Preview the build
 `npm run preview`
+
+## Deploy
+Set `SITE_URL` (e.g. `https://example.com`) in the hosting build environment.
+It is used for the absolute Open Graph URLs (`og:url`, `og:image`); without it those tags are omitted.
