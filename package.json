@@ -2,18 +2,18 @@
   "name": "toggle",
   "version": "1.0.0",
   "description": "markup for Toggle website",
-  "main": "index.html",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "gulp",
+    "build": "gulp scss"
   },
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "browser-sync": "^2.27.11",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
-    "gulp-twig": "^1.2.0",
     "sass": "^1.57.1"
   }
 }

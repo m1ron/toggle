@@ -1,5 +1,25 @@
 const doc = document.documentElement;
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  // iPadOS 13+ reports itself as a Mac
+  || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+
+const debounce = (fn, delay = 150) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+};
+
+// Fires only when the viewport width changes (ignores mobile address bar show/hide)
+const onWidthResize = (fn) => {
+  let width = window.innerWidth;
+  window.addEventListener('resize', debounce(() => {
+    if (window.innerWidth === width) return;
+    width = window.innerWidth;
+    fn();
+  }));
+};
 
 const initLoader = () => {
   function getAsyncLoadingImageList(imageSourceList) {
@@ -43,14 +63,11 @@ const initLoader = () => {
   }
 
   function renderImageLoadProgress(imageLoadData) {
-    let p = 0;
-    let a = Math.floor(imageLoadData.counts.success / imageLoadData.counts.total * 100);
-    if (a > 0) {
-      p = a;
-    }
+    const { success, failure, total } = imageLoadData.counts;
+    const p = Math.floor((success + failure) / total * 100);
     percent.innerText = p + '%';
     div.style.width = p + '%';
-    if (imageLoadData.counts.success === imageLoadData.counts.total) {
+    if (success + failure === total) {
       initApp();
       setTimeout(function () {
         loader.classList.add('done');
@@ -88,7 +105,10 @@ const initLoader = () => {
 }
 
 const splitToLines = (p) => {
-  let text = p.innerText;
+  if (!p.dataset.text) {
+    p.dataset.text = p.innerText;
+  }
+  let text = p.dataset.text;
   let arr = text.split('');
   p.innerHTML = '';
 
@@ -149,13 +169,29 @@ async function copyContent(s) {
   }
 }
 
-const initParallax = () => {
+const initParallax = (lenis) => {
   const speed = .15;
-  const onScroll = () => {
-    doc.style.setProperty('--parallax-offset', `-${window.pageYOffset * speed}px`);
-  }
-  onScroll();
-  window.addEventListener('scroll', onScroll);
+  const onScroll = ({ scroll }) => {
+    doc.style.setProperty('--parallax-offset', `-${scroll * speed}px`);
+  };
+  onScroll(lenis);
+  lenis.on('scroll', onScroll);
+};
+
+// Smooth scroll to in-page anchors via Lenis
+const initAnchors = (lenis) => {
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    const hash = link.getAttribute('href');
+    const target = hash.length > 1 && document.getElementById(hash.slice(1));
+    if (!target) return;
+
+    e.preventDefault();
+    lenis.scrollTo(target);
+    history.pushState(null, '', hash);
+  });
 };
 
 const initMenu = () => {
@@ -207,11 +243,8 @@ const initAbout = () => {
   const about = document.querySelector('.about');
   const p = about.querySelector('.about__text');
 
-  const onResize = () => {
-    splitToLines(p);
-  };
-  window.addEventListener('resize', onResize, true);
-  onResize();
+  splitToLines(p);
+  onWidthResize(() => splitToLines(p));
 
   gsap.to('.about', {
     scrollTrigger: {
@@ -381,13 +414,10 @@ const initProducts = () => {
     dupe.append(span);
   };
 
-  const onResize = () => {
-    calculateOffsets();
-  };
-
   adjustTitle();
-  window.addEventListener('resize', onResize, true);
-  onResize();
+  calculateOffsets();
+  // Recalculate before every ScrollTrigger refresh (fires on resize too)
+  ScrollTrigger.addEventListener('refreshInit', calculateOffsets);
 
   gsap.to('.products', {
     scrollTrigger: {
@@ -418,23 +448,24 @@ const initProducts = () => {
     scrollTrigger: {
       trigger: '.products__heading p',
       start: 'center 50%',
-      end: aniY + ' 50%',
+      end: () => aniY + ' 50%',
       scrub: true,
+      invalidateOnRefresh: true,
       id: 'scrub',
       //markers: { startColor: 'red', endColor: 'red' }
     },
     color: 'rgba(255, 255, 255, .3)',
     scale: scale,
-    x: offsetX,
-    y: offsetY,
+    x: () => offsetX,
+    y: () => offsetY,
     ease: 'none'
   });
 
   gsap.to('.products', {
     scrollTrigger: {
       trigger: '.products',
-      start: startPin + ' 50%',
-      end: endPin + ' 50%',
+      start: () => startPin + ' 50%',
+      end: () => endPin + ' 50%',
       pin: true,
       id: 'pin',
       //markers: { startColor: 'white', endColor: 'white' }
@@ -446,10 +477,6 @@ const initTeam = () => {
   const team = document.querySelector('.team');
   const p = team.querySelector('.team__text');
 
-  const onResize = () => {
-    splitToLines(p);
-  };
-
   gsap.to('.team', {
     scrollTrigger: {
       trigger: '.team',
@@ -460,8 +487,8 @@ const initTeam = () => {
     }
   });
 
-  window.addEventListener('resize', onResize, true);
-  onResize();
+  splitToLines(p);
+  onWidthResize(() => splitToLines(p));
 }
 
 const initJoin = () => {
@@ -507,8 +534,10 @@ function initApp() {
 
   // Initialize Lenis
   const lenis = new Lenis({ autoRaf: true, });
+  lenis.on('scroll', ScrollTrigger.update);
 
-  initParallax();
+  initParallax(lenis);
+  initAnchors(lenis);
   initMenu();
   initHero();
   initAbout();
