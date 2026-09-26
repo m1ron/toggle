@@ -85,7 +85,7 @@ const initLoader = () => {
     loader.classList.add('hidden');
     document.body.classList.remove('loading');
     document.body.classList.add('revealing');
-    await wait(1600);
+    await wait(2600); // longest hero entrance: .8s delay + 1.6s
     document.body.classList.remove('revealing');
   };
 
@@ -185,7 +185,12 @@ const initAnchors = (lenis) => {
     if (!target) return;
 
     e.preventDefault();
-    lenis.scrollTo(target);
+    // Long jumps need a gentle start as well as a soft stop, and more time the further they go
+    const distance = Math.abs(target.getBoundingClientRect().top);
+    lenis.scrollTo(target, {
+      duration: Math.min(1.4 + distance / 3500, 3),
+      easing: t => t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2, // easeInOutCubic
+    });
     history.pushState(null, '', hash);
   });
 };
@@ -238,6 +243,19 @@ const initHero = () => {
     window.addEventListener('resize', onResize);
   }
 
+  // Barely-there parallax: the content lags slightly behind while the hero scrolls away
+  gsap.to('.hero__content', {
+    y: () => hero.offsetHeight * .12,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: hero,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+      invalidateOnRefresh: true,
+    },
+  });
+
   document.body.classList.add('inited');
   document.body.classList.remove('locked');
 };
@@ -248,6 +266,18 @@ const initAbout = () => {
 
   splitToLines(p);
   onWidthResize(() => splitToLines(p));
+
+  // Barely-there parallax for the background glow (::before), starts from its design position
+  gsap.to(about, {
+    '--about-parallax': '100px',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: about,
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+    },
+  });
 
   ScrollTrigger.create({
     trigger: '.about',
@@ -260,6 +290,41 @@ const initAbout = () => {
     }
   });
 }
+
+// Pin with eased entry and exit: instead of stopping dead, the section content keeps moving
+// and decelerates into place (and later accelerates out) over a short stretch of scroll.
+// The content is shifted through the --pin-shift variable (see .success / .commit styles).
+const SOFT_PIN_SHIFT = 100; // px the content travels during each ramp
+
+const softPin = (section, end) => {
+  const shift = SOFT_PIN_SHIFT;
+  // A ramp twice as long as the shift makes power2 easing start/end at exactly the scroll speed
+  const ramp = shift * 2;
+
+  // The content ends 2 × shift higher than the section box, pull the next section up to match
+  section.style.marginBottom = `${-2 * shift}px`;
+
+  const pin = ScrollTrigger.create({
+    trigger: section,
+    start: `top ${shift}px`,
+    end,
+    pin: true,
+  });
+
+  gsap.fromTo(section, { '--pin-shift': '0px' }, {
+    '--pin-shift': `${-shift}px`,
+    ease: 'power2.out',
+    scrollTrigger: { start: () => pin.start, end: () => pin.start + ramp, scrub: true },
+  });
+  gsap.fromTo(section, { '--pin-shift': `${-shift}px` }, {
+    '--pin-shift': `${-2 * shift}px`,
+    ease: 'power2.in',
+    immediateRender: false,
+    scrollTrigger: { start: () => pin.end - ramp, end: () => pin.end, scrub: true },
+  });
+
+  return pin;
+};
 
 const initSuccess = () => {
   const success = document.querySelector('.success');
@@ -275,17 +340,22 @@ const initSuccess = () => {
     },
   });
 
-  ScrollTrigger.create({
-    trigger: '.success',
-    start: 'top top',
-    end: '150% top',
-    pin: true,
+  const pin = softPin(success, '150% top');
+
+  // Barely-there parallax: the background artwork drifts while the title stays put,
+  // passing its design position exactly in the middle of the pinned stretch
+  gsap.fromTo(success, { '--success-drift': '40px' }, {
+    '--success-drift': '-40px',
+    ease: 'none',
+    scrollTrigger: { start: () => pin.start, end: () => pin.end, scrub: true },
   });
 
+  // Letters light up while pinned. Positions are taken from the pin itself: a trigger on the pinned
+  // element that starts after the pin would otherwise be pushed below the whole pinned stretch.
+  // Same range as before the soft pin: from 'top top' to '147.5% top'.
   ScrollTrigger.create({
-    trigger: '.success',
-    start: 'top top',
-    end: '147.5% top',
+    start: () => pin.start + SOFT_PIN_SHIFT,
+    end: () => pin.start + SOFT_PIN_SHIFT + success.offsetHeight * 1.475,
     onUpdate: self => {
       title.setAttribute('data-progress', Math.floor(self.progress * 100));
     }
@@ -336,12 +406,7 @@ const initCommit = () => {
     onLeaveBack: () => setCard(2, true)
   });
 
-  ScrollTrigger.create({
-    trigger: '.commit',
-    start: 'top top',
-    end: '200% top',
-    pin: true
-  });
+  softPin(commit, '200% top');
 };
 
 const initProducts = () => {

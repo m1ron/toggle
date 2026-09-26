@@ -2,10 +2,26 @@
 @use '../breakpoints' as *;
 
 /* ===== SUCCESS ===== */
+
+// A letter turns white with a short glow that fades in and out.
+// The animation runs once when the letter lights up (and again if it lights up after scrolling back).
+%success-letter-lit {
+  opacity: 1;
+  animation: success-letter-glow 1.2s ease-out;
+}
+
+@keyframes success-letter-glow {
+  0% {text-shadow: 0 0 0 rgba(white, 0), 0 0 0 rgba(white, 0);}
+  30% {text-shadow: 0 0 .15em rgba(white, .85), 0 0 .45em rgba(white, .35);}
+  100% {text-shadow: 0 0 0 rgba(white, 0), 0 0 0 rgba(white, 0);}
+}
 .success {
   min-height: 620px;
   height: 100vh;
   position: relative;
+  // Own stacking layer above the about section: its background glow (::before, parallaxed)
+  // reaches into this section and must stay behind the swirl
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,7 +48,7 @@
     @include user-select;
     cursor: default;
     opacity: 0;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, var(--pin-shift, 0px), 0); // soft pin, see softPin() in main.js
     transition: opacity .8s ease .6s;
     @include media-breakpoint-down(xss) {
       width: 290px;
@@ -55,7 +71,7 @@
 
     @for $i from 1 through 100 {
       &[data-progress="#{$i}"] span:nth-child(-n+#{$i}) {
-        opacity: 1;
+        @extend %success-letter-lit;
       }
     }
   }
@@ -70,6 +86,8 @@
     right: -20px;
     bottom: 0;
     left: -20px;
+    // Soft pin shift (see softPin() in main.js) plus a slow drift while the section is pinned
+    transform: translate3d(0, calc(var(--pin-shift, 0px) + var(--success-drift, 0px)), 0);
   }
 
   &__swirl {

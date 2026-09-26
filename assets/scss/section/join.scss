@@ -1,7 +1,15 @@
 @use '../var' as *;
 @use '../breakpoints' as *;
 
-/* ===== CONTACTS ===== */
+/* ===== JOIN ===== */
+
+// Registered so the button glow (inside a gradient) can transition on hover
+@property --join-glow {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: .1;
+}
+
 .join {
   padding: 5px;
   margin-top: 144px;
@@ -281,15 +289,13 @@
 
     &::after {
       border: 1px solid transparent;
-      background: radial-gradient(50.83% 87.16% at 50% 50.71%, rgba(34, 65, 235, .1) 30%, rgba(34, 65, 235, .05) 100%), rgba(black, .6);
-      transition: background-color $effect;
+      background: radial-gradient(50.83% 87.16% at 50% 50.71%, rgba(34, 65, 235, var(--join-glow)) 30%, rgba(34, 65, 235, .05) 100%), rgba(black, .6);
+      transition: --join-glow $effect-hover;
       z-index: -1;
     }
 
     &:hover, &:focus {
-      &::after {
-        background: radial-gradient(50.83% 87.16% at 50% 50.71%, rgba(34, 65, 235, .23) 30%, rgba(34, 65, 235, .05) 100%), rgba(black, .6);
-      }
+      &::after {--join-glow: .23;}
     }
   }
 

@@ -86,7 +86,7 @@
       mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
       inset: 0;
       z-index: -1;
-      transition: opacity $effect;
+      transition: opacity $effect-hover;
     }
 
     &::after {
@@ -96,7 +96,7 @@
       opacity: .12;
       z-index: -2;
       transform: translate3d(0, 0, 0);
-      transition: opacity $effect;
+      transition: opacity $effect-hover;
     }
 
     &:hover {
@@ -105,7 +105,7 @@
       ~ .contacts__email::before {
         opacity: .6;
         background: conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
-        transition: opacity .4s ease;
+        transition: opacity $effect-hover;
       }
     }
 

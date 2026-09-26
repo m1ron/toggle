@@ -104,7 +104,7 @@
           background: white;
           opacity: 0;
           transform-origin: bottom right;
-          transition: opacity $effect;
+          transition: opacity $effect-hover;
         }
 
         &:hover, &:focus {
@@ -138,7 +138,7 @@
         opacity: .6;
         text-decoration: none;
         outline: none;
-        transition: opacity $effect;
+        transition: opacity $effect-hover;
         &:hover, &:focus {opacity: 1;}
       }
     }

@@ -20,6 +20,7 @@
     margin: 0 auto;
     position: relative;
     z-index: 5;
+    transform: translate3d(0, var(--pin-shift, 0px), 0); // soft pin, see softPin() in main.js
     @include media-breakpoint-down(xss) {
       width: 290px;
       font-size: 18px;
@@ -95,6 +96,7 @@
     z-index: -2;
     opacity: .7;
     background: url('#{$img}/dots.svg') no-repeat center center;
+    transform: translate3d(0, var(--pin-shift, 0px), 0); // soft pin, see softPin() in main.js
     background-size: auto 100%;
   }
 

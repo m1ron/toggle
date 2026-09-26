@@ -42,6 +42,12 @@ $bezier: cubic-bezier(.250, .460, .450, .940);
 $easing: ease;
 $effect: .3s $easing;
 $effect-s: .2s $easing;
+$ease-out-quint: cubic-bezier(.22, 1, .36, 1);
+$ease-out-cubic: cubic-bezier(.33, 1, .68, 1);
+$ease-in-out-quad: cubic-bezier(.45, 0, .55, 1);
+
+// Hover / focus feedback on buttons and links
+$effect-hover: .6s $ease-out-cubic;
 
 // Mixins
 @mixin pseudo {content: '';display: block;overflow: hidden;}
