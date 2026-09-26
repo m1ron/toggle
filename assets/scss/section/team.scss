@@ -181,6 +181,7 @@
   &.animated &__title {transform: scale(1) translate3d(0, 0, 0);opacity: 1;}
   &.animated &__members {transform: scale(1) translate3d(0, 0, 0);}
   &.animated &__member {opacity: 1;animation-play-state: running;}
+  &.animated.offscreen &__member {animation-play-state: paused;}
 }
 
 

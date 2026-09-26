@@ -15,10 +15,20 @@
     bottom: 0;
     left: 0;
     z-index: -1;
-    background: url('#{$img}/stars.svg') repeat 50% 0;
-    background-attachment: fixed;
-    background-position-y: var(--parallax-offset);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
+    // Clips the fixed layer to the main area (no transform here, it would break position: fixed)
+    clip-path: inset(0);
+
+    // Viewport-fixed layer, parallax is applied with transform only (no repaints while scrolling)
+    &__layer {
+      height: calc(100vh + #{$stars-tile});
+      height: calc(100lvh + #{$stars-tile});
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      background: url('#{$img}/stars.svg') repeat 50% 0;
+      will-change: transform;
+      pointer-events: none;
+    }
   }
 }

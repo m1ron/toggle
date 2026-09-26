@@ -21,6 +21,9 @@ $grid-breakpoints: (
 $img: '/assets/img';
 $fonts: '/assets/fonts';
 
+// Height of the stars.svg tile (keep in sync with STARS_TILE in main.js)
+$stars-tile: 1441px;
+
 // Fonts
 $font-default: 'Clash Display', sans-serif;
 $font-secondary: 'Inter', sans-serif;

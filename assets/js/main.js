@@ -116,10 +116,15 @@ const splitToLetters = (el) => {
   wrapChars(el, el.innerText);
 };
 
+// Height of the stars.svg tile (keep in sync with $stars-tile in _var.scss)
+const STARS_TILE = 1441;
+
 const initParallax = (lenis) => {
+  const layer = document.querySelector('.stars__layer');
   const speed = .15;
   const onScroll = ({ scroll }) => {
-    doc.style.setProperty('--parallax-offset', `-${scroll * speed}px`);
+    // The layer is fixed to the viewport; shift it within one tile so the pattern stays seamless
+    layer.style.transform = `translate3d(0, ${-(scroll * speed % STARS_TILE)}px, 0)`;
   };
   onScroll(lenis);
   lenis.on('scroll', onScroll);
@@ -381,6 +386,14 @@ const initTeam = () => {
   const team = document.querySelector('.team');
   const p = team.querySelector('.team__text');
 
+  // Pause the orbit animations while the section is out of view
+  ScrollTrigger.create({
+    trigger: '.team',
+    start: 'top bottom',
+    end: 'bottom top',
+    onToggle: self => team.classList.toggle('offscreen', !self.isActive)
+  });
+
   ScrollTrigger.create({
     trigger: '.team',
     start: '20% center',
@@ -438,9 +451,11 @@ function initApp() {
     document.body.classList.add('mobile');
   }
 
-  // Initialize Lenis
-  const lenis = new Lenis({ autoRaf: true, });
+  // Drive Lenis from the GSAP ticker so scrolling and ScrollTrigger update in the same frame
+  const lenis = new Lenis();
   lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
 
   initParallax(lenis);
   initAnchors(lenis);
