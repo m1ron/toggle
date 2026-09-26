@@ -1,0 +1,17 @@
+@use 'var';
+
+@font-face {
+  font-family: 'Clash Display';
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+  src: url('#{var.$fonts}/clash.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+  src: url('#{var.$fonts}/inter.woff') format('woff');
+}

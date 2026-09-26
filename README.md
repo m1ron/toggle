@@ -3,6 +3,8 @@
 HTML markup with animations
 
 ## Tech stack
+- Vite
+- SCSS
 - GSAP with ScrollTrigger plugin
 - Lenis
 
@@ -12,5 +14,8 @@ HTML markup with animations
 ## Dev mode
 `npm run dev`
 
-## Build CSS
-`npm run build`
+## Build
+`npm run build` — outputs the static site to `dist/`
+
+## Preview the build
+`npm run preview`

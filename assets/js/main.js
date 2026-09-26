@@ -1,3 +1,9 @@
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
+gsap.registerPlugin(ScrollTrigger);
+
 const doc = document.documentElement;
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
   // iPadOS 13+ reports itself as a Mac
@@ -26,6 +32,8 @@ const initLoader = () => {
   const percent = loader.querySelector('.loader__percent');
   const bar = loader.querySelector('.loader__progress div');
 
+  // Resolved (hashed) URLs of the images used as section backgrounds
+  const urls = import.meta.glob('../img/*.{png,webp,svg}', { eager: true, query: '?url', import: 'default' });
   const images = [
     'logo.png',
     'logo-mobile.png',
@@ -39,7 +47,7 @@ const initLoader = () => {
     'dots.svg',
     'card.webp',
     'eclipse.svg'
-  ];
+  ].map(name => urls[`../img/${name}`]);
 
   let settled = 0;
   const onSettled = () => {
@@ -52,7 +60,7 @@ const initLoader = () => {
     const image = new Image();
     image.onload = resolve;
     image.onerror = image.onabort = reject;
-    image.src = 'assets/img/' + src;
+    image.src = src;
   }).finally(onSettled);
 
   // Failed images must not block the app
@@ -429,9 +437,6 @@ function initApp() {
   if (isMobile) {
     document.body.classList.add('mobile');
   }
-
-  // Initialize GSAP
-  gsap.registerPlugin(ScrollTrigger);
 
   // Initialize Lenis
   const lenis = new Lenis({ autoRaf: true, });
