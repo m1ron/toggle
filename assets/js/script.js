@@ -22,67 +22,11 @@ const onWidthResize = (fn) => {
 };
 
 const initLoader = () => {
-  function getAsyncLoadingImageList(imageSourceList) {
-    const totalCount = imageSourceList.length;
-    let successCount = 0;
-    let failureCount = 0;
-
-    function loadImage(src) {
-      return new Promise((resolve, reject) => {
-        const image = new Image();
-
-        image.onload = function () {
-          resolve({
-            image,
-            counts: {
-              total: totalCount,
-              success: ++successCount,
-              failure: failureCount
-            },
-            success: true,
-          });
-        };
-        image.onerror = image.onabort = function () {
-          reject({
-            image,
-            counts: {
-              total: totalCount,
-              success: successCount,
-              failure: ++failureCount
-            },
-            success: false,
-          });
-        };
-
-        image.src = 'assets/img/' + src;
-      });
-    }
-
-    // return list of *image loading* promises.
-    return imageSourceList.map(src => loadImage(src));
-  }
-
-  function renderImageLoadProgress(imageLoadData) {
-    const { success, failure, total } = imageLoadData.counts;
-    const p = Math.floor((success + failure) / total * 100);
-    percent.innerText = p + '%';
-    div.style.width = p + '%';
-    if (success + failure === total) {
-      initApp();
-      setTimeout(function () {
-        loader.classList.add('done');
-        setTimeout(function () {
-          loader.classList.add('hidden');
-        }, 800);
-      }, 200);
-    }
-  }
-
   const loader = document.querySelector('.loader');
   const percent = loader.querySelector('.loader__percent');
-  const div = loader.querySelector('.loader__progress div');
+  const bar = loader.querySelector('.loader__progress div');
 
-  const imageSourceList = [
+  const images = [
     'logo.png',
     'logo-mobile.png',
     'stars.svg',
@@ -97,77 +41,72 @@ const initLoader = () => {
     'eclipse.svg'
   ];
 
-  getAsyncLoadingImageList(imageSourceList).forEach(promise =>
-    promise
-      .then(renderImageLoadProgress)
-      .catch(renderImageLoadProgress)
-  );
-}
+  let settled = 0;
+  const onSettled = () => {
+    const p = Math.floor(++settled / images.length * 100);
+    percent.innerText = p + '%';
+    bar.style.width = p + '%';
+  };
 
-const splitToLines = (p) => {
-  if (!p.dataset.text) {
-    p.dataset.text = p.innerText;
-  }
-  let text = p.dataset.text;
-  let arr = text.split('');
-  p.innerHTML = '';
+  const loadImage = (src) => new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = resolve;
+    image.onerror = image.onabort = reject;
+    image.src = 'assets/img/' + src;
+  }).finally(onSettled);
 
-  let s, t, i;
-
-  for (i = 0; i < arr.length; i++) {
-    s = document.createElement('span');
-    t = document.createTextNode(arr[i]);
-    s.appendChild(t);
-    p.append(s);
-  }
-
-  let lines = [];
-
-  let spans = p.querySelectorAll('span'), current = spans[0].offsetTop, begin = 0, end = 0;
-  for (i = 0; i < spans.length; i++) {
-    if ((spans[i].offsetTop > current) || (i === spans.length - 1)) {
-      end = i;
-      if (i === spans.length - 1) {
-        end = spans.length;
-      }
-      lines.push(text.substring(begin, end).trim());
-      current = spans[i].offsetTop;
-      begin = i;
-    }
-  }
-
-  p.innerHTML = '';
-  for (i = 0; i < lines.length; i++) {
-    s = document.createElement('div');
-    t = document.createTextNode(lines[i]);
-    s.appendChild(t);
-    p.append(s);
-  }
+  // Failed images must not block the app
+  Promise.allSettled(images.map(loadImage)).then(() => {
+    initApp();
+    setTimeout(() => {
+      loader.classList.add('done');
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 800);
+    }, 200);
+  });
 };
 
-const splitToLetters = (p) => {
-  let text = p.innerText;
-  let arr = text.split('');
-  p.innerHTML = '';
+// Wraps every character of the text into its own span
+const wrapChars = (el, text) => {
+  const spans = text.split('').map((char) => {
+    const span = document.createElement('span');
+    span.textContent = char;
+    return span;
+  });
+  el.replaceChildren(...spans);
+  return spans;
+};
 
-  let s, t, i;
-
-  for (i = 0; i < arr.length; i++) {
-    s = document.createElement('span');
-    t = document.createTextNode(arr[i]);
-    s.appendChild(t);
-    p.append(s);
+const splitToLines = (el) => {
+  if (!el.dataset.text) {
+    el.dataset.text = el.innerText;
   }
-}
+  const text = el.dataset.text;
+  const spans = wrapChars(el, text);
 
-async function copyContent(s) {
-  try {
-    await navigator.clipboard.writeText(s);
-    console.log('Content copied to clipboard');
-  } catch (err) {
-    console.error('Failed to copy: ', err);
-  }
-}
+  const lines = [];
+  let begin = 0;
+  let top = spans[0].offsetTop;
+  spans.forEach((span, i) => {
+    if (span.offsetTop > top) {
+      lines.push(text.substring(begin, i));
+      begin = i;
+      top = span.offsetTop;
+    }
+  });
+  lines.push(text.substring(begin));
+
+  el.replaceChildren(...lines.map(line => line.trim()).filter(Boolean).map((line) => {
+    const div = document.createElement('div');
+    div.textContent = line;
+    return div;
+  }));
+};
+
+const splitToLetters = (el) => {
+  wrapChars(el, el.innerText);
+};
 
 const initParallax = (lenis) => {
   const speed = .15;
@@ -195,26 +134,33 @@ const initAnchors = (lenis) => {
 };
 
 const initMenu = () => {
-  const header = document.querySelector('.header');
-  const menu = header.querySelector('.header__menu');
+  const menu = document.querySelector('.header__menu');
   const toggle = menu.querySelector('.header__menu-toggle');
-  const nav = menu.querySelector('.header__menu-nav');
 
-  const onClick = () => {
-    if (menu.classList.contains('active')) {
-      menu.classList.remove('active');
-      setTimeout(() => {
-        menu.classList.remove('visible');
-      }, 400)
-    } else {
-      menu.classList.add('visible');
-      setTimeout(() => {
-        menu.classList.add('active');
-      }, 50)
-    }
+  const open = () => {
+    menu.classList.add('visible');
+    setTimeout(() => {
+      menu.classList.add('active');
+    }, 50);
   };
 
-  toggle.addEventListener('click', onClick);
+  const close = () => {
+    menu.classList.remove('active');
+    setTimeout(() => {
+      menu.classList.remove('visible');
+    }, 400);
+  };
+
+  toggle.addEventListener('click', () => {
+    menu.classList.contains('active') ? close() : open();
+  });
+
+  // Close the mobile menu after navigating to a section
+  menu.addEventListener('click', (e) => {
+    if (e.target.closest('a') && menu.classList.contains('active')) {
+      close();
+    }
+  });
 };
 
 const initHero = () => {
@@ -246,16 +192,14 @@ const initAbout = () => {
   splitToLines(p);
   onWidthResize(() => splitToLines(p));
 
-  gsap.to('.about', {
-    scrollTrigger: {
-      trigger: '.about',
-      start: '20% bottom',
-      onEnter: () => {
-        about.classList.add('animated');
-        setTimeout(() => {
-          about.classList.add('done')
-        }, 1000);
-      }
+  ScrollTrigger.create({
+    trigger: '.about',
+    start: '20% bottom',
+    onEnter: () => {
+      about.classList.add('animated');
+      setTimeout(() => {
+        about.classList.add('done')
+      }, 1000);
     }
   });
 }
@@ -266,34 +210,27 @@ const initSuccess = () => {
 
   splitToLetters(title);
 
-  gsap.to('.success', {
-    scrollTrigger: {
-      trigger: '.success',
-      start: '20% center',
-      onEnter: self => {
-        self.trigger.classList.add('animated');
-      },
-    }
+  ScrollTrigger.create({
+    trigger: '.success',
+    start: '20% center',
+    onEnter: self => {
+      self.trigger.classList.add('animated');
+    },
   });
 
-  gsap.to('.success', {
-    scrollTrigger: {
-      trigger: '.success',
-      start: 'top top',
-      end: '150% top',
-      pin: true,
-    }
+  ScrollTrigger.create({
+    trigger: '.success',
+    start: 'top top',
+    end: '150% top',
+    pin: true,
   });
 
-  gsap.to('.success', {
-    scrollTrigger: {
-      trigger: '.success',
-      start: 'top top',
-      end: '147.5% top',
-      scrub: true,
-      onUpdate: self => {
-        title.setAttribute('data-progress', Math.floor(self.progress * 100));
-      }
+  ScrollTrigger.create({
+    trigger: '.success',
+    start: 'top top',
+    end: '147.5% top',
+    onUpdate: self => {
+      title.setAttribute('data-progress', Math.floor(self.progress * 100));
     }
   });
 }
@@ -301,85 +238,54 @@ const initSuccess = () => {
 const initCommit = () => {
   const commit = document.querySelector('.commit');
   const cards = commit.querySelector('.cards');
+  let delayTimer;
 
-  gsap.to('.commit', {
-    scrollTrigger: {
-      trigger: '.commit',
-      start: '20% center',
-      onEnter: () => {
-        commit.classList.add('animated');
-        cards.setAttribute('data-card', 1);
-        cards.setAttribute('data-reverse', false);
-        cards.setAttribute('data-delayed', true);
-        setTimeout(() => {
-          cards.setAttribute('data-delayed', false);
-        }, 200);
-        setTimeout(() => {
-          cards.setAttribute('data-loading', false);
-        }, 400);
-      }
+  // Switches the visible card; `reverse` is true when scrolling back up
+  const setCard = (n, reverse = false) => {
+    clearTimeout(delayTimer);
+    cards.setAttribute('data-card', n);
+    cards.setAttribute('data-reverse', reverse);
+    cards.setAttribute('data-delayed', !reverse);
+    delayTimer = setTimeout(() => {
+      cards.setAttribute('data-delayed', reverse);
+    }, 200);
+  };
+
+  ScrollTrigger.create({
+    trigger: '.commit',
+    start: '20% center',
+    onEnter: () => {
+      commit.classList.add('animated');
+      setCard(1);
+      setTimeout(() => {
+        cards.setAttribute('data-loading', false);
+      }, 400);
     }
   });
 
-  gsap.to('.commit', {
-    scrollTrigger: {
-      trigger: '.commit',
-      start: '30% top',
-      end: '130% top',
-      scrub: .2,
-      onEnter: () => {
-        cards.setAttribute('data-card', 2);
-        cards.setAttribute('data-reverse', false);
-        cards.setAttribute('data-delayed', true);
-        setTimeout(() => {
-          cards.setAttribute('data-delayed', false);
-        }, 200);
-      },
-      onLeaveBack: () => {
-        cards.setAttribute('data-card', 1);
-        cards.setAttribute('data-reverse', true);
-        cards.setAttribute('data-delayed', false);
-        setTimeout(() => {
-          cards.setAttribute('data-delayed', true);
-        }, 200);
-      }
-    }
+  ScrollTrigger.create({
+    trigger: '.commit',
+    start: '30% top',
+    end: '130% top',
+    onEnter: () => setCard(2),
+    onLeaveBack: () => setCard(1, true)
   });
 
-  gsap.to('.commit', {
-    scrollTrigger: {
-      trigger: '.commit',
-      start: '130% top',
-      end: '200% top',
-      scrub: .2,
-      onEnter: () => {
-        cards.setAttribute('data-card', 3);
-        cards.setAttribute('data-reverse', false);
-        cards.setAttribute('data-delayed', true);
-        setTimeout(() => {
-          cards.setAttribute('data-delayed', false);
-        }, 200);
-      },
-      onLeaveBack: () => {
-        cards.setAttribute('data-card', 2);
-        cards.setAttribute('data-reverse', true);
-        cards.setAttribute('data-delayed', false);
-        setTimeout(() => {
-          cards.setAttribute('data-delayed', true);
-        }, 200);
-      }
-    }
+  ScrollTrigger.create({
+    trigger: '.commit',
+    start: '130% top',
+    end: '200% top',
+    onEnter: () => setCard(3),
+    onLeaveBack: () => setCard(2, true)
   });
 
-  gsap.to('.commit', {
-    scrollTrigger: {
-      trigger: '.commit',
-      start: 'top top',
-      end: '200% top',
-      pin: true
-    }
+  ScrollTrigger.create({
+    trigger: '.commit',
+    start: 'top top',
+    end: '200% top',
+    pin: true
   });
-}
+};
 
 const initProducts = () => {
   const products = document.querySelector('.products');
@@ -400,10 +306,8 @@ const initProducts = () => {
     let m = +window.getComputedStyle(animation).marginTop.replace('px', '');
     offsetY = ((heading.clientHeight - title.offsetTop) + animation.clientHeight * .50 + m - title.clientHeight * scale / 2);
     aniY = ((heading.clientHeight - title.offsetTop) + animation.clientHeight * .50 + m);
-    //offsetY = (animation.clientHeight / 2 + animation + 100 + heading.clientHeight / 2);
     startPin = offsetY + title.clientHeight * scale / 2 + title.offsetTop;
     endPin = startPin + window.innerHeight / 2.5;
-    //console.log(offsetY, endPin);
   };
 
   const adjustTitle = () => {
@@ -419,17 +323,15 @@ const initProducts = () => {
   // Recalculate before every ScrollTrigger refresh (fires on resize too)
   ScrollTrigger.addEventListener('refreshInit', calculateOffsets);
 
-  gsap.to('.products', {
-    scrollTrigger: {
-      trigger: '.products',
-      start: '25% center',
-      onEnter: self => {
-        self.trigger.classList.add('animated');
-      },
-      onLeaveBack: self => {
-        self.trigger.classList.remove('animated');
-      },
-    }
+  ScrollTrigger.create({
+    trigger: '.products',
+    start: '25% center',
+    onEnter: self => {
+      self.trigger.classList.add('animated');
+    },
+    onLeaveBack: self => {
+      self.trigger.classList.remove('animated');
+    },
   });
 
   gsap.to('.products__heading', {
@@ -438,8 +340,6 @@ const initProducts = () => {
       start: 'top center',
       end: '150% center',
       scrub: true,
-      id: 'heading',
-      //markers: true
     },
     color: 'rgba(255, 255, 255, 0)'
   });
@@ -452,7 +352,6 @@ const initProducts = () => {
       scrub: true,
       invalidateOnRefresh: true,
       id: 'scrub',
-      //markers: { startColor: 'red', endColor: 'red' }
     },
     color: 'rgba(255, 255, 255, .3)',
     scale: scale,
@@ -461,15 +360,12 @@ const initProducts = () => {
     ease: 'none'
   });
 
-  gsap.to('.products', {
-    scrollTrigger: {
-      trigger: '.products',
-      start: () => startPin + ' 50%',
-      end: () => endPin + ' 50%',
-      pin: true,
-      id: 'pin',
-      //markers: { startColor: 'white', endColor: 'white' }
-    }
+  ScrollTrigger.create({
+    trigger: '.products',
+    start: () => startPin + ' 50%',
+    end: () => endPin + ' 50%',
+    pin: true,
+    id: 'pin',
   });
 }
 
@@ -477,14 +373,12 @@ const initTeam = () => {
   const team = document.querySelector('.team');
   const p = team.querySelector('.team__text');
 
-  gsap.to('.team', {
-    scrollTrigger: {
-      trigger: '.team',
-      start: '20% center',
-      onEnter: self => {
-        self.trigger.classList.add('animated');
-      },
-    }
+  ScrollTrigger.create({
+    trigger: '.team',
+    start: '20% center',
+    onEnter: self => {
+      self.trigger.classList.add('animated');
+    },
   });
 
   splitToLines(p);
@@ -492,14 +386,12 @@ const initTeam = () => {
 }
 
 const initJoin = () => {
-  gsap.to('.join', {
-    scrollTrigger: {
-      trigger: '.join',
-      start: '15% center',
-      onEnter: self => {
-        self.trigger.classList.add('animated');
-      },
-    }
+  ScrollTrigger.create({
+    trigger: '.join',
+    start: '15% center',
+    onEnter: self => {
+      self.trigger.classList.add('animated');
+    },
   });
 }
 
@@ -508,19 +400,28 @@ const initContacts = () => {
   const copy = contacts.querySelector('.contacts__copy');
   const email = contacts.querySelector('.contacts__email').innerText;
 
-  copy.addEventListener('click', () => {
-    copyContent(email);
-    return false;
+  let resetTimer;
+
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      return;
+    }
+    copy.textContent = 'Copied';
+    clearTimeout(resetTimer);
+    resetTimer = setTimeout(() => {
+      copy.textContent = 'Copy';
+    }, 2000);
   });
 
-  gsap.to('.contacts', {
-    scrollTrigger: {
-      trigger: '.contacts',
-      start: '25% center',
-      onEnter: self => {
-        self.trigger.classList.add('animated');
-      },
-    }
+  ScrollTrigger.create({
+    trigger: '.contacts',
+    start: '25% center',
+    onEnter: self => {
+      self.trigger.classList.add('animated');
+    },
   });
 }
 
