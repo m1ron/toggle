@@ -1,5 +1,7 @@
 # toggle apps — landing page
 
+**Live demo: [toggleapps.sergeymiron.com](https://toggleapps.sergeymiron.com/)**
+
 Marketing website for [toggle apps](https://toggleapps.io/), built from a Figma design: a scroll-driven landing page with pinned sections, parallax and reveal animations, plus the Privacy Policy, Terms of Service and 404 pages in the same style.
 
 ![toggle apps — Think Smart. Make Simple](public/og-image.jpg)
@@ -85,12 +87,12 @@ No address is in the markup. `data-email` holds it base64-encoded and JS decodes
 The last 2 versions of evergreen browsers (`browserslist` in `package.json`). The minimum supported width is 320px.
 
 ## Deploy
-The demo is hosted on **Cloudflare Pages**, built from this repository on every push to `main`. Any static hosting works: deploy the `dist/` folder.
+The demo, [toggleapps.sergeymiron.com](https://toggleapps.sergeymiron.com/), is hosted on **Cloudflare Pages**, built from this repository on every push to `main`. Any static hosting works: deploy the `dist/` folder.
 
 Cloudflare Pages settings:
 - Build command `npm run build`, output directory `dist`, root directory empty.
-- Environment variables: `NODE_VERSION` = `22`, `SITE_URL` = the demo address, e.g. `https://toggle.example.com` (used for the absolute Open Graph URLs; without it those tags and the `og:image` details are omitted).
-- Custom domain: add the subdomain in the project's Custom domains; with DNS elsewhere, point a `CNAME` for it to `<project>.pages.dev`.
+- Environment variables: `NODE_VERSION` = `22`, `SITE_URL` = the demo address, `https://toggleapps.sergeymiron.com` (used for the absolute Open Graph URLs; without it those tags and the `og:image` details are omitted).
+- Custom domain: add the subdomain in the project's Custom domains; with DNS elsewhere, point a `CNAME` for it to `<project>.pages.dev` (here `toggleapps` → `toggleapps.pages.dev`).
 
 What the host takes care of:
 - `404.html` is served for any missing address.
