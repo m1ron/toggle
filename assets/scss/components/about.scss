@@ -152,10 +152,7 @@
   }
 
   &__value, &__plus {
-    background: linear-gradient(180deg, white 0%, rgba(white, .3) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @include gradient-text;
   }
 
   &__value {

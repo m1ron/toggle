@@ -1,0 +1,100 @@
+// Not found (404): a gradient code over the dimmed black hole from Team, the logo and a way back home.
+
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
+.not-found {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 120px 20px 80px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+
+  // The black hole from Team
+  &::before {
+    @include pseudo;
+    width: 100%;
+    height: 480px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    background: no-repeat center center;
+    @include bg-image('blackhole', 'webp');
+    background-size: auto 100%;
+    transform: translate3d(-50%, -50%, 0);
+    opacity: .4;
+    pointer-events: none;
+    @include media-breakpoint-up(lg) {
+      height: 760px;
+    }
+  }
+
+  &__content {
+    position: relative;
+    @include font-smooth;
+  }
+
+  &__code {
+    margin: 0;
+    font-size: 96px;
+    line-height: 100%;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    @include gradient-text;
+    @include no-select;
+    @include media-breakpoint-up(lg) {
+      font-size: 160px;
+    }
+  }
+
+  // Title and text sit inside the ring; the shadow keeps them readable over it
+  &__title, &__text {
+    max-width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+    text-shadow: 0 0 16px rgba(black, .8);
+    @include media-breakpoint-up(lg) {
+      max-width: 380px;
+    }
+  }
+
+  &__title {
+    margin-top: 8px;
+    margin-bottom: 12px;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    @include media-breakpoint-up(lg) {
+      margin-top: 16px;
+      font-size: 32px;
+      line-height: 40px;
+    }
+  }
+
+  &__text {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 22px;
+    color: rgba(white, .7);
+    @include media-breakpoint-up(lg) {
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+
+  &__button {
+    @include glow-button;
+    width: fit-content;
+    margin: 32px auto 0;
+    @include media-breakpoint-up(lg) {
+      margin-top: 40px;
+    }
+  }
+}

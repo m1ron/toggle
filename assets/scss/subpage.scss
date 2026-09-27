@@ -1,4 +1,4 @@
-// Entry for the legal pages: core, the shared header, stars and footer, the document styles.
+// Entry for the subpages (legal pages, 404): core, the shared header, stars and footer, their own blocks.
 
 @use 'core/var';
 @use 'core/fonts';
@@ -10,3 +10,4 @@
 @use 'layout/footer';
 
 @use 'components/legal';
+@use 'components/not-found';

@@ -34,7 +34,7 @@
     }
   }
 
-  // Shade under the fixed header once the text scrolls beneath it (.is-scrolled, legal.js)
+  // Shade under the fixed header once the text scrolls beneath it (.is-scrolled, subpage.js)
   &::after {
     @include pseudo;
     height: 110px;
@@ -72,10 +72,7 @@
     line-height: 110%;
     font-weight: 600;
     letter-spacing: 0;
-    background: linear-gradient(180deg, white 0%, rgba(white, .3) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @include gradient-text;
     @include font-smooth;
     @include media-breakpoint-up(lg) {
       font-size: 64px;

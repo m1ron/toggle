@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Page not found — toggle apps</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Served for any missing address: every path here is absolute -->
+    <link href="/assets/fonts/clash.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
+    <link href="/assets/scss/subpage.scss" rel="stylesheet">
+    <script src="/assets/js/subpage.js" type="module"></script>
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon/favicon.png">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="toggle apps">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="header">
+    <a class="header__brand" href="/" aria-label="toggle apps — home">
+        <!-- Each screen loads only its own logo -->
+        <picture>
+            <source media="(min-width: 992px)" srcset="/assets/img/logo-header.webp" width="147" height="35">
+            <img class="header__logo" src="/assets/img/logo-header-mobile.webp" width="91" height="22" alt="">
+        </picture>
+    </a>
+</header>
+
+<!-- Not found -->
+<main class="not-found">
+    <section class="not-found__content">
+        <p class="not-found__code" aria-hidden="true">404</p>
+        <h1 class="not-found__title">Lost in space</h1>
+        <p class="not-found__text">The page you’re looking for has drifted off. Let’s get you back to familiar orbit.</p>
+        <a class="not-found__button" href="/">Back to home</a>
+    </section>
+
+    <!-- Starry background -->
+    <div class="stars"><div class="stars__layer"></div></div>
+</main>
+
+</body>
+</html>

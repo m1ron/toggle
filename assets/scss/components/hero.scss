@@ -89,10 +89,7 @@
     line-height: 100%;
     font-weight: 600;
     letter-spacing: 0;
-    background: linear-gradient(180deg, white 0%, rgba(white, .3) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @include gradient-text;
     @include font-smooth;
     @include media-breakpoint-up(lg) {
       font-size: 64px;
@@ -121,50 +118,10 @@
   }
 
   &__button {
-    min-width: 206px;
-    padding: 16px 40px;
-    border: 1px solid transparent;
-    border-radius: 32px;
+    @include glow-button;
     margin: 32px auto 0;
-    font-size: 19px;
-    line-height: 24px;
-    font-weight: 500;
-    text-shadow: 0 0 2px rgba(white, 0);
-    text-decoration: none;
-    display: block;
-    overflow: hidden;
-    position: relative;
-    background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
-    backdrop-filter: blur(10px);
-    opacity: .95;
-    transition: box-shadow $effect-hover, text-shadow $effect-hover, opacity $effect-hover;
-    @include no-select;
-    @include no-drag;
-    @include font-smooth;
     @include media-breakpoint-up(lg) {
       margin-top: 40px;
-    }
-
-    &::after {
-      height: 12px;
-      border-radius: 32px;
-      content: '';
-      display: block;
-      position: absolute;
-      right: 0;
-      bottom: -10px;
-      left: 0;
-      background: conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #2baeff 90deg, #2634ef 160deg, #2634ef 195deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 360deg);
-      filter: blur(8px);
-      opacity: .5;
-      transition: opacity $effect-hover;
-    }
-
-    &:hover, &:focus-visible {
-      text-shadow: 0 0 4px rgba(white, .5);
-      box-shadow: 0px -3px 13px rgba(#2259e4, .55), 0px 3px 15px rgba(#9f1885, .65), inset 0px -3px 36px rgba(white, .15);
-      opacity: 1;
-      &::after {opacity: .55;bottom: -10px;}
     }
   }
 

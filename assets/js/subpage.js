@@ -1,10 +1,9 @@
-// Entry for the legal pages: smooth scroll with the contents links, the mobile menu,
-// starry background, email links. No GSAP here.
+// Entry for the subpages (legal pages, 404): smooth scroll with the contents links,
+// starry background, email links. No GSAP, no menu: the header has the logo only.
 
 import Lenis from 'lenis';
 
 import { prefersReducedMotion } from './core/env.js';
-import { initMenu } from './layout/menu.js';
 import { initStars } from './layout/stars.js';
 
 const lenis = new Lenis({
@@ -20,14 +19,15 @@ const raf = (time) => {
 };
 requestAnimationFrame(raf);
 
-initMenu();
 initStars(lenis);
 
 // Shade under the header once the text scrolls beneath it
 const page = document.querySelector('.legal');
-const onScroll = ({ scroll }) => page.classList.toggle('is-scrolled', scroll > 40);
-onScroll(lenis);
-lenis.on('scroll', onScroll);
+if (page) {
+  const onScroll = ({ scroll }) => page.classList.toggle('is-scrolled', scroll > 40);
+  onScroll(lenis);
+  lenis.on('scroll', onScroll);
+}
 
 // Spam protection, as on the home page: addresses are decoded here
 for (const link of document.querySelectorAll('[data-email]')) {

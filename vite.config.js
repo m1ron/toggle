@@ -37,6 +37,8 @@ const inlineCssPlugin = {
 
 export default defineConfig({
   plugins: [siteUrlPlugin, inlineCssPlugin],
+  // Several pages: missing addresses get a 404 (404.html) instead of the landing page
+  appType: 'mpa',
   server: {
     host: true,
     port: 5180,
@@ -55,6 +57,7 @@ export default defineConfig({
         main: 'index.html',
         privacy: 'privacy-policy/index.html',
         terms: 'terms-of-service/index.html',
+        notFound: '404.html',
       },
     },
   },
