@@ -9,35 +9,39 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
-  background: black url('#{$img}/footer.webp') no-repeat top center;
-  background-size: auto 100%;
+  background: black;
   @include font-smooth;
   @include media-breakpoint-up(lg) {
     padding-top: 60px;
     padding-bottom: 40px;
   }
-  @media only screen and (min-width: 1280px) {
-    background-size: cover;
-  }
 
+  // Background artwork: fades in with a slight zoom-out while the footer is uncovered (--footer-reveal, see initFooter)
   &::before {
     @include pseudo;
-    height: 1px;
     position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    background: linear-gradient(90deg, rgba(white, 0) 0%, white 50%, rgba(white, 0) 100%);
-    opacity: .3;
-    @include media-breakpoint-up(md) {
-      right: -5%;
-      left: -5%;
-    }
-    @include media-breakpoint-up(lg) {
-      right: -10%;
-      left: -10%;
+    inset: 0;
+    z-index: -1;
+    background: url('#{$img}/footer.webp') no-repeat top center;
+    background-size: auto 100%;
+    opacity: var(--footer-reveal, 1);
+    transform: scale(calc(1.1 - .1 * var(--footer-reveal, 1)));
+    transform-origin: 50% 100%;
+    pointer-events: none;
+    @media only screen and (min-width: 1280px) {
+      background-size: cover;
     }
   }
+
+  // Revealed from under the page (see initFooter): fixed at the bottom, the page scrolls away over it
+  body.footer-reveal & {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+  }
+
 
   &__title {
     max-width: 400px;

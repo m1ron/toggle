@@ -701,22 +701,60 @@ const initJoin = () => {
 const initContacts = () => {
   const contacts = document.querySelector('.contacts');
   const copy = contacts.querySelector('.contacts__copy');
-  const email = contacts.querySelector('.contacts__email').innerText;
+  const emailField = contacts.querySelector('.contacts__email');
+  const email = emailField.innerText;
 
   let resetTimer;
 
-  copy.addEventListener('click', async () => {
+  // Both the Copy button and the email field copy the address
+  const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(email);
     } catch (err) {
       console.error('Failed to copy: ', err);
       return;
     }
-    copy.textContent = 'Copied';
+    copy.classList.add('is-copied');
     clearTimeout(resetTimer);
     resetTimer = setTimeout(() => {
-      copy.textContent = 'Copy';
+      copy.classList.remove('is-copied');
     }, 2000);
+  };
+  copy.addEventListener('click', copyEmail);
+  emailField.addEventListener('click', copyEmail);
+
+  // The ray: grows and brightens from the section entering until it's fully in view
+  if (!prefersReducedMotion) gsap.fromTo(contacts, { '--contacts-parallax': 0 }, {
+    '--contacts-parallax': 1,
+    ease: 'none',
+    scrollTrigger: { trigger: contacts, start: 'top bottom', end: 'bottom bottom', scrub: PARALLAX_SCRUB },
+  });
+
+  // The glows follow the mouse a little while the section is on screen (mouse devices only)
+  if (!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const toX = gsap.quickTo(contacts, '--pointer-x', { duration: 1.2, ease: 'power3.out' });
+    const toY = gsap.quickTo(contacts, '--pointer-y', { duration: 1.2, ease: 'power3.out' });
+    const inView = ScrollTrigger.create({ trigger: contacts, start: 'top bottom', end: 'max' });
+    window.addEventListener('mousemove', (e) => {
+      if (!inView.isActive) return;
+      toX(e.clientX / window.innerWidth * 2 - 1);
+      toY(e.clientY / window.innerHeight * 2 - 1);
+    }, { passive: true });
+  }
+
+  // Footer artwork fades in with a slight zoom while the footer is uncovered.
+  // Here rather than in initFooter: the trigger has to be created after the pins above it.
+  if (!prefersReducedMotion) gsap.fromTo('.footer', { '--footer-reveal': 0 }, {
+    '--footer-reveal': 1,
+    ease: 'none',
+    scrollTrigger: { trigger: contacts, start: 'bottom bottom', end: 'max', scrub: PARALLAX_SCRUB },
+  });
+
+  // The horizon glow at the bottom rises into place from a bit before the footer shows to the end of the page
+  if (!prefersReducedMotion) gsap.fromTo(contacts, { '--contacts-arc': 0 }, {
+    '--contacts-arc': 1,
+    ease: 'none',
+    scrollTrigger: { trigger: contacts, start: 'bottom bottom+=300', end: 'max', scrub: PARALLAX_SCRUB },
   });
 
   ScrollTrigger.create({
@@ -727,6 +765,21 @@ const initContacts = () => {
     },
   });
 }
+
+// The footer sits fixed under the page and is uncovered as the page scrolls away.
+// Only when it fits the screen, otherwise its lower part could never be reached.
+const initFooter = () => {
+  const footer = document.querySelector('.footer');
+  const update = () => {
+    document.body.classList.toggle('footer-reveal', footer.offsetHeight <= window.innerHeight);
+    doc.style.setProperty('--footer-height', `${footer.offsetHeight}px`);
+  };
+  update();
+  onWidthResize(() => {
+    update();
+    ScrollTrigger.refresh();
+  });
+};
 
 function initApp() {
   if (isMobile) {
@@ -741,6 +794,7 @@ function initApp() {
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
 
+  initFooter(); // changes the page height, so before any ScrollTrigger is measured
   initParallax(lenis);
   const navigate = initAnchors(lenis);
   initMenu();

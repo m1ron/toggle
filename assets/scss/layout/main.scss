@@ -8,6 +8,27 @@
   position: relative;
   z-index: 1;
 
+  // Covers the fixed footer and leaves room to scroll it into view (see initFooter)
+  body.footer-reveal & {
+    margin-bottom: var(--footer-height, 0px);
+    background: black;
+  }
+
+  // Divider between the last section and the footer. On the page's bottom edge rather than the footer's
+  // top edge, so it stays visible while the page scrolls away over the fixed footer
+  &::after {
+    @include pseudo;
+    height: 1px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background: linear-gradient(90deg, rgba(white, 0) 0%, white 50%, rgba(white, 0) 100%);
+    opacity: .3;
+    pointer-events: none;
+  }
+
   .stars {
     position: absolute;
     top: 0;
