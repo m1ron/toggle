@@ -85,7 +85,7 @@ $card-switch: .4s;
     }
   }
   &.animated &__heading {
-    transform: translate3d(0, 0, 0);
+    transform: none;
     opacity: 1;
   }
 
@@ -136,7 +136,6 @@ $card-switch: .4s;
     @include font-smooth;
     cursor: default;
     transform: translate3d(-50%, -50%, 0);
-    -webkit-backface-visibility: hidden;
     transition: transform $card-switch ease, opacity $card-switch linear;
     transform-origin: bottom center;
     @include media-breakpoint-up(lg) {
@@ -248,7 +247,6 @@ $card-switch: .4s;
     filter: none;
     transition: opacity $card-switch linear, filter $card-switch linear, transform $card-switch ease;
     transform: translate3d(0, -23px, 0);
-    -webkit-backface-visibility: hidden;
     @include user-select;
     @include user-drag;
     @include media-breakpoint-up(lg) {

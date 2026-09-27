@@ -214,7 +214,6 @@
           text-decoration: none;
           color: white;
           transition: opacity $effect-hover, text-shadow $effect-hover;
-          transform: translate3d(0, 0, 0);
           @include media-breakpoint-up(lg) {
             padding: 9px 20px;
             opacity: .8;
@@ -273,7 +272,6 @@
     }
     background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
     opacity: .95;
-    transform: translate3d(0, 0, 0);
     transition: box-shadow $effect-hover, text-shadow $effect-hover, opacity $effect-hover;
     @include user-select;
     @include user-drag;

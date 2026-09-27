@@ -35,7 +35,7 @@
     background: no-repeat center center;
     @include bg-image('blackhole', 'webp');
     background-size: auto 510px;
-    transform: scale(1.25) translate3d(0, 0, 0);
+    transform: scale(1.25);
     opacity: 0;
     @include reveal($duration-reveal);
     @include media-breakpoint-up(lg) {
@@ -54,7 +54,7 @@
     letter-spacing: .02em;
     text-align: center;
     text-shadow: 0 0 4px rgba(black, .2);
-    transform: scale(1.35) translate3d(0, 0, 0);
+    transform: scale(1.35);
     opacity: 0;
     @include reveal($duration-reveal);
     cursor: default;
@@ -100,7 +100,7 @@
   &.animated &__text {
     > div {
       opacity: 1;
-      transform: translate3d(0, 0, 0);
+      transform: none;
     }
   }
 
@@ -113,11 +113,8 @@
     right: 0;
     bottom: 0;
     left: 0;
-    transform: scale(.7) translate3d(0, 0, 0);
+    transform: scale(.7);
     transition: transform $duration-reveal $ease-out-quint $stagger * 2;
-    @include media-breakpoint-up(lg) {
-
-    }
   }
 
   &__member {
@@ -135,10 +132,9 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(black, .15);
-    background: linear-gradient(180deg, rgba(white, .3) -333.33%, rgba(black, .3) 100%);
+    // A denser fill instead of backdrop-filter: blurring the backdrop under eight moving orbits is costly
+    background: linear-gradient(180deg, rgba(#1c1c3a, .55) 0%, rgba(black, .5) 100%);
     box-shadow: 0 4px 6px rgba(black, .38), inset 0 1px 1px rgba(white, .25);
-    backdrop-filter: blur(15px);
     animation: orbit 16s forwards infinite;
     animation-timing-function: linear;
     animation-play-state: paused;
@@ -179,8 +175,8 @@
   }
 
   &.animated::after,
-  &.animated &__title {transform: scale(1) translate3d(0, 0, 0);opacity: 1;}
-  &.animated &__members {transform: scale(1) translate3d(0, 0, 0);}
+  &.animated &__title {transform: scale(1);opacity: 1;}
+  &.animated &__members {transform: scale(1);}
   &.animated &__member {opacity: 1;animation-play-state: running;}
   &.animated.offscreen &__member {animation-play-state: paused;}
 }

@@ -137,7 +137,7 @@
     z-index: 5;
     background: rgba(black, .3);
     box-shadow: 0 6px 18px rgba(black, .67);
-    transform: scale(.95) translate3d(0, 0, 0);
+    transform: scale(.95);
     // Parallax; `translate` adds up with the reveal transforms
     translate: 0 var(--screens-parallax, 0px);
     @include reveal($duration-reveal, $stagger * 2);
@@ -207,7 +207,7 @@
     &::after {opacity: 1;}
   }
   &.animated &__screenshot {
-    transform: scale(1) translate3d(0, 0, 0);
+    transform: scale(1);
     opacity: 1;
     &:nth-child(2) {
       transform: scale(1) translate3d(95px, 0, 0);

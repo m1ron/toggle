@@ -60,7 +60,6 @@
     span {
       position: relative;
       transition: opacity .5s $ease-out-cubic;
-      transform: translate3d(0, 0, 0);
       opacity: .5;
     }
 
@@ -96,13 +95,11 @@
     @include bg-image('swirl', 'webp');
     background-size: auto 100%;
     opacity: 0;
-    transform: translate3d(0, 0, 0);
     transition: opacity $duration-reveal $ease-out-quint;
   }
 
   &.animated &__swirl {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
   }
 
   &__galaxy {
@@ -118,7 +115,7 @@
     background: no-repeat center center;
     @include bg-image('galaxy-mobile', 'webp');
     background-size: auto 100%;
-    transform: scale(.8) translate3d(0, 0, 0);
+    transform: scale(.8);
     @include reveal($duration-reveal, $stagger);
     @include media-breakpoint-up(lg) {
       height: 675px;
@@ -130,7 +127,7 @@
 
   &.animated &__galaxy {
     opacity: 1;
-    transform: scale(1) translate3d(0, 0, 0);
+    transform: scale(1);
   }
 
   &__eclipse {
@@ -148,7 +145,7 @@
     background: black url('#{$img}/eclipse.svg') no-repeat center center;
     background-size: 222px 222px;
     box-shadow: 0 0 4.5px 2.5px black;
-    transform: scale(.8) translate3d(0, 0, 0);
+    transform: scale(.8);
     @include reveal($duration-reveal, $stagger * 2);
     @include media-breakpoint-up(lg) {
       width: 449px;
@@ -161,6 +158,6 @@
 
   &.animated &__eclipse {
     opacity: 1;
-    transform: scale(1) translate3d(0, 0, 0);
+    transform: scale(1);
   }
 }

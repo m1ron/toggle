@@ -47,8 +47,8 @@
     <div class="header__brand">
         <!-- Each screen downloads only its own logo -->
         <picture>
-            <source media="(min-width: 992px)" srcset="assets/img/logo.png" width="147" height="35">
-            <img src="assets/img/logo-mobile.png" width="91" height="22" alt="toggle apps">
+            <source media="(min-width: 992px)" srcset="assets/img/logo.webp" width="147" height="35">
+            <img src="assets/img/logo-mobile.webp" width="91" height="22" alt="toggle apps">
         </picture>
     </div>
     <div class="header__menu">
@@ -163,7 +163,7 @@
             <div id="join" class="join__anchor"></div>
             <div class="join__content">
                 <div class="join__space">
-                    <figure class="join__logo"><img src="assets/img/logo-tiny.png" width="40" height="24" alt="" loading="lazy"></figure>
+                    <figure class="join__logo"><img src="assets/img/logo-tiny.webp" width="40" height="24" alt="" loading="lazy"></figure>
                     <h2 class="join__heading">Join toggle apps</h2>
                     <p>Work with top talent from leading companies to create groundbreaking mobile solutions</p>
                     <hr>
@@ -178,7 +178,8 @@
             <div class="contacts__form">
                 <h2 class="contacts__title">Any questions? Let’s talk</h2>
                 <button class="contacts__copy" type="button" aria-label="Copy the email address"><span aria-hidden="true">Copy</span><span aria-hidden="true">Copied</span></button>
-                <div class="contacts__email">hello@toggleapps.io</div>
+                <!-- The address is kept out of the markup for spam bots and decoded by initContacts -->
+                <div class="contacts__email" data-email="aGVsbG9AdG9nZ2xlYXBwcy5pbw==">hello [at] toggleapps.io</div>
             </div>
         </section>
 
@@ -196,7 +197,7 @@
         <li><a href="https://toggleapps.io/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li>
         <li><a href="https://toggleapps.io/terms.html" target="_blank" rel="noopener">Terms of Service</a></li>
     </ul>
-    <figure class="footer__logo"><img src="assets/img/logo-small.png" width="56" height="42" loading="lazy" alt="toggle apps"></figure>
+    <figure class="footer__logo"><img src="assets/img/logo-small.webp" width="56" height="42" loading="lazy" alt="toggle apps"></figure>
     <p class="footer__copyright"><span>Copyright &copy; 2026 toggle apps sp. z o.o.</span>ul. Domaniewska 17/19, loc. 133</p>
 </footer>
 

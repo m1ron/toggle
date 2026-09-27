@@ -84,14 +84,13 @@
         text-align: center;
         gap: 12px;
         opacity: 0;
-        transform: scale(.95) translate3d(0, 0, 0);
+        transform: scale(.95);
         @include reveal($duration-reveal-s);
-        -webkit-backface-visibility: hidden;
         @include media-breakpoint-up(lg) {
           min-height: 226px;
           padding-top: 24px;
           letter-spacing: .02em;
-          transform: scale(.85) translate3d(0, 0, 0);
+          transform: scale(.85);
         }
 
         &::before {
@@ -189,7 +188,7 @@
 
   &.animated &__stats {
     li {
-      > div {transform: scale(1) translate3d(0, 0, 0);opacity: 1;}
+      > div {transform: scale(1);opacity: 1;}
       > span {display: block;}
       // Mobile cascades by rows (1 / 2+3 / 4), desktop card by card
       &:nth-child(1) > div {transition-delay: 0s;}
@@ -208,7 +207,7 @@
       @include media-breakpoint-up(lg) {
         @media (hover: hover) {
           &:hover {
-            transform: scale(1.03) translate3d(0, 0, 0);
+            transform: scale(1.03);
             > span::after {
               opacity: .75;
               transform: translate3d(calc(50% + 190px), -50%, 0) rotate(-14deg);
@@ -258,7 +257,7 @@
   &.animated &__text {
     > div {
       opacity: 1;
-      transform: translate3d(0, 0, 0);
+      transform: none;
     }
   }
 

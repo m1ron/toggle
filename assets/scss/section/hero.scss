@@ -43,7 +43,6 @@
     display: block;
     position: relative;
     opacity: 0;
-    transform: translate3d(0, 0, 0);
     transition: opacity $duration-reveal-s $ease-out-cubic;
     @include media-breakpoint-up(lg) {
       margin-bottom: 26px;
@@ -53,7 +52,6 @@
     }
 
     &.loaded {
-      transform: translate3d(0, 0, 0);
       opacity: 1;
     }
 
@@ -151,7 +149,6 @@
     background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
     backdrop-filter: blur(10px);
     opacity: .95;
-    transform: translateZ(0);
     transition: box-shadow $effect-hover, text-shadow $effect-hover, opacity $effect-hover;
     @include user-select;
     @include user-drag;
@@ -172,7 +169,6 @@
       background: conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #2baeff 90deg, #2634ef 160deg, #2634ef 195deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 360deg);
       filter: blur(8px);
       opacity: .5;
-      transform: translateZ(0);
       transition: opacity $effect-hover;
     }
 

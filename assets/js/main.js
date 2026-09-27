@@ -656,7 +656,8 @@ const initContacts = () => {
   const contacts = document.querySelector('.contacts');
   const copy = contacts.querySelector('.contacts__copy');
   const emailField = contacts.querySelector('.contacts__email');
-  const email = emailField.innerText;
+  const email = atob(emailField.dataset.email);
+  emailField.textContent = email;
 
   let resetTimer;
 

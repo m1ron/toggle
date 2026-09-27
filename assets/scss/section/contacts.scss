@@ -114,7 +114,6 @@
       box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .81);
       opacity: .12;
       z-index: -2;
-      transform: translate3d(0, 0, 0);
       transition: opacity $effect-hover;
     }
 
@@ -182,7 +181,6 @@
       @include ring-mask;
       inset: 0;
       z-index: -1;
-      transform: translate3d(0, 0, 0);
       transition: --email-glow $effect-hover;
     }
 
