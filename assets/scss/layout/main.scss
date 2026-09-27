@@ -46,6 +46,7 @@
       top: 0;
       right: 0;
       left: 0;
+      min-width: $min-width;
       background: url('#{$img}/stars.svg') repeat 50% 0;
       will-change: transform;
       pointer-events: none;

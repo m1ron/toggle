@@ -22,6 +22,10 @@
     @include media-breakpoint-down(xss) {
       top: 33px;
     }
+    // Fixed boxes ignore the body's min-width: keep the brand centred in the 320px page
+    @media (max-width: #{$min-width - .02px}) {
+      left: $min-width * .5;
+    }
     @include media-breakpoint-up(lg) {
       left: 77px;
       transform: none;
@@ -264,6 +268,11 @@
     top: 20px;
     right: 20px;
     z-index: 1;
+    @media (max-width: #{$min-width - .02px}) {
+      right: auto;
+      left: $min-width - 20px;
+      translate: -100% 0;
+    }
     background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
     opacity: .95;
     transform: translate3d(0, 0, 0);
