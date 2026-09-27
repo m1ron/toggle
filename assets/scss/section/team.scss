@@ -32,7 +32,8 @@
     bottom: 0;
     left: -20px;
     z-index: -1;
-    background: url('#{$img}/blackhole.webp') no-repeat center center;
+    background: no-repeat center center;
+    @include bg-image('blackhole', 'webp');
     background-size: auto 510px;
     transform: scale(1.25) translate3d(0, 0, 0);
     opacity: 0;

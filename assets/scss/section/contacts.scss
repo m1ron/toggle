@@ -231,7 +231,8 @@
     bottom: 0;
     left: -20px;
     z-index: 0;
-    background: url('#{$img}/ray.webp') 50% 0 no-repeat;
+    background: 50% 0 no-repeat;
+    @include bg-image('ray', 'webp');
     background-size: auto 100%;
     // Grows from its top edge (stays joined to the join glow) and brightens
     transform: scale(calc(.85 + .15 * var(--contacts-parallax, 1)), calc(.8 + .2 * var(--contacts-parallax, 1)));
@@ -253,7 +254,8 @@
     bottom: 0;
     left: 50%;
     z-index: -1;
-    background: url('#{$img}/about-mobile.webp') no-repeat top center;
+    background: no-repeat top center;
+    @include bg-image('about-mobile', 'webp');
     background-size: 100% auto;
     transform: scaleX(-1) translate3d(50%, 0, 0);
     // Rises into place as the footer is uncovered, drifts against the mouse
@@ -263,7 +265,7 @@
       height: 21vw;
       max-height: 300px;
       max-width: none;
-      background-image: url('#{$img}/about.webp');
+      @include bg-image('about', 'webp');
     }
   }
 

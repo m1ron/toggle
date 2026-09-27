@@ -47,6 +47,19 @@ $effect-hover: .8s $ease-out-cubic;
 @mixin font-smooth {-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 @mixin user-select {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 @mixin user-drag {-webkit-user-drag: none;user-drag: none;}
+// AVIF with the original file as fallback: image-set() only where type() is supported
+// (a separate @supports block, so minifiers can't merge the fallback away)
+@mixin bg-image($name, $fallback-ext) {
+  $type: 'image/webp';
+  @if $fallback-ext == 'png' {
+    $type: 'image/png';
+  }
+  background-image: url('#{$img}/#{$name}.#{$fallback-ext}');
+  @supports (background-image: image-set('a.avif' type('image/avif'))) {
+    background-image: image-set(url('#{$img}/#{$name}.avif') type('image/avif'), url('#{$img}/#{$name}.#{$fallback-ext}') type('#{$type}'));
+  }
+}
+
 // Keeps only the padding ring of the element's background: gradient borders
 @mixin ring-mask {mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;}
 

@@ -91,7 +91,10 @@ const initLoader = () => {
     const urls = new Set();
     for (const el of document.querySelectorAll('body *')) {
       for (const pseudo of [null, '::before', '::after']) {
-        for (const [, url] of getComputedStyle(el, pseudo).backgroundImage.matchAll(/url\("([^"]+)"\)/g)) {
+        // From an image-set() only the first candidate (the AVIF the browser picks)
+        const value = getComputedStyle(el, pseudo).backgroundImage
+          .replace(/image-set\((url\("[^"]+"\))[^()]*(?:\([^()]*\)[^()]*)*\)/g, '$1');
+        for (const [, url] of value.matchAll(/url\("([^"]+)"\)/g)) {
           if (!url.startsWith('data:')) urls.add(url);
         }
       }
@@ -355,9 +358,10 @@ const initHero = () => {
   const logo = hero.querySelector('.hero__logo');
   const video = logo.querySelector('video');
 
-  video.addEventListener('play', () => {
-    logo.classList.add('loaded');
-  });
+  // Shown once the video plays; it may have started before this runs (after the loader)
+  const showLogo = () => logo.classList.add('loaded');
+  if (!video.paused) showLogo();
+  else video.addEventListener('play', showLogo, { once: true });
 
   const onResize = () => {
     doc.style.setProperty('--page-height', `${window.innerHeight}px`);
