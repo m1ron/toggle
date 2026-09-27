@@ -45,13 +45,6 @@ const parallax = (target, prop, from, to, scrollTrigger) => {
   });
 };
 
-// Enter / Space for elements with role="button"
-const onKeyActivate = (el, fn) => el.addEventListener('keydown', (e) => {
-  if (e.key !== 'Enter' && e.key !== ' ') return;
-  e.preventDefault();
-  fn();
-});
-
 const debounce = (fn, delay = 150) => {
   let timer;
   return (...args) => {
@@ -342,7 +335,6 @@ const initMenu = () => {
     toggle.setAttribute('aria-expanded', opening);
   };
   toggle.addEventListener('click', onToggle);
-  onKeyActivate(toggle, onToggle);
 
   // Close the mobile menu after navigating to a section
   menu.addEventListener('click', (e) => {
@@ -677,13 +669,14 @@ const initContacts = () => {
       return;
     }
     copy.classList.add('is-copied');
+    copy.ariaLabel = 'Email address copied';
     clearTimeout(resetTimer);
     resetTimer = setTimeout(() => {
       copy.classList.remove('is-copied');
+      copy.ariaLabel = 'Copy the email address';
     }, 2000);
   };
   copy.addEventListener('click', copyEmail);
-  onKeyActivate(copy, copyEmail);
   emailField.addEventListener('click', copyEmail);
 
   // The ray grows and brightens until the section is fully in view

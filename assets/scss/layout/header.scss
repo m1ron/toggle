@@ -35,19 +35,6 @@
       left: 64px;
     }
 
-    span {
-      width: 0;
-      height: 0;
-      display: block;
-      overflow: hidden;
-      position: absolute;
-      top: 0;
-      left: 0;
-      white-space: nowrap;
-      text-indent: -1000px;
-      @include user-select;
-    }
-
     img {
       width: 99px;
       height: 23px;
@@ -139,6 +126,7 @@
     }
 
     &-toggle {
+      width: 100%;
       padding: 7px;
       color: white;
       display: flex;

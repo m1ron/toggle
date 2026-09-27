@@ -44,18 +44,17 @@
 <body class="locked loading">
 
 <header class="header">
-    <h1 class="header__brand">
-        <span>toggle apps</span>
+    <div class="header__brand">
         <!-- Each screen downloads only its own logo -->
         <picture>
             <source media="(min-width: 992px)" srcset="assets/img/logo.png" width="147" height="35">
-            <img src="assets/img/logo-mobile.png" width="91" height="22" alt="">
+            <img src="assets/img/logo-mobile.png" width="91" height="22" alt="toggle apps">
         </picture>
-    </h1>
+    </div>
     <div class="header__menu">
         <nav class="header__menu-space" aria-label="Main">
-            <div class="header__menu-toggle" role="button" tabindex="0" aria-label="Menu" aria-expanded="false"></div>
-            <ul class="header__menu-nav">
+            <button class="header__menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"></button>
+            <ul id="menu" class="header__menu-nav">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#products">Products</a></li>
@@ -70,20 +69,20 @@
 <main class="main">
     <div class="wrapper">
 
-        <header id="home" class="hero">
+        <section id="home" class="hero">
             <div class="hero__content">
-                <figure class="hero__logo">
+                <figure class="hero__logo" aria-hidden="true">
                     <video width="97" height="60" playsinline autoplay muted loop preload="none">
                         <source src="assets/img/logo.mp4" type="video/mp4">
                     </video>
                 </figure>
-                <h2 class="hero__title">Think&nbsp;Smart. Make&nbsp;Simple</h2>
+                <h1 class="hero__title">Think&nbsp;Smart. Make&nbsp;Simple</h1>
                 <p class="hero__subheading">Transforming Complexity into Simplicity</p>
                 <a href="#contacts" class="hero__button">Let’s connect</a>
             </div>
-        </header>
+        </section>
 
-        <div class="about">
+        <section class="about" aria-label="About">
             <div id="about" class="about__anchor"></div>
             <ul class="about__stats">
                 <li><div><strong>30M<span>+</span></strong> downloads</div><span></span></li>
@@ -92,7 +91,7 @@
                 <li><div><strong>50M<span>+</span></strong> connected&nbsp;devices</div><span></span></li>
             </ul>
             <div class="about__text">In just a few years since 2020, toggle apps has&nbsp;reshaped how people engage with home appliances. Our innovative iOS applications have empowered over 15 million users worldwide.</div>
-        </div>
+        </section>
 
         <div class="success">
             <p class="success__title">
@@ -127,7 +126,7 @@
         </div>
 
         <div id="products" class="products__anchor"></div>
-        <div class="products">
+        <section class="products" aria-label="Products">
             <div class="products__heading">
                 <p><span class="products__title"><span>Our mobile applications</span></span><span class="products__coma">,</span> powered by exclusive <span class="nowrap">IoT technologies</span>, deliver seamless, cutting-edge experiences that transform how users <span class="nowrap">interact&nbsp;with their world</span></p>
             </div>
@@ -142,13 +141,13 @@
                     <img src="assets/img/application-3.webp" srcset="assets/img/application-3.webp, assets/img/application-3@2x.webp 2x, assets/img/application-3@3x.webp 3x" width="88" height="196" alt="App screen: connect your smart TV" loading="lazy" draggable="false">
                 </figure>
             </div>
-        </div>
+        </section>
 
         <section class="team">
             <div id="team" class="team__anchor"></div>
-            <h3 class="team__title">The heart of toggle apps</h3>
+            <h2 class="team__title">The heart of toggle apps</h2>
             <div class="team__text">At toggle apps, we're obsessed with building a dream team, bringing on board innovators who spark change</div>
-            <div class="team__members">
+            <div class="team__members" role="img" aria-label="Photos of the toggle apps team">
                 <figure class="team__member"><img src="assets/img/member-1.png" width="180" height="193" alt="" loading="lazy"></figure>
                 <figure class="team__member"><img src="assets/img/member-2.png" width="180" height="193" alt="" loading="lazy"></figure>
                 <figure class="team__member"><img src="assets/img/member-3.png" width="180" height="193" alt="" loading="lazy"></figure>
@@ -165,7 +164,7 @@
             <div class="join__content">
                 <div class="join__space">
                     <figure class="join__logo"><img src="assets/img/logo-tiny.png" width="40" height="24" alt="" loading="lazy"></figure>
-                    <h3 class="join__heading">Join toggle apps</h3>
+                    <h2 class="join__heading">Join toggle apps</h2>
                     <p>Work with top talent from leading companies to create groundbreaking mobile solutions</p>
                     <hr>
                 </div>
@@ -177,8 +176,8 @@
         <section class="contacts">
             <div id="contacts" class="contacts__anchor"></div>
             <div class="contacts__form">
-                <p class="contacts__title">Any questions? Let’s talk</p>
-                <span class="contacts__copy" role="button" tabindex="0" aria-label="Copy the email address"><span>Copy</span><span aria-hidden="true">Copied</span></span>
+                <h2 class="contacts__title">Any questions? Let’s talk</h2>
+                <button class="contacts__copy" type="button" aria-label="Copy the email address"><span aria-hidden="true">Copy</span><span aria-hidden="true">Copied</span></button>
                 <div class="contacts__email">hello@toggleapps.io</div>
             </div>
         </section>
@@ -201,7 +200,7 @@
     <p class="footer__copyright"><span>Copyright &copy; 2026 toggle apps sp. z o.o.</span>ul. Domaniewska 17/19, loc. 133</p>
 </footer>
 
-<div class="loader">
+<div class="loader" aria-hidden="true">
     <div class="loader__space">
         <div class="loader__progress"><div></div></div>
         <div class="loader__title">loading&hellip;</div>
