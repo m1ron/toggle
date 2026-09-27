@@ -120,8 +120,8 @@
 
   }
 
-  // The Copy button and the email field share hover / active
-  &__form:has(&__copy:hover, &__email:hover) {
+  // The Copy button and the email field share hover / focus / active
+  &__form:has(&__copy:hover, &__copy:focus-visible, &__email:hover) {
     .contacts__copy::before {opacity: .2;}
     .contacts__copy::after {opacity: .15;}
     .contacts__email::before {--email-glow: 1;}

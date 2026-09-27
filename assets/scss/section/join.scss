@@ -262,7 +262,6 @@
     z-index: 1;
     box-shadow: 0 15px 20px rgba(black, .4), 0 4px 10px rgba(black, .4);
     @include font-smooth;
-    outline: none;
     // Paused until the section is revealed
     animation: join-button-in $duration-reveal-s $ease-out-back $stagger * 3 both;
     animation-play-state: paused;
@@ -292,7 +291,7 @@
       z-index: -1;
     }
 
-    &:hover, &:focus {
+    &:hover, &:focus-visible {
       &::after {--join-glow: .23;}
     }
   }

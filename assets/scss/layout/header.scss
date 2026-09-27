@@ -156,6 +156,17 @@
         line-height: 24px;
         font-weight: 400;
         letter-spacing: .04em;
+        transition: text-shadow $effect-hover;
+      }
+
+      // Same glow as the menu links
+      &:focus-visible::before {
+        text-shadow: 0 0 8px rgba(white, .65), 0 0 8px rgba(white, .65);
+      }
+      @media (hover: hover) {
+        &:hover::before {
+          text-shadow: 0 0 8px rgba(white, .65), 0 0 8px rgba(white, .65);
+        }
       }
     }
 
@@ -216,7 +227,6 @@
           color: white;
           transition: opacity $effect-hover, text-shadow $effect-hover;
           transform: translate3d(0, 0, 0);
-          outline: none;
           @include media-breakpoint-up(lg) {
             padding: 9px 20px;
             opacity: .8;
@@ -226,7 +236,7 @@
           }
 
           // .is-active: held during the anchor scroll
-          &:hover, &:focus, &.is-active {
+          &:hover, &:focus-visible, &.is-active {
             opacity: 1;
             text-shadow: 0 0 8px rgba(white, .65), 0 0 8px rgba(white, .65);
           }
@@ -277,7 +287,6 @@
     opacity: .95;
     transform: translate3d(0, 0, 0);
     transition: box-shadow $effect-hover, text-shadow $effect-hover, opacity $effect-hover;
-    outline: none;
     @include user-select;
     @include user-drag;
     @include media-breakpoint-down(xss) {
@@ -313,7 +322,7 @@
       opacity: .4;
     }
 
-    &:hover, &:focus, &.is-active {
+    &:hover, &:focus-visible, &.is-active {
       text-shadow: 0 0 3px rgba(white, .5);
       box-shadow: 0px -2px 8px rgba(#2259e4, .55), 0px 2px 12px rgba(#9f1885, .65), inset 0px -2px 24px rgba(white, .15);
       opacity: 1;

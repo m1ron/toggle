@@ -98,7 +98,6 @@
         position: relative;
         display: inline-block;
         text-decoration: none;
-        outline: none;
 
         &::after {
           @include pseudo;
@@ -113,7 +112,7 @@
           transition: opacity $effect-hover;
         }
 
-        &:hover, &:focus {
+        &:hover, &:focus-visible {
           &::after {opacity: .8;}
         }
       }
@@ -143,9 +142,8 @@
       a {
         opacity: .6;
         text-decoration: none;
-        outline: none;
         transition: opacity $effect-hover;
-        &:hover, &:focus {opacity: 1;}
+        &:hover, &:focus-visible {opacity: 1;}
       }
     }
   }

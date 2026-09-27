@@ -711,8 +711,12 @@ const initContacts = () => {
 }
 
 // Footer fixed under the page, uncovered as it scrolls away; only if it fits the screen
-const initFooter = () => {
+const initFooter = (lenis) => {
   const footer = document.querySelector('.footer');
+  // The fixed footer sits under the page until the very bottom: tabbing into it scrolls there
+  footer.addEventListener('focusin', () => {
+    if (document.body.classList.contains('footer-reveal')) lenis.scrollTo(lenis.limit);
+  });
   const update = () => {
     document.body.classList.toggle('footer-reveal', footer.offsetHeight <= window.innerHeight);
     doc.style.setProperty('--footer-height', `${footer.offsetHeight}px`);
@@ -736,7 +740,7 @@ function initApp() {
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
 
-  initFooter(); // changes the page height, so before any ScrollTrigger is measured
+  initFooter(lenis); // changes the page height, so before any ScrollTrigger is measured
   initParallax(lenis);
   const navigate = initAnchors(lenis);
   initMenu();
