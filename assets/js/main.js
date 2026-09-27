@@ -709,7 +709,7 @@ const initFooter = (lenis) => {
   const footer = document.querySelector('.footer');
   // The fixed footer sits under the page until the very bottom: tabbing into it scrolls there
   footer.addEventListener('focusin', () => {
-    if (document.body.classList.contains('footer-reveal')) lenis.scrollTo(lenis.limit);
+    if (document.body.classList.contains('footer-reveal')) lenis.scrollTo(lenis.limit, { immediate: prefersReducedMotion });
   });
   const update = () => {
     document.body.classList.toggle('footer-reveal', footer.offsetHeight <= window.innerHeight);
@@ -729,7 +729,8 @@ function initApp() {
 
   // Driven by the GSAP ticker, so scrolling and ScrollTrigger update in the same frame.
   // Each wheel step glides for 1.8s (easeOutExpo); a shorter step per notch feels softer.
-  const lenis = new Lenis({ duration: 1.8, wheelMultiplier: .85 });
+  // With reduced motion the wheel scrolls natively, Lenis only keeps ScrollTrigger in sync.
+  const lenis = new Lenis({ duration: 1.8, wheelMultiplier: .85, smoothWheel: !prefersReducedMotion });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
