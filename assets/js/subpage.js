@@ -10,6 +10,9 @@ const lenis = new Lenis({
   duration: 1.8,
   wheelMultiplier: .85,
   smoothWheel: !prefersReducedMotion,
+  // Touch too: Lenis smooths the finger scroll (native otherwise), a bit softer than its default
+  syncTouch: !prefersReducedMotion,
+  syncTouchLerp: .06,
   // Contents links; the gap under the fixed header comes from scroll-margin-top
   anchors: { immediate: prefersReducedMotion },
 });
@@ -20,14 +23,6 @@ const raf = (time) => {
 requestAnimationFrame(raf);
 
 initStars(lenis);
-
-// Shade under the header once the text scrolls beneath it
-const page = document.querySelector('.legal');
-if (page) {
-  const onScroll = ({ scroll }) => page.classList.toggle('is-scrolled', scroll > 40);
-  onScroll(lenis);
-  lenis.on('scroll', onScroll);
-}
 
 // Spam protection, as on the home page: addresses are decoded here
 for (const link of document.querySelectorAll('[data-email]')) {

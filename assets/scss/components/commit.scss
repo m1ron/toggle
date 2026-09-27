@@ -15,6 +15,10 @@
   @include media-breakpoint-up(lg) {
     min-height: 900px;
   }
+  // Short screens (phones in landscape): exactly the viewport, so the pinned content is centred in it
+  @media (max-height: 619.98px) {
+    min-height: 0;
+  }
 
   &__content {
     max-width: 390px;

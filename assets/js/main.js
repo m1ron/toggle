@@ -31,6 +31,9 @@ function initApp() {
     duration: 1.8,
     wheelMultiplier: .85,
     smoothWheel: !prefersReducedMotion,
+    // Touch too: Lenis smooths the finger scroll (native otherwise), a bit softer than its default
+    syncTouch: !prefersReducedMotion,
+    syncTouchLerp: .06,
   });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));

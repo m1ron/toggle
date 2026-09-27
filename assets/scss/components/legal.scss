@@ -34,25 +34,6 @@
     }
   }
 
-  // Shade under the fixed header once the text scrolls beneath it (.is-scrolled, subpage.js)
-  &::after {
-    @include pseudo;
-    height: 110px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 2;
-    background: linear-gradient(black 35%, rgba(black, 0));
-    opacity: 0;
-    transition: opacity .6s $ease-out-cubic;
-    pointer-events: none;
-    @include media-breakpoint-up(lg) {
-      height: 130px;
-    }
-  }
-  &.is-scrolled::after {opacity: 1;}
-
   &__document {
     max-width: 760px;
     margin: 0 auto;
