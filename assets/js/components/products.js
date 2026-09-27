@@ -4,7 +4,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { prefersReducedMotion } from '../core/env.js';
-import { parallax, reveal, softPin } from '../core/motion.js';
+import { reveal, softPin } from '../core/motion.js';
 
 export const initProducts = () => {
   const products = document.querySelector('.products');
@@ -15,7 +15,7 @@ export const initProducts = () => {
   const animation = products.querySelector('.products__animation');
 
   // Heading pin length (text greys out)
-  const HEADING_PIN = () => window.innerHeight * 1.45;
+  const HEADING_PIN = () => window.innerHeight * 1.25;
   const HEADING_SHIFT = 80; // soft pin ramps for the heading
 
   let offsetX = 0, offsetY = 0, flight = 0;
@@ -102,12 +102,5 @@ export const initProducts = () => {
     property: '--products-pin-shift',
     // Set on its two users: the variable isn't inherited, and the heading is reparented while pinned
     content: [paragraph, animation],
-  });
-
-  // Screenshots; explicit range: triggers inside a pin miss its length
-  // The glow (::after) and each screenshot
-  parallax([animation, ...animation.querySelectorAll('.products__screenshot')], '--screens-parallax', '15px', '-15px', {
-    start: () => screensCentred() - (window.innerHeight + animation.offsetHeight) / 2,
-    end: () => screensCentred() + productsShift + LANDING() + HOLD() + (window.innerHeight + animation.offsetHeight) / 2,
   });
 };

@@ -31,7 +31,6 @@ html {
 // own ::before / ::after take them with `--x: inherit` (Safari doesn't update children that do so).
 @property --pin-shift {syntax: '<length>'; inherits: false; initial-value: 0px;}
 @property --products-pin-shift {syntax: '<length>'; inherits: false; initial-value: 0px;}
-@property --screens-parallax {syntax: '<length>'; inherits: false; initial-value: 0px;}
 @property --success-drift {syntax: '<length>'; inherits: false; initial-value: 0px;}
 @property --about-parallax {syntax: '<length>'; inherits: false; initial-value: 0px;}
 @property --cards-progress {syntax: '<number>'; inherits: false; initial-value: 0;}
