@@ -115,6 +115,8 @@
       background-size: auto 90%;
       opacity: 0;
       transform: translate3d(-50%, -50%, 0);
+      // Barely-there parallax: the glow is the farthest layer and drifts against the phones (±10px)
+      translate: 0 calc(var(--screens-parallax, 0px) * -.66);
       transition: opacity $duration-reveal $ease-out-quint;
       @include media-breakpoint-up(lg) {
         margin-top: 0;

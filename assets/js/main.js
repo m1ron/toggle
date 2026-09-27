@@ -459,24 +459,35 @@ const initSuccess = () => {
   });
 }
 
-// Card switch duration in ms, matches $card-switch in commit.scss.
-// Cards pass each other halfway through, that's when their depth order is swapped.
+// Card switch duration in ms, matches $card-switch in commit.scss
 const CARD_SWITCH = 400;
+// When the two cards are the same size: 50% progress of the CSS `ease` curve is reached at 29.3% of the time
+const CARD_CROSS = CARD_SWITCH * .293;
 
 const initCommit = () => {
   const commit = document.querySelector('.commit');
   const cards = commit.querySelector('.cards');
-  let delayTimer;
+  const cardEls = [...cards.querySelectorAll('.cards__card')];
+  let current = 0;
+  let swapTimer;
 
-  // Switches the visible card; `reverse` is true when scrolling back up
-  const setCard = (n, reverse = false) => {
-    clearTimeout(delayTimer);
+  // Depth order: [front card, middle card], the remaining one stays at the back
+  const setDepth = (front, middle) => cardEls.forEach((el, i) => {
+    el.style.zIndex = i + 1 === front ? 3 : i + 1 === middle ? 2 : 1;
+  });
+
+  // Switches the visible card. The outgoing card stays in front until both cards are the same size,
+  // i.e. when they pass each other (CARD_CROSS), then the incoming one comes forward. The third card
+  // only moves from one side to the other behind them.
+  const setCard = (n) => {
+    if (n === current) return;
+    const previous = current;
+    current = n;
     cards.setAttribute('data-card', n);
-    cards.setAttribute('data-reverse', reverse);
-    cards.setAttribute('data-delayed', !reverse);
-    delayTimer = setTimeout(() => {
-      cards.setAttribute('data-delayed', reverse);
-    }, CARD_SWITCH / 2);
+    clearTimeout(swapTimer);
+    if (!previous) return setDepth(n, 0);
+    setDepth(previous, n);
+    swapTimer = setTimeout(() => setDepth(n, previous), CARD_CROSS);
   };
 
   ScrollTrigger.create({
@@ -496,7 +507,7 @@ const initCommit = () => {
     start: '30% top',
     end: '130% top',
     onEnter: () => setCard(2),
-    onLeaveBack: () => setCard(1, true)
+    onLeaveBack: () => setCard(1)
   });
 
   ScrollTrigger.create({
@@ -504,10 +515,17 @@ const initCommit = () => {
     start: '130% top',
     end: '200% top',
     onEnter: () => setCard(3),
-    onLeaveBack: () => setCard(2, true)
+    onLeaveBack: () => setCard(2)
   });
 
-  softPin(commit, '200% top');
+  const pin = softPin(commit, '200% top');
+
+  // The progress bar fills at a constant pace over the whole pinned stretch
+  gsap.fromTo(cards, { '--cards-progress': 0 }, {
+    '--cards-progress': 1,
+    ease: 'none',
+    scrollTrigger: { start: () => pin.start, end: () => pin.end, scrub: true },
+  });
 };
 
 const initProducts = () => {
@@ -519,7 +537,7 @@ const initProducts = () => {
   const animation = products.querySelector('.products__animation');
 
   // How long the heading stays pinned at the centre while its text greys out
-  const HEADING_PIN = () => window.innerHeight * 1.6;
+  const HEADING_PIN = () => window.innerHeight * 1.45;
   const HEADING_SHIFT = 80; // soft pin ramps for the heading
 
   let offsetX = 0, offsetY = 0, flight = 0;
@@ -658,6 +676,19 @@ const initTeam = () => {
 }
 
 const initJoin = () => {
+  // Barely-there parallax for the glow inside the card. It only ever sinks below the bottom edge
+  // (where it gets clipped) and rises to its design position: never above it, so no gap opens underneath
+  if (!prefersReducedMotion) gsap.fromTo('.join', { '--join-parallax': '25px' }, {
+    '--join-parallax': '0px',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.join',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: PARALLAX_SCRUB,
+    },
+  });
+
   ScrollTrigger.create({
     trigger: '.join',
     start: REVEAL_START,

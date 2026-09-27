@@ -189,6 +189,8 @@
       z-index: -1;
       background: url('#{$img}/join.webp') no-repeat center bottom;
       background-size: 600px auto;
+      // Barely-there parallax (see initJoin): the glow drifts inside the card, the rounded shape stays put
+      background-position: center calc(100% + var(--join-parallax, 0px));
       @include media-breakpoint-up(lg) {
         border-radius: 64px;
         background-size: 766px auto;
