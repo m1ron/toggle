@@ -1,4 +1,4 @@
-// Main: covers the fixed footer, divider line, starry background layer.
+// Main: covers the fixed footer, divider line.
 
 @use '../core/var' as *;
 @use '../core/breakpoints' as *;
@@ -27,30 +27,5 @@
     background: linear-gradient(90deg, rgba(white, 0) 0%, white 50%, rgba(white, 0) 100%);
     opacity: .3;
     pointer-events: none;
-  }
-
-  .stars {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    // Clips the fixed layer (a transform would break fixed)
-    clip-path: inset(0);
-
-    // Moved by transform only
-    &__layer {
-      height: calc(100vh + #{$stars-tile});
-      height: calc(100lvh + #{$stars-tile});
-      position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      min-width: $min-width;
-      background: url('#{$img}/stars.svg') repeat 50% 0;
-      will-change: transform;
-      pointer-events: none;
-    }
   }
 }

@@ -6,10 +6,11 @@
 @use 'core/var';
 @use 'core/fonts';
 @use 'core/breakpoints';
-@use 'core/default';
+@use 'core/base';
 
 @use 'layout/loader';
 @use 'layout/main';
+@use 'layout/stars';
 @use 'layout/header';
 @use 'layout/wrapper';
 @use 'layout/footer';

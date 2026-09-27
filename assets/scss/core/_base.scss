@@ -56,7 +56,9 @@ body {
     .header, .main, .footer {opacity: 0;}
   }
   &.revealing {
-    .header, .main, .footer {transition: opacity 1s $ease-out-cubic;}
+    .header, .main {transition: opacity 1s $ease-out-cubic;}
+    // Would show through the fading page; covered by then
+    .footer {opacity: 0;}
   }
 }
 

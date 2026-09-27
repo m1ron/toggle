@@ -253,7 +253,7 @@
     left: 50%;
     z-index: -1;
     background: no-repeat top center;
-    @include bg-image('about-mobile', 'webp');
+    @include bg-image('wave-mobile', 'webp');
     background-size: 100% auto;
     transform: scaleX(-1) translate3d(50%, 0, 0);
     // Rises with the footer, drifts against the mouse
@@ -263,7 +263,7 @@
       height: 21vw;
       max-height: 300px;
       max-width: none;
-      @include bg-image('about', 'webp');
+      @include bg-image('wave', 'webp');
     }
   }
 

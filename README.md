@@ -34,7 +34,7 @@ assets/js/
 assets/scss/
   style.scss                entry
   core/                     variables, motion tokens, mixins, breakpoints, fonts, base styles
-  layout/                   loader, header, main, wrapper, footer
+  layout/                   loader, header, main, stars, wrapper, footer
   components/               one file per page section, same names as in js/
   vendor/                   normalize, lenis
 assets/img, assets/fonts    processed and hashed by Vite
@@ -51,7 +51,7 @@ public/                     copied as is: favicons, og-image.jpg, robots.txt
 ## Performance
 - **Loader.** The page stays hidden until the fonts and first-screen images are loaded and decoded, then fades in. Artwork below the fold (`html.defer-bg`) is requested only after that.
 - **Inline CSS.** The build puts the whole stylesheet (~14 KB gzipped) into a `<style>` in `index.html` (`inlineCssPlugin` in `vite.config.js`), so there's no render-blocking request. JS stays external: it doesn't block rendering and is cached.
-- **Images.** Large backgrounds are AVIF with a WebP/PNG fallback (`bg-image` mixin). Screenshots and cards are WebP with 2x/3x `srcset`. Logos are WebP, and each screen downloads only its own header logo.
+- **Images.** Large backgrounds are AVIF with a WebP/PNG fallback (`bg-image` mixin). Screenshots and cards are WebP with 2x/3x `srcset`. Logos and team avatars are WebP, and each screen downloads only its own header logo.
 - **Fonts.** Inter is subset to the characters in use (5 KB). Both fonts are preloaded.
 
 ## Accessibility
