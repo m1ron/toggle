@@ -58,7 +58,7 @@ export const initCommit = () => {
   const pin = softPin(commit, '200% top');
 
   // Progress bar over the pin
-  gsap.fromTo(cards, { '--cards-progress': 0 }, {
+  gsap.fromTo(cards.querySelector('.cards__progress'), { '--cards-progress': 0 }, {
     '--cards-progress': 1,
     ease: 'none',
     scrollTrigger: { start: () => pin.start, end: () => pin.end, scrub: true },

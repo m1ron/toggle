@@ -103,6 +103,9 @@
     }
 
     &::after {
+      --screens-parallax: inherit;
+      // Moved every frame: own layer, no repaint
+      will-change: transform;
       @include pseudo;
       width: 100vw;
       height: 100%;
@@ -126,6 +129,8 @@
   }
 
   &__screenshot {
+    --screens-parallax: inherit;
+    will-change: transform;
     width: 132px;
     height: 272px;
     border: .5px solid rgba(white, .15);

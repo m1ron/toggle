@@ -134,21 +134,35 @@
     opacity: 0;
     @include reveal($duration-reveal);
 
+  }
+
+  // Glow at the bottom of the card, over the panel; clipped here so it can move by transform (a layer, no repaint)
+  &__glow {
+    border-radius: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+    @include media-breakpoint-up(lg) {
+      border-radius: 64px;
+    }
+
     &::after {
+      --join-parallax: inherit;
       @include pseudo;
-      border-radius: 40px;
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
-      z-index: -1;
       background: url('#{$img}/join-glow.webp') no-repeat center bottom;
       background-size: 600px auto;
-      // Parallax via background-position: the shape stays put
-      background-position: center calc(100% + var(--join-parallax, 0px));
+      transform: translate3d(0, var(--join-parallax, 0px), 0);
+      will-change: transform;
       @include media-breakpoint-up(lg) {
-        border-radius: 64px;
         background-size: 766px auto;
       }
     }

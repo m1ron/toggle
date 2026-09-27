@@ -100,6 +100,8 @@ export const initProducts = () => {
     start: shift => () => screensCentred() - shift,
     shift: PRODUCTS_SHIFT,
     property: '--products-pin-shift',
+    // Set on its two users: the variable isn't inherited, and the heading is reparented while pinned
+    content: [paragraph, animation],
   });
 
   // Screenshots; explicit range: triggers inside a pin miss its length

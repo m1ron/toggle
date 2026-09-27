@@ -31,6 +31,7 @@
   }
 
   &__title {
+    --pin-shift: inherit;
     max-width: 350px;
     margin: 0 auto;
     font-size: 20px;
@@ -76,6 +77,8 @@
   }
 
   &__animation {
+    --pin-shift: inherit;
+    --success-drift: inherit;
     position: absolute;
     top: 0;
     right: -20px;

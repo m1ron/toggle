@@ -17,6 +17,7 @@
   }
 
   &__content {
+    --pin-shift: inherit;
     max-width: 390px;
     margin: 0 auto;
     position: relative;
@@ -95,6 +96,7 @@
     bottom: 0;
     left: -10px;
     z-index: -2;
+    --pin-shift: inherit;
     opacity: .7;
     background: url('#{$img}/dots.svg') no-repeat center center;
     transform: translate3d(0, var(--pin-shift, 0px), 0);

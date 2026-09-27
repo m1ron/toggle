@@ -26,6 +26,21 @@ html {
   text-size-adjust: 100%;
 }
 
+// Scroll-driven variables (set by GSAP every frame). Not inherited: a change restyles only the element
+// holding it, not the whole section below; consumers one level down take it with `--x: inherit`.
+@property --pin-shift {syntax: '<length>'; inherits: false; initial-value: 0px;}
+@property --products-pin-shift {syntax: '<length>'; inherits: false; initial-value: 0px;}
+@property --screens-parallax {syntax: '<length>'; inherits: false; initial-value: 0px;}
+@property --success-drift {syntax: '<length>'; inherits: false; initial-value: 0px;}
+@property --about-parallax {syntax: '<length>'; inherits: false; initial-value: 0px;}
+@property --cards-progress {syntax: '<number>'; inherits: false; initial-value: 0;}
+@property --join-parallax {syntax: '<length>'; inherits: false; initial-value: 0px;}
+@property --contacts-parallax {syntax: '<number>'; inherits: false; initial-value: 1;}
+@property --contacts-arc {syntax: '<number>'; inherits: false; initial-value: 1;}
+@property --pointer-x {syntax: '<number>'; inherits: false; initial-value: 0;}
+@property --pointer-y {syntax: '<number>'; inherits: false; initial-value: 0;}
+@property --footer-reveal {syntax: '<number>'; inherits: false; initial-value: 1;}
+
 // Lenis: the page scrolls natively, Lenis only animates the scroll position
 html.lenis, html.lenis body {height: auto;}
 .lenis.lenis-smooth {scroll-behavior: auto !important;}

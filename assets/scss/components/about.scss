@@ -245,6 +245,7 @@
   }
 
   &::before {
+    --about-parallax: inherit;
     @include pseudo;
     height: 65vw;
     min-height: 258px;

@@ -1,4 +1,4 @@
-# toggle apps — landing page
+# Toggle Apps — Marketing landing page
 
 **Live demo: [toggleapps.sergeymiron.com](https://toggleapps.sergeymiron.com/)**
 
@@ -6,7 +6,7 @@ Marketing website for [toggle apps](https://toggleapps.io/), built from a Figma 
 
 ![toggle apps — Think Smart. Make Simple](public/og-image.jpg)
 
-**Lighthouse:** 100 in Accessibility, Best Practices and SEO on every page; Performance 99–100 on the landing page (mobile / desktop) and 100 on the legal pages.
+**Lighthouse:** 100 in Accessibility, Best Practices and SEO on every page; Performance 99+ on the landing page (mobile / desktop)
 
 ## Tech stack
 - [Vite](https://vite.dev/) — dev server and build
