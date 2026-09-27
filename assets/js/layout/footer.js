@@ -1,11 +1,11 @@
-// Footer: fixed under the page and uncovered at the end (tablet and up); tabbing into it scrolls it into view.
+// Footer: fixed under the page and uncovered at the end (landscape tablets and up); tabbing into it scrolls it into view.
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { doc, prefersReducedMotion } from '../core/env.js';
 import { onWidthResize } from '../core/utils.js';
 
-// md breakpoint: phones keep a regular footer
-const tablet = window.matchMedia('(min-width: 768px)');
+// lg breakpoint: phones and portrait tablets keep a regular footer
+const wide = window.matchMedia('(min-width: 992px)');
 
 // Fixed under the page and uncovered at the end, if it fits the screen
 export const initFooter = (lenis) => {
@@ -15,7 +15,7 @@ export const initFooter = (lenis) => {
     if (document.body.classList.contains('has-fixed-footer')) lenis.scrollTo(lenis.limit, { immediate: prefersReducedMotion });
   });
   const update = () => {
-    document.body.classList.toggle('has-fixed-footer', tablet.matches && footer.offsetHeight <= window.innerHeight);
+    document.body.classList.toggle('has-fixed-footer', wide.matches && footer.offsetHeight <= window.innerHeight);
     doc.style.setProperty('--footer-height', `${footer.offsetHeight}px`);
   };
   update();

@@ -51,7 +51,7 @@ public/                     copied as is: favicons, og-image.jpg, robots.txt
 - **Scroll-scrubbed CSS variables.** GSAP animates custom properties (`--about-parallax`, `--cards-progress`, …) and CSS turns them into transforms, opacity and glows. Registered `@property` values give smooth hover transitions too.
 - **Section reveals.** A section gets `.is-revealed` when it reaches the lower quarter of the viewport. The entrance itself is CSS, using shared motion tokens.
 - **Anchor navigation.** Menu links scroll at a constant speed with a gentle start and stop. Input is locked during the scroll and the clicked link stays highlighted until arrival.
-- **Fixed footer reveal.** On tablets and up the footer sits under the page and is uncovered as the last section scrolls away; phones get a regular footer.
+- **Fixed footer reveal.** From 992px wide (landscape tablets, desktops) the footer sits under the page and is uncovered as the last section scrolls away; phones and portrait tablets get a regular footer.
 
 ## Legal pages
 The Privacy Policy and Terms of Service texts come from the client's site, which serves a generated Termly markup (nested spans, inline styles, unclosed tags). Only the content was taken over: headings, paragraphs, lists and links, rebuilt as semantic BEM markup.

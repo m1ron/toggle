@@ -10,9 +10,9 @@ const lenis = new Lenis({
   duration: 1.8,
   wheelMultiplier: .85,
   smoothWheel: !prefersReducedMotion,
-  // Touch too: Lenis smooths the finger scroll (native otherwise), a bit softer than its default
+  // Touch too: Lenis smooths the finger scroll (native otherwise), a bit crisper than the wheel
   syncTouch: !prefersReducedMotion,
-  syncTouchLerp: .06,
+  syncTouchLerp: .085,
   // Contents links; the gap under the fixed header comes from scroll-margin-top
   anchors: { immediate: prefersReducedMotion },
 });

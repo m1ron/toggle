@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
 import './core/start.js'; // first: GSAP setup, scroll reset, deep link
-import { isMobile, prefersReducedMotion } from './core/env.js';
+import { prefersReducedMotion } from './core/env.js';
 import { initLoader } from './layout/loader.js';
 import { initStars } from './layout/stars.js';
 import { initAnchors } from './layout/anchors.js';
@@ -22,18 +22,18 @@ import { initContacts } from './components/contacts.js';
 
 // Order matters: each pin shifts the triggers created after it
 function initApp() {
-  if (isMobile) {
-    document.body.classList.add('is-mobile');
-  }
+  // TEMPORARY, for testing on real devices: ?pin=transform, ?touch=native
+  const params = new URLSearchParams(location.search);
+  if (params.get('pin') === 'transform') ScrollTrigger.defaults({ pinType: 'transform' });
 
   // On the GSAP ticker: scroll and ScrollTrigger update in the same frame. Native wheel for reduced motion
   const lenis = new Lenis({
     duration: 1.8,
     wheelMultiplier: .85,
     smoothWheel: !prefersReducedMotion,
-    // Touch too: Lenis smooths the finger scroll (native otherwise), a bit softer than its default
-    syncTouch: !prefersReducedMotion,
-    syncTouchLerp: .06,
+    // Touch too: Lenis smooths the finger scroll (native otherwise), a bit crisper than the wheel
+    syncTouch: !prefersReducedMotion && params.get('touch') !== 'native',
+    syncTouchLerp: .085,
   });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));

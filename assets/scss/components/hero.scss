@@ -4,21 +4,14 @@
 @use '../core/breakpoints' as *;
 
 .hero {
+  // The whole first screen; svh: the visible height, steady while mobile toolbars show and hide
   height: 100vh;
-  min-height: 400px;
-  max-height: 1200px;
+  height: 100svh;
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  @supports (-webkit-touch-callout: none) {
-    height: -webkit-fill-available !important;
-  }
-
-  body.is-inited:not(.is-mobile) & {
-    height: var(--page-height);
-  }
 
   &__content {
     max-width: 280px;

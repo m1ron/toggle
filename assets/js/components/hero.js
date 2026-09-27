@@ -1,7 +1,7 @@
 // Hero: logo video, content parallax, unlocks the page after the intro.
 
 import gsap from 'gsap';
-import { doc, isMobile, prefersReducedMotion } from '../core/env.js';
+import { prefersReducedMotion } from '../core/env.js';
 import { PARALLAX_SCRUB } from '../core/motion.js';
 
 export const initHero = () => {
@@ -13,15 +13,6 @@ export const initHero = () => {
   const showLogo = () => logo.classList.add('is-loaded');
   if (!video.paused) showLogo();
   else video.addEventListener('play', showLogo, { once: true });
-
-  const onResize = () => {
-    doc.style.setProperty('--page-height', `${window.innerHeight}px`);
-  }
-
-  if (!isMobile) {
-    onResize();
-    window.addEventListener('resize', onResize);
-  }
 
   // Content lags slightly behind
   if (!prefersReducedMotion) gsap.to('.hero__content', {
@@ -36,6 +27,5 @@ export const initHero = () => {
     },
   });
 
-  document.body.classList.add('is-inited');
   document.body.classList.remove('is-locked');
 };
