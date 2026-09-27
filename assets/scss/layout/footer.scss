@@ -36,7 +36,7 @@
   }
 
   // Fixed under the page (initFooter)
-  body.footer-reveal & {
+  body.has-fixed-footer & {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -44,7 +44,6 @@
     z-index: 0;
     min-width: $min-width;
   }
-
 
   &__title {
     max-width: 400px;
@@ -91,36 +90,36 @@
       background: linear-gradient(90deg, rgba(white, 0) 0%, white 50%, rgba(white, 0) 100%);
       opacity: .3;
     }
+  }
 
-    li {
-      width: 50%;
+  &__nav-item {
+    width: 50%;
+  }
 
-      a {
-        position: relative;
-        display: inline-block;
-        text-decoration: none;
+  &__nav-link {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
 
-        &::after {
-          @include pseudo;
-          position: absolute;
-          height: .5px;
-          right: 0;
-          bottom: 2px;
-          left: 0;
-          background: white;
-          opacity: 0;
-          transform-origin: bottom right;
-          transition: opacity $effect-hover;
-        }
+    &::after {
+      @include pseudo;
+      position: absolute;
+      height: .5px;
+      right: 0;
+      bottom: 2px;
+      left: 0;
+      background: white;
+      opacity: 0;
+      transform-origin: bottom right;
+      transition: opacity $effect-hover;
+    }
 
-        &:hover, &:focus-visible {
-          &::after {opacity: .8;}
-        }
-      }
+    &:hover, &:focus-visible {
+      &::after {opacity: .8;}
     }
   }
 
-  &__links {
+  &__legal {
     max-width: 400px;
     padding: 0;
     margin: 0 auto;
@@ -136,17 +135,17 @@
       justify-content: space-between;
       font-weight: 400;
     }
+  }
 
-    li {
-      margin-bottom: 13px;
+  &__legal-item {
+    margin-bottom: 13px;
+  }
 
-      a {
-        opacity: .6;
-        text-decoration: none;
-        transition: opacity $effect-hover;
-        &:hover, &:focus-visible {opacity: 1;}
-      }
-    }
+  &__legal-link {
+    opacity: .6;
+    text-decoration: none;
+    transition: opacity $effect-hover;
+    &:hover, &:focus-visible {opacity: 1;}
   }
 
   &__logo {
@@ -157,15 +156,15 @@
     @include media-breakpoint-up(lg) {
       margin-top: -48px;
     }
+  }
 
-    img {
-      width: 56px;
-      height: auto;
-      margin: 0 auto;
-      display: block;
-      @include no-select;
-      @include no-drag;
-    }
+  &__logo-image {
+    width: 56px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    @include no-select;
+    @include no-drag;
   }
 
   &__copyright {
@@ -178,13 +177,13 @@
       margin-top: 41px;
       line-height: 19px;
     }
+  }
 
-    span {
-      font-size: 14px;
-      display: block;
-      @include media-breakpoint-up(lg) {
-        font-size: inherit;
-      }
+  &__company {
+    font-size: 14px;
+    display: block;
+    @include media-breakpoint-up(lg) {
+      font-size: inherit;
     }
   }
 }

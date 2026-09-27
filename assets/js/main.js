@@ -21,7 +21,7 @@ import { initContacts } from './components/contacts.js';
 // Order matters: each pin shifts the triggers created after it
 function initApp() {
   if (isMobile) {
-    document.body.classList.add('mobile');
+    document.body.classList.add('is-mobile');
   }
 
   // On the GSAP ticker: scroll and ScrollTrigger update in the same frame. Native wheel for reduced motion

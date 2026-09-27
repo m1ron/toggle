@@ -36,7 +36,7 @@ export const initAnchors = (lenis) => {
   };
 
   // `link` keeps its hover look on the way
-  const navigate = (hash, link = document.querySelector(`.header__menu-nav a[href="${hash}"]`)) => {
+  const navigate = (hash, link = document.querySelector(`.header__menu-link[href="${hash}"]`)) => {
     const target = hash.length > 1 && document.getElementById(hash.slice(1));
     // One scroll at a time
     if (!target || navigating) return;
@@ -83,21 +83,21 @@ export const initMenu = () => {
   const toggle = menu.querySelector('.header__menu-toggle');
 
   const open = () => {
-    menu.classList.add('visible');
+    menu.classList.add('is-visible');
     setTimeout(() => {
-      menu.classList.add('active');
+      menu.classList.add('is-open');
     }, 50);
   };
 
   const close = () => {
-    menu.classList.remove('active');
+    menu.classList.remove('is-open');
     setTimeout(() => {
-      menu.classList.remove('visible');
+      menu.classList.remove('is-visible');
     }, 400);
   };
 
   const onToggle = () => {
-    const opening = !menu.classList.contains('active');
+    const opening = !menu.classList.contains('is-open');
     opening ? open() : close();
     toggle.setAttribute('aria-expanded', opening);
   };
@@ -105,7 +105,7 @@ export const initMenu = () => {
 
   // Close the mobile menu after a link click
   menu.addEventListener('click', (e) => {
-    if (e.target.closest('a') && menu.classList.contains('active')) {
+    if (e.target.closest('a') && menu.classList.contains('is-open')) {
       close();
       toggle.setAttribute('aria-expanded', false);
     }

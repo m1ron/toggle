@@ -10,6 +10,7 @@
   initial-value: 0;
 }
 .contacts {
+  $b: &;
   min-height: 664px;
   display: flex;
   justify-content: center;
@@ -65,17 +66,11 @@
     top: 12px;
     right: 12px;
     z-index: 10;
-    // Both labels in one cell: constant width
     display: grid;
     justify-items: center;
 
-    > span {
-      grid-area: 1 / 1;
-      transition: opacity .3s $ease-out-cubic;
-    }
-    > span:last-child {opacity: 0;}
-    &.is-copied > span:first-child {opacity: 0;}
-    &.is-copied > span:last-child {opacity: 1;}
+    &.is-copied #{$b}__copy-label:first-child {opacity: 0;}
+    &.is-copied #{$b}__copy-label:last-child {opacity: 1;}
     @include font-smooth;
     @include media-breakpoint-down(xss) {
       padding-right: 16px;
@@ -116,7 +111,13 @@
       z-index: -2;
       transition: opacity $effect-hover;
     }
+  }
 
+  // Copy / Copied in one cell: constant width
+  &__copy-label {
+    grid-area: 1 / 1;
+    transition: opacity .3s $ease-out-cubic;
+    &:last-child {opacity: 0;}
   }
 
   // Copy and email share hover / focus / active
@@ -267,7 +268,7 @@
     }
   }
 
-  &.animated &__title {
+  &.is-revealed &__title {
     transform: translate3d(0, 12px, 0);
     opacity: 1;
     @include media-breakpoint-up(lg) {

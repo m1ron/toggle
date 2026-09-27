@@ -18,7 +18,7 @@ const LOADER_TIMEOUT = 10000;
 export const initLoader = (start) => {
   const loader = document.querySelector('.loader');
   const percent = loader.querySelector('.loader__percent');
-  const bar = loader.querySelector('.loader__progress div');
+  const bar = loader.querySelector('.loader__bar');
 
   // Backgrounds in use at this viewport and eager <img>s
   const getImageUrls = () => {
@@ -57,7 +57,7 @@ export const initLoader = (start) => {
   const loadRest = () => {
     if (restStarted) return;
     restStarted = true;
-    doc.classList.remove('defer-bg');
+    doc.classList.remove('is-bg-deferred');
     requestAnimationFrame(() => getImageUrls().filter(src => !critical.includes(src)).forEach(loadImage));
   };
   Promise.all(critical.map(src => loadImage(src).then(() => {
@@ -73,14 +73,14 @@ export const initLoader = (start) => {
     window.scrollTo(0, 0);
     const { navigate } = start();
     await wait(300);
-    loader.classList.add('done');
+    loader.classList.add('is-done');
     await wait(600);
-    loader.classList.add('hidden');
-    document.body.classList.remove('loading');
-    document.body.classList.add('revealing');
+    loader.classList.add('is-hidden');
+    document.body.classList.remove('is-loading');
+    document.body.classList.add('is-revealing');
     // Longest hero entrance + margin
     await wait(600 + 1800 + 200);
-    document.body.classList.remove('revealing');
+    document.body.classList.remove('is-revealing');
 
     // Deep link: scroll there like a menu click
     if (initialHash) navigate(initialHash);

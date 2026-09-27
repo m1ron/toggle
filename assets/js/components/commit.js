@@ -34,6 +34,7 @@ export const initCommit = () => {
   };
 
   reveal(commit, () => {
+    cards.classList.add('is-revealed');
     setCard(1);
     setTimeout(() => cards.setAttribute('data-loading', false), CARD_SWITCH);
   });

@@ -8,7 +8,7 @@ export const initSuccess = () => {
   const success = document.querySelector('.success');
   const title = success.querySelector('.success__title');
 
-  splitToLetters(title);
+  splitToLetters(title, 'success__letter');
 
   reveal(success);
 

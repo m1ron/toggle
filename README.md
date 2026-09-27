@@ -43,12 +43,12 @@ public/                     copied as is: favicons, og-image.jpg, robots.txt
 ## Animation techniques
 - **Soft pins.** Sections don't stop dead when they pin: the pin starts a little early and the content eases in and out over quadratic ramps (`softPin`), so scrolling feels continuous.
 - **Scroll-scrubbed CSS variables.** GSAP animates custom properties (`--about-parallax`, `--cards-progress`, …) and CSS turns them into transforms, opacity and glows. Registered `@property` values give smooth hover transitions too.
-- **Section reveals.** A section gets `.animated` when it reaches the lower quarter of the viewport. The entrance itself is CSS, using shared motion tokens.
+- **Section reveals.** A section gets `.is-revealed` when it reaches the lower quarter of the viewport. The entrance itself is CSS, using shared motion tokens.
 - **Anchor navigation.** Menu links scroll at a constant speed with a gentle start and stop. Input is locked during the scroll and the clicked link stays highlighted until arrival.
 - **Fixed footer reveal.** The footer sits under the page and is uncovered as the last section scrolls away.
 
 ## Performance
-- **Loader.** The page stays hidden until the fonts and first-screen images are loaded and decoded, then fades in. Artwork below the fold (`html.defer-bg`) is requested only after that.
+- **Loader.** The page stays hidden until the fonts and first-screen images are loaded and decoded, then fades in. Artwork below the fold (`html.is-bg-deferred`) is requested only after that.
 - **Inline CSS.** The build puts the whole stylesheet (~14 KB gzipped) into a `<style>` in `index.html` (`inlineCssPlugin` in `vite.config.js`), so there's no render-blocking request. JS stays external: it doesn't block rendering and is cached.
 - **Images.** Large backgrounds are AVIF with a WebP/PNG fallback (`bg-image` mixin). Screenshots and cards are WebP with 2x/3x `srcset`. Logos and team avatars are WebP, and each screen downloads only its own header logo.
 - **Fonts.** Inter is subset to the characters in use (5 KB). Both fonts are preloaded.

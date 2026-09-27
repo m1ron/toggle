@@ -10,7 +10,7 @@ export const initHero = () => {
   const video = logo.querySelector('video');
 
   // The video may already be playing
-  const showLogo = () => logo.classList.add('loaded');
+  const showLogo = () => logo.classList.add('is-loaded');
   if (!video.paused) showLogo();
   else video.addEventListener('play', showLogo, { once: true });
 
@@ -36,6 +36,6 @@ export const initHero = () => {
     },
   });
 
-  document.body.classList.add('inited');
-  document.body.classList.remove('locked');
+  document.body.classList.add('is-inited');
+  document.body.classList.remove('is-locked');
 };

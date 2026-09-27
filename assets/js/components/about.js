@@ -8,8 +8,8 @@ export const initAbout = () => {
   const about = document.querySelector('.about');
   const p = about.querySelector('.about__text');
 
-  splitToLines(p);
-  onWidthResize(() => splitToLines(p));
+  splitToLines(p, 'about__line');
+  onWidthResize(() => splitToLines(p, 'about__line'));
 
   // Background glow (::before)
   parallax(about, '--about-parallax', '0px', '100px', { trigger: about, start: 'top bottom', end: 'bottom top' });

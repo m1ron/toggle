@@ -10,7 +10,7 @@
   z-index: 1;
 
   // Covers the fixed footer, leaves room to uncover it
-  body.footer-reveal & {
+  body.has-fixed-footer & {
     margin-bottom: var(--footer-height, 0px);
     background: black;
   }

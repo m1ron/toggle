@@ -9,9 +9,9 @@ import { parallax, reveal, softPin } from '../core/motion.js';
 export const initProducts = () => {
   const products = document.querySelector('.products');
   const heading = products.querySelector('.products__heading');
-  const paragraph = heading.querySelector('p');
+  const paragraph = heading.querySelector('.products__text');
   const title = products.querySelector('.products__title');
-  const dupe = title.children[0];
+  const dupe = title.querySelector('.products__title-text');
   const animation = products.querySelector('.products__animation');
 
   // Heading pin length (text greys out)

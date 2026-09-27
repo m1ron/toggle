@@ -1,0 +1,209 @@
+// Cards: stack switched by the scroll (data-card) with depth order from commit.js, progress bar.
+
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
+// = CARD_SWITCH (commit.js)
+$card-switch: .4s;
+
+.cards {
+  height: 205px;
+  position: relative;
+  transition: opacity 1s linear .1s;
+  opacity: 0;
+  @include media-breakpoint-up(lg) {
+    height: 322px;
+  }
+
+  &__card {
+    width: 165px;
+    height: 205px;
+    padding: 113px 10px 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 56px;
+    font-size: 16px;
+    line-height: 20px;
+    @include no-select;
+    @include font-smooth;
+    cursor: default;
+    transform: translate3d(-50%, -50%, 0);
+    transition: transform $card-switch ease, opacity $card-switch linear;
+    transform-origin: bottom center;
+    @include media-breakpoint-up(lg) {
+      width: 260px;
+      height: 322px;
+      padding: 175px 20px 20px;
+      font-size: 24px;
+      line-height: 30px;
+      font-weight: normal;
+    }
+
+    &::before {
+      @include pseudo;
+      border: 1.5px solid rgba(white, .3);
+      border-radius: 28px;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      bottom: 4px;
+      left: 4px;
+      z-index: -1;
+      background: black url('#{$img}/card-bg.webp') no-repeat center center;
+      background-size: cover;
+      transition: filter $card-switch ease;
+      @include media-breakpoint-up(lg) {
+        border-radius: 40px;
+      }
+    }
+
+    &::after {
+      @include pseudo;
+      border: 1.5px solid rgba(white, .1);
+      border-radius: 32px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -2;
+      box-shadow: 0 4px 25px rgba(black, .55);
+      @include media-breakpoint-up(lg) {
+        border-radius: 44px;
+      }
+    }
+    &:nth-child(1) {z-index: 9;}
+    &:nth-child(2) {z-index: 6;}
+    &:nth-child(3) {z-index: 3;}
+  }
+
+  &[data-card] .cards__card:nth-child(2), &[data-card] .cards__card:nth-child(3) {display: flex;}
+
+  &[data-loading="true"] .cards__card:nth-child(2), &[data-loading="true"] .cards__card:nth-child(3) {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(.765);
+    @include media-breakpoint-up(lg) {
+      transform: translate3d(-50%, -50%, 0) scale(.665);
+    }
+    &::before {filter: grayscale(1);}
+    .cards__image {
+      filter: grayscale(1);
+      transform: translate3d(0, -5px, 0) scale(.9);
+      opacity: .75;
+      @include media-breakpoint-up(lg) {
+        transform: translate3d(0, -10px, 0) scale(1.1);
+      }
+    }
+    .cards__title {opacity: 0;}
+  }
+
+  &[data-card="1"][data-loading="false"] .cards__card:nth-child(2), &[data-card="1"][data-loading="false"] .cards__card:nth-child(3),
+  &[data-card="2"][data-loading="false"] .cards__card:nth-child(3), &[data-card="2"][data-loading="false"] .cards__card:nth-child(1),
+  &[data-card="3"][data-loading="false"] .cards__card:nth-child(1), &[data-card="3"][data-loading="false"] .cards__card:nth-child(2) {
+    &::before {filter: grayscale(1);}
+    .cards__image {filter: grayscale(1);opacity: .75;}
+    .cards__title {opacity: 0;}
+  }
+
+  // Back card positions (z-order: setDepth)
+  &[data-card="1"][data-loading="false"] .cards__card:nth-child(2),
+  &[data-card="2"][data-loading="false"] .cards__card:nth-child(3),
+  &[data-card="3"][data-loading="false"] .cards__card:nth-child(1) {
+    transform: translate3d(calc(-50% + 76px), calc(-50% - 25px), 0) rotate(10deg) scale(.765);
+    @include media-breakpoint-up(lg) {
+      transform: translate3d(calc(-50% + 137px), calc(-50% - 56px), 0) rotate(10deg) scale(.665);
+    }
+  }
+
+  &[data-card="1"][data-loading="false"] .cards__card:nth-child(3),
+  &[data-card="2"][data-loading="false"] .cards__card:nth-child(1),
+  &[data-card="3"][data-loading="false"] .cards__card:nth-child(2) {
+    transform: translate3d(calc(-50% - 76px), calc(-50% - 25px), 0) rotate(-10deg) scale(.765);
+    @include media-breakpoint-up(lg) {
+      transform: translate3d(calc(-50% - 137px), calc(-50% - 56px), 0) rotate(-10deg) scale(.665);
+    }
+  }
+
+  &__image {
+    width: 103px;
+    height: 103px;
+    margin: auto;
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    z-index: -1;
+    opacity: 1;
+    filter: none;
+    transition: opacity $card-switch linear, filter $card-switch linear, transform $card-switch ease;
+    transform: translate3d(0, -23px, 0);
+    @include no-select;
+    @include no-drag;
+    @include media-breakpoint-up(lg) {
+      width: 150px;
+      height: 150px;
+      transform: translate3d(0, -40px, 0);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    transition: opacity .35s ease;
+  }
+
+  &.is-revealed {opacity: 1;}
+
+  &__progress {
+    width: 2px;
+    height: 80px;
+    border-radius: 1px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 50vw;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    bottom: 0;
+    z-index: 5;
+    background: rgba(#d9d9d9, .1);
+    @include media-breakpoint-up(xsl) {
+      margin-left: 210px;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 4px;
+      height: 180px;
+      border-radius: 2px;
+      margin-left: 380px;
+      transform: translate3d(-80px, 0, 0);
+      transition: transform .8s ease;
+    }
+    .cards.is-revealed & {transform: translate3d(-12px, 0, 0);}
+
+    // --cards-progress
+    &::after {
+      @include pseudo;
+      width: 100%;
+      height: 100%;
+      border-radius: 1px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: linear-gradient(180deg, rgba(white, 0) 0%, rgba(white, .7) 100%);
+      transform: scaleY(var(--cards-progress, 0));
+      transform-origin: top center;
+      @include media-breakpoint-up(lg) {
+        border-radius: 2px;
+      }
+    }
+  }
+}

@@ -35,26 +35,26 @@
       top: 28px;
       left: 64px;
     }
+  }
 
-    img {
-      width: 99px;
-      height: 23px;
-      display: block;
-      position: relative;
-      @include no-select;
-      @include no-drag;
-      @include media-breakpoint-down(xss) {
-        width: 91px;
-        height: 21px;
-      }
-      @include media-breakpoint-up(lg) {
-        width: 119px;
-        height: auto;
-      }
-      @include media-breakpoint-up(xl) {
-        width: 147px;
-        height: 35px;
-      }
+  &__logo {
+    width: 99px;
+    height: 23px;
+    display: block;
+    position: relative;
+    @include no-select;
+    @include no-drag;
+    @include media-breakpoint-down(xss) {
+      width: 91px;
+      height: 21px;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 119px;
+      height: auto;
+    }
+    @include media-breakpoint-up(xl) {
+      width: 147px;
+      height: 35px;
     }
   }
 
@@ -182,58 +182,57 @@
       @include media-breakpoint-up(xl) {
         letter-spacing: .03em;
       }
+    }
 
-      li {
-        position: relative;
-        @include media-breakpoint-down(lg) {
-          background: rgba(white, .05);
-          border-bottom: 1px solid rgba(black, .5);
-          &:last-child {
-            border-bottom: none;
-            border-radius: 0 0 20px 20px;
-          }
+    &-item {
+      position: relative;
+      @include media-breakpoint-down(lg) {
+        background: rgba(white, .05);
+        border-bottom: 1px solid rgba(black, .5);
+        &:last-child {
+          border-bottom: none;
+          border-radius: 0 0 20px 20px;
         }
+      }
 
-        @include media-breakpoint-up(lg) {
-          &:not(:last-child)::after {
-            @include pseudo;
-            width: 3px;
-            height: 3px;
-            background: rgba(white, .15);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            right: 0;
-            transform: translate(50%, -50%);
-          }
-        }
-
-
-        a {
-          padding: 8px;
-          display: block;
-          text-decoration: none;
-          color: white;
-          transition: opacity $effect-hover, text-shadow $effect-hover;
-          @include media-breakpoint-up(lg) {
-            padding: 9px 20px;
-            opacity: .8;
-          }
-          @include media-breakpoint-up(xl) {
-            padding: 9px 27px;
-          }
-
-          // .is-active: during the anchor scroll
-          &:hover, &:focus-visible, &.is-active {
-            opacity: 1;
-            text-shadow: 0 0 8px rgba(white, .65), 0 0 8px rgba(white, .65);
-          }
+      @include media-breakpoint-up(lg) {
+        &:not(:last-child)::after {
+          @include pseudo;
+          width: 3px;
+          height: 3px;
+          background: rgba(white, .15);
+          border-radius: 50%;
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translate(50%, -50%);
         }
       }
     }
 
+    &-link {
+      padding: 8px;
+      display: block;
+      text-decoration: none;
+      color: white;
+      transition: opacity $effect-hover, text-shadow $effect-hover;
+      @include media-breakpoint-up(lg) {
+        padding: 9px 20px;
+        opacity: .8;
+      }
+      @include media-breakpoint-up(xl) {
+        padding: 9px 27px;
+      }
+
+      // .is-active: during the anchor scroll
+      &:hover, &:focus-visible, &.is-active {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(white, .65), 0 0 8px rgba(white, .65);
+      }
+    }
+
     @include media-breakpoint-down(lg) {
-      &.visible {
+      &.is-visible {
         .header__menu-toggle::before {
           content: 'Close';
         }
@@ -244,7 +243,7 @@
           visibility: visible;
         }
       }
-      &.active {
+      &.is-open {
         .header__menu-nav {
           max-height: 240px;
         }
@@ -321,7 +320,7 @@
   }
 
   // Slides down after the loader; `translate` keeps own transforms
-  body.revealing & {
+  body.is-revealing & {
     &__brand, &__menu-space, &__join {
       animation: header-in 1.2s $ease-out-quint backwards;
     }

@@ -10,12 +10,12 @@ export const PARALLAX_SCRUB = .8;
 
 const REVEAL_START = 'top 75%';
 
-// Adds .animated (CSS entrance) when the section enters the lower quarter of the viewport
+// Adds .is-revealed (CSS entrance) when the section enters the lower quarter of the viewport
 export const reveal = (section, onEnter) => ScrollTrigger.create({
   trigger: section,
   start: REVEAL_START,
   onEnter: () => {
-    section.classList.add('animated');
+    section.classList.add('is-revealed');
     onEnter?.();
   },
 });

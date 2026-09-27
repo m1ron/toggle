@@ -15,7 +15,7 @@
     <link href="/assets/fonts/inter.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
 
     <!-- Below-the-fold artwork waits for the first screen (initLoader) -->
-    <script>document.documentElement.classList.add('defer-bg');</script>
+    <script>document.documentElement.classList.add('is-bg-deferred');</script>
     <link href="/assets/scss/style.scss" rel="stylesheet">
     <script src="/assets/js/main.js" type="module"></script>
 
@@ -44,11 +44,11 @@
     <!-- No JS: no loader -->
     <noscript>
         <style>.loader {display: none;}
-        html body.loading :is(.header, .main, .footer) {opacity: 1;}</style>
+        html body.is-loading :is(.header, .main, .footer) {opacity: 1;}</style>
     </noscript>
 </head>
 
-<body class="locked loading">
+<body class="is-locked is-loading">
 
 <!-- Header -->
 <header class="header">
@@ -56,18 +56,18 @@
         <!-- Each screen loads only its own logo -->
         <picture>
             <source media="(min-width: 992px)" srcset="assets/img/logo-header.webp" width="147" height="35">
-            <img src="assets/img/logo-header-mobile.webp" width="91" height="22" alt="toggle apps">
+            <img class="header__logo" src="assets/img/logo-header-mobile.webp" width="91" height="22" alt="toggle apps">
         </picture>
     </div>
     <div class="header__menu">
         <nav class="header__menu-space" aria-label="Main">
             <button class="header__menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"></button>
             <ul id="menu" class="header__menu-nav">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="#contacts">Contacts</a></li>
+                <li class="header__menu-item"><a class="header__menu-link" href="#home">Home</a></li>
+                <li class="header__menu-item"><a class="header__menu-link" href="#about">About</a></li>
+                <li class="header__menu-item"><a class="header__menu-link" href="#products">Products</a></li>
+                <li class="header__menu-item"><a class="header__menu-link" href="#team">Team</a></li>
+                <li class="header__menu-item"><a class="header__menu-link" href="#contacts">Contacts</a></li>
             </ul>
         </nav>
         <a href="#join" class="header__join">Join us</a>
@@ -82,7 +82,7 @@
         <section id="home" class="hero">
             <div class="hero__content">
                 <figure class="hero__logo" aria-hidden="true">
-                    <video width="97" height="60" playsinline autoplay muted loop preload="none">
+                    <video class="hero__video" width="97" height="60" playsinline autoplay muted loop preload="none">
                         <source src="assets/img/logo-mark.mp4" type="video/mp4">
                     </video>
                 </figure>
@@ -96,18 +96,22 @@
         <section class="about" aria-label="About">
             <div id="about" class="about__anchor"></div>
             <ul class="about__stats">
-                <li>
-                    <div><strong>30M<span>+</span></strong> downloads</div>
-                    <span></span></li>
-                <li>
-                    <div><strong>1M<span>+</span></strong> MAU</div>
-                    <span></span></li>
-                <li>
-                    <div><strong>4.8</strong> average&nbsp;rating</div>
-                    <span></span></li>
-                <li>
-                    <div><strong>50M<span>+</span></strong> connected&nbsp;devices</div>
-                    <span></span></li>
+                <li class="about__stat">
+                    <div class="about__card"><strong class="about__value">30M<span class="about__plus">+</span></strong> downloads</div>
+                    <span class="about__shine"></span>
+                </li>
+                <li class="about__stat">
+                    <div class="about__card"><strong class="about__value">1M<span class="about__plus">+</span></strong> MAU</div>
+                    <span class="about__shine"></span>
+                </li>
+                <li class="about__stat">
+                    <div class="about__card"><strong class="about__value">4.8</strong> average&nbsp;rating</div>
+                    <span class="about__shine"></span>
+                </li>
+                <li class="about__stat">
+                    <div class="about__card"><strong class="about__value">50M<span class="about__plus">+</span></strong> connected&nbsp;devices</div>
+                    <span class="about__shine"></span>
+                </li>
             </ul>
             <div class="about__text">In just a few years since 2020, toggle apps has&nbsp;reshaped how people engage with home appliances. Our innovative iOS applications have empowered over 15 million users worldwide.</div>
         </section>
@@ -147,20 +151,20 @@
         </div>
 
         <!-- Products -->
-        <div id="products" class="products__anchor"></div>
+        <div id="products" class="products-anchor"></div>
         <section class="products" aria-label="Products">
             <div class="products__heading">
-                <p><span class="products__title"><span>Our mobile applications</span></span><span class="products__coma">,</span> powered by exclusive <span class="nowrap">IoT technologies</span>, deliver seamless, cutting-edge experiences that transform how users <span class="nowrap">interact&nbsp;with their world</span></p>
+                <p class="products__text"><span class="products__title"><span class="products__title-text">Our mobile applications</span></span><span class="products__comma">,</span> powered by exclusive <span class="nowrap">IoT technologies</span>, deliver seamless, cutting-edge experiences that transform how users <span class="nowrap">interact&nbsp;with their world</span></p>
             </div>
             <div class="products__animation">
                 <figure class="products__screenshot">
-                    <img src="assets/img/screenshot-1.webp" srcset="assets/img/screenshot-1.webp, assets/img/screenshot-1@2x.webp 2x, assets/img/screenshot-1@3x.webp 3x" width="120" height="260" alt="App screen: TV remote control" loading="lazy" draggable="false">
+                    <img class="products__image" src="assets/img/screenshot-1.webp" srcset="assets/img/screenshot-1.webp, assets/img/screenshot-1@2x.webp 2x, assets/img/screenshot-1@3x.webp 3x" width="120" height="260" alt="App screen: TV remote control" loading="lazy" draggable="false">
                 </figure>
                 <figure class="products__screenshot">
-                    <img src="assets/img/screenshot-2.webp" srcset="assets/img/screenshot-2.webp, assets/img/screenshot-2@2x.webp 2x, assets/img/screenshot-2@3x.webp 3x" width="88" height="196" alt="App screen: streaming apps on the TV" loading="lazy" draggable="false">
+                    <img class="products__image" src="assets/img/screenshot-2.webp" srcset="assets/img/screenshot-2.webp, assets/img/screenshot-2@2x.webp 2x, assets/img/screenshot-2@3x.webp 3x" width="88" height="196" alt="App screen: streaming apps on the TV" loading="lazy" draggable="false">
                 </figure>
                 <figure class="products__screenshot">
-                    <img src="assets/img/screenshot-3.webp" srcset="assets/img/screenshot-3.webp, assets/img/screenshot-3@2x.webp 2x, assets/img/screenshot-3@3x.webp 3x" width="88" height="196" alt="App screen: connect your smart TV" loading="lazy" draggable="false">
+                    <img class="products__image" src="assets/img/screenshot-3.webp" srcset="assets/img/screenshot-3.webp, assets/img/screenshot-3@2x.webp 2x, assets/img/screenshot-3@3x.webp 3x" width="88" height="196" alt="App screen: connect your smart TV" loading="lazy" draggable="false">
                 </figure>
             </div>
         </section>
@@ -171,14 +175,14 @@
             <h2 class="team__title">The heart of toggle apps</h2>
             <div class="team__text">At toggle apps, we're obsessed with building a dream team, bringing on board innovators who spark change</div>
             <div class="team__members" role="img" aria-label="Photos of the toggle apps team">
-                <figure class="team__member"><img src="assets/img/member-1.webp" width="180" height="193" alt="" loading="lazy"></figure>
-                <figure class="team__member"><img src="assets/img/member-2.webp" width="180" height="193" alt="" loading="lazy"></figure>
-                <figure class="team__member"><img src="assets/img/member-3.webp" width="180" height="193" alt="" loading="lazy"></figure>
-                <figure class="team__member"><img src="assets/img/member-4.webp" width="180" height="193" alt="" loading="lazy"></figure>
-                <figure class="team__member"><img src="assets/img/member-5.webp" width="180" height="193" alt="" loading="lazy"></figure>
-                <figure class="team__member"><img src="assets/img/member-6.webp" width="180" height="193" alt="" loading="lazy"></figure>
-                <figure class="team__member"><img src="assets/img/member-7.webp" width="180" height="193" alt="" loading="lazy"></figure>
-                <figure class="team__member"><img src="assets/img/member-8.webp" width="180" height="193" alt="" loading="lazy"></figure>
+                <figure class="team__member"><img class="team__avatar" src="assets/img/member-1.webp" width="180" height="193" alt="" loading="lazy"></figure>
+                <figure class="team__member"><img class="team__avatar" src="assets/img/member-2.webp" width="180" height="193" alt="" loading="lazy"></figure>
+                <figure class="team__member"><img class="team__avatar" src="assets/img/member-3.webp" width="180" height="193" alt="" loading="lazy"></figure>
+                <figure class="team__member"><img class="team__avatar" src="assets/img/member-4.webp" width="180" height="193" alt="" loading="lazy"></figure>
+                <figure class="team__member"><img class="team__avatar" src="assets/img/member-5.webp" width="180" height="193" alt="" loading="lazy"></figure>
+                <figure class="team__member"><img class="team__avatar" src="assets/img/member-6.webp" width="180" height="193" alt="" loading="lazy"></figure>
+                <figure class="team__member"><img class="team__avatar" src="assets/img/member-7.webp" width="180" height="193" alt="" loading="lazy"></figure>
+                <figure class="team__member"><img class="team__avatar" src="assets/img/member-8.webp" width="180" height="193" alt="" loading="lazy"></figure>
             </div>
         </section>
 
@@ -187,14 +191,14 @@
             <div id="join" class="join__anchor"></div>
             <div class="join__content">
                 <div class="join__space">
-                    <figure class="join__logo"><img src="assets/img/logo-mark.webp" width="40" height="24" alt="" loading="lazy"></figure>
+                    <figure class="join__logo"><img class="join__logo-image" src="assets/img/logo-mark.webp" width="40" height="24" alt="" loading="lazy"></figure>
                     <h2 class="join__heading">Join toggle apps</h2>
-                    <p>Work with top talent from leading companies to create groundbreaking mobile solutions</p>
-                    <hr>
+                    <p class="join__text">Work with top talent from leading companies to create groundbreaking mobile solutions</p>
+                    <hr class="join__divider">
                 </div>
                 <a href="https://www.linkedin.com/company/toggle-apps/jobs/" target="_blank" rel="noopener" class="join__button">Explore careers</a>
                 <div class="join__bg">
-                    <div></div>
+                    <div class="join__panel"></div>
                 </div>
             </div>
         </section>
@@ -204,7 +208,7 @@
             <div id="contacts" class="contacts__anchor"></div>
             <div class="contacts__form">
                 <h2 class="contacts__title">Any questions? Let’s talk</h2>
-                <button class="contacts__copy" type="button" aria-label="Copy the email address"><span aria-hidden="true">Copy</span><span aria-hidden="true">Copied</span></button>
+                <button class="contacts__copy" type="button" aria-label="Copy the email address"><span class="contacts__copy-label" aria-hidden="true">Copy</span><span class="contacts__copy-label" aria-hidden="true">Copied</span></button>
                 <!-- Spam protection: decoded by initContacts -->
                 <div class="contacts__email" data-email="aGVsbG9AdG9nZ2xlYXBwcy5pbw==">hello [at] toggleapps.io</div>
             </div>
@@ -221,22 +225,22 @@
 <footer class="footer">
     <p class="footer__title">Let’s make something amazing together.</p>
     <ul class="footer__nav">
-        <li><a href="https://www.linkedin.com/company/toggle-apps/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://www.linkedin.com/company/toggle-apps/jobs/" target="_blank" rel="noopener">Careers</a></li>
+        <li class="footer__nav-item"><a class="footer__nav-link" href="https://www.linkedin.com/company/toggle-apps/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li class="footer__nav-item"><a class="footer__nav-link" href="https://www.linkedin.com/company/toggle-apps/jobs/" target="_blank" rel="noopener">Careers</a></li>
     </ul>
-    <ul class="footer__links">
-        <li><a href="https://toggleapps.io/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li>
-        <li><a href="https://toggleapps.io/terms.html" target="_blank" rel="noopener">Terms of Service</a></li>
+    <ul class="footer__legal">
+        <li class="footer__legal-item"><a class="footer__legal-link" href="https://toggleapps.io/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li>
+        <li class="footer__legal-item"><a class="footer__legal-link" href="https://toggleapps.io/terms.html" target="_blank" rel="noopener">Terms of Service</a></li>
     </ul>
-    <figure class="footer__logo"><img src="assets/img/logo-footer.webp" width="56" height="42" loading="lazy" alt="toggle apps"></figure>
-    <p class="footer__copyright"><span>Copyright &copy; 2026 toggle apps sp. z o.o.</span>ul. Domaniewska 17/19, loc. 133</p>
+    <figure class="footer__logo"><img class="footer__logo-image" src="assets/img/logo-footer.webp" width="56" height="42" loading="lazy" alt="toggle apps"></figure>
+    <p class="footer__copyright"><span class="footer__company">Copyright &copy; 2026 toggle apps sp. z o.o.</span>ul. Domaniewska 17/19, loc. 133</p>
 </footer>
 
 <!-- Loader -->
 <div class="loader" aria-hidden="true">
     <div class="loader__space">
         <div class="loader__progress">
-            <div></div>
+            <div class="loader__bar"></div>
         </div>
         <div class="loader__title">loading&hellip;</div>
         <div class="loader__percent">0%</div>

@@ -3,22 +3,23 @@
 @use '../core/var' as *;
 @use '../core/breakpoints' as *;
 
+// Deep-link target; outside .products, whose pin would move it
+.products-anchor {
+  width: 0;
+  height: 0;
+  position: relative;
+  top: 150px;
+  left: 50%;
+  transform: translate3d(-50%, -50vh, 0);
+  @include media-breakpoint-up(lg) {
+    top: 300px;
+  }
+}
+
 .products {
   position: relative;
   @include media-breakpoint-up(lg) {
     margin-top: 100px;
-  }
-
-  &__anchor {
-    width: 0;
-    height: 0;
-    position: relative;
-    top: 150px;
-    left: 50%;
-    transform: translate3d(-50%, -50vh, 0);
-    @include media-breakpoint-up(lg) {
-      top: 300px;
-    }
   }
 
   &__heading {
@@ -48,12 +49,12 @@
       font-size: 40px;
       line-height: 50px;
     }
+  }
 
-    p {
-      margin: 0;
-      // Heading and section pin shifts
-      transform: translate3d(0, calc(var(--pin-shift, 0px) + var(--products-pin-shift, 0px)), 0);
-    }
+  &__text {
+    margin: 0;
+    // Heading and section pin shifts
+    transform: translate3d(0, calc(var(--pin-shift, 0px) + var(--products-pin-shift, 0px)), 0);
   }
 
   &__title {
@@ -64,13 +65,13 @@
       margin: 0 auto;
       display: block;
 
-      & + .products__coma {display: none;}
+      & + .products__comma {display: none;}
     }
+  }
 
-    > span {
-      position: relative;
-      display: inline-block;
-    }
+  &__title-text {
+    position: relative;
+    display: inline-block;
   }
 
   &__duplicate {
@@ -153,31 +154,6 @@
       box-shadow: 0 12px 36px rgba(black, .67);
     }
 
-    img {
-      width: 120px;
-      height: 260px;
-      border: .5px solid rgba(white, .1);
-      margin: auto;
-      box-sizing: content-box;
-      border-radius: 16px;
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 5;
-      object-fit: cover;
-      @include no-select;
-      @include no-drag;
-      @include media-breakpoint-up(lg) {
-        width: 230px;
-        height: 500px;
-        border-width: 1px;
-        border-radius: 32px;
-      }
-    }
-
     &:nth-child(2), &:nth-child(3) {
       translate: 0 calc(var(--screens-parallax, 0px) * 2); // deeper layer
       width: 100px;
@@ -191,7 +167,7 @@
         border-radius: 34px;
       }
 
-      img {
+      .products__image {
         width: 88px;
         height: 196px;
         border-radius: 12px;
@@ -204,10 +180,35 @@
     }
   }
 
-  &.animated &__animation {
+  &__image {
+    width: 120px;
+    height: 260px;
+    border: .5px solid rgba(white, .1);
+    margin: auto;
+    box-sizing: content-box;
+    border-radius: 16px;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    object-fit: cover;
+    @include no-select;
+    @include no-drag;
+    @include media-breakpoint-up(lg) {
+      width: 230px;
+      height: 500px;
+      border-width: 1px;
+      border-radius: 32px;
+    }
+  }
+
+  &.is-revealed &__animation {
     &::after {opacity: 1;}
   }
-  &.animated &__screenshot {
+  &.is-revealed &__screenshot {
     transform: scale(1);
     opacity: 1;
     &:nth-child(2) {

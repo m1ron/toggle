@@ -9,10 +9,10 @@ export const initFooter = (lenis) => {
   const footer = document.querySelector('.footer');
   // Tabbing into the hidden footer scrolls to the bottom
   footer.addEventListener('focusin', () => {
-    if (document.body.classList.contains('footer-reveal')) lenis.scrollTo(lenis.limit, { immediate: prefersReducedMotion });
+    if (document.body.classList.contains('has-fixed-footer')) lenis.scrollTo(lenis.limit, { immediate: prefersReducedMotion });
   });
   const update = () => {
-    document.body.classList.toggle('footer-reveal', footer.offsetHeight <= window.innerHeight);
+    document.body.classList.toggle('has-fixed-footer', footer.offsetHeight <= window.innerHeight);
     doc.style.setProperty('--footer-height', `${footer.offsetHeight}px`);
   };
   update();

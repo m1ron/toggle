@@ -49,15 +49,15 @@ body {
     font-size: 24px;
   }
 
-  &.locked {
+  &.is-locked {
     overflow: hidden;
   }
 
   // Hidden behind the loader, then faded in
-  &.loading {
+  &.is-loading {
     .header, .main, .footer {opacity: 0;}
   }
-  &.revealing {
+  &.is-revealing {
     .header, .main {transition: opacity 1s $ease-out-cubic;}
     // Would show through the fading page; covered by then
     .footer {opacity: 0;}
@@ -65,7 +65,7 @@ body {
 }
 
 // Below-the-fold artwork waits for the first screen (initLoader)
-html.defer-bg {
+html.is-bg-deferred {
   .success__swirl, .success__galaxy, .commit::after, .cards__card::before, .products__animation::after,
   .team::after, .join__bg::after, .contacts::before, .footer::before {
     background-image: none !important;

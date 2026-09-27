@@ -14,11 +14,11 @@ export const initTeam = () => {
     trigger: '.team',
     start: 'top bottom',
     end: 'bottom top',
-    onToggle: self => team.classList.toggle('offscreen', !self.isActive)
+    onToggle: self => team.classList.toggle('is-offscreen', !self.isActive)
   });
 
   reveal(team);
 
-  splitToLines(p);
-  onWidthResize(() => splitToLines(p));
+  splitToLines(p, 'team__line');
+  onWidthResize(() => splitToLines(p, 'team__line'));
 };
