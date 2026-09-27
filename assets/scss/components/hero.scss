@@ -7,7 +7,8 @@
   // The whole first screen; svh: the visible height, steady while mobile toolbars show and hide
   height: 100vh;
   height: 100svh;
-  min-height: 320px;
+  // Landscape phones: room for the content below the header
+  min-height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,7 +23,7 @@
     align-items: center;
     text-align: center;
     cursor: default;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       max-width: none;
       top: -35px;
       @include font-smooth;
@@ -38,7 +39,7 @@
     position: relative;
     opacity: 0;
     transition: opacity $duration-reveal-s $ease-out-cubic;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       margin-bottom: 26px;
     }
     @include media-breakpoint-up(xl) {
@@ -70,7 +71,7 @@
     cursor: default;
     @include no-select;
     @include no-drag;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       width: 128px;
       height: 80px;
     }
@@ -84,7 +85,7 @@
     letter-spacing: 0;
     @include gradient-text;
     @include font-smooth;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       font-size: 64px;
     }
     @include media-breakpoint-up(xl) {
@@ -100,7 +101,7 @@
     font-size: 14px;
     line-height: 125%;
     font-weight: 300;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       font-size: 24px;
       letter-spacing: .03em;
     }
@@ -113,7 +114,7 @@
   &__button {
     @include glow-button;
     margin: 32px auto 0;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       margin-top: 40px;
     }
   }

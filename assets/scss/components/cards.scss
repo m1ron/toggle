@@ -11,7 +11,7 @@ $card-switch: .4s;
   position: relative;
   transition: opacity 1s linear .1s;
   opacity: 0;
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     height: 322px;
   }
 
@@ -36,7 +36,7 @@ $card-switch: .4s;
     transform: translate3d(-50%, -50%, 0);
     transition: transform $card-switch ease, opacity $card-switch linear;
     transform-origin: bottom center;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       width: 260px;
       height: 322px;
       padding: 175px 20px 20px;
@@ -58,7 +58,7 @@ $card-switch: .4s;
       background: black url('#{$img}/card-bg.webp') no-repeat center center;
       background-size: cover;
       transition: filter $card-switch ease;
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         border-radius: 40px;
       }
     }
@@ -74,7 +74,7 @@ $card-switch: .4s;
       left: 0;
       z-index: -2;
       box-shadow: 0 4px 25px rgba(black, .55);
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         border-radius: 44px;
       }
     }
@@ -88,7 +88,7 @@ $card-switch: .4s;
   &[data-loading="true"] .cards__card:nth-child(2), &[data-loading="true"] .cards__card:nth-child(3) {
     opacity: 0;
     transform: translate3d(-50%, -50%, 0) scale(.765);
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       transform: translate3d(-50%, -50%, 0) scale(.665);
     }
     &::before {filter: grayscale(1);}
@@ -96,7 +96,7 @@ $card-switch: .4s;
       filter: grayscale(1);
       transform: translate3d(0, -5px, 0) scale(.9);
       opacity: .75;
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         transform: translate3d(0, -10px, 0) scale(1.1);
       }
     }
@@ -116,7 +116,7 @@ $card-switch: .4s;
   &[data-card="2"][data-loading="false"] .cards__card:nth-child(3),
   &[data-card="3"][data-loading="false"] .cards__card:nth-child(1) {
     transform: translate3d(calc(-50% + 76px), calc(-50% - 25px), 0) rotate(10deg) scale(.765);
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       transform: translate3d(calc(-50% + 137px), calc(-50% - 56px), 0) rotate(10deg) scale(.665);
     }
   }
@@ -125,7 +125,7 @@ $card-switch: .4s;
   &[data-card="2"][data-loading="false"] .cards__card:nth-child(1),
   &[data-card="3"][data-loading="false"] .cards__card:nth-child(2) {
     transform: translate3d(calc(-50% - 76px), calc(-50% - 25px), 0) rotate(-10deg) scale(.765);
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       transform: translate3d(calc(-50% - 137px), calc(-50% - 56px), 0) rotate(-10deg) scale(.665);
     }
   }
@@ -147,7 +147,7 @@ $card-switch: .4s;
     transform: translate3d(0, -23px, 0);
     @include no-select;
     @include no-drag;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       width: 150px;
       height: 150px;
       transform: translate3d(0, -40px, 0);
@@ -179,13 +179,17 @@ $card-switch: .4s;
     @include media-breakpoint-up(xsl) {
       margin-left: 210px;
     }
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       width: 4px;
       height: 180px;
       border-radius: 2px;
       margin-left: 380px;
       transform: translate3d(-80px, 0, 0);
       transition: transform .8s ease;
+    }
+    // Portrait tablets: inside the narrower column
+    @include media-breakpoint-between(md, lg) {
+      margin-left: 330px;
     }
     .cards.is-revealed & {transform: translate3d(-12px, 0, 0);}
 
@@ -204,7 +208,7 @@ $card-switch: .4s;
     background: linear-gradient(180deg, rgba(white, 0) 0%, rgba(white, .7) 100%);
     transform: scaleY(var(--cards-progress, 0));
     transform-origin: top center;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       border-radius: 2px;
     }
   }

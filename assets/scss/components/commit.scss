@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     min-height: 900px;
   }
   // Short screens (phones in landscape): exactly the viewport, so the pinned content is centred in it
@@ -32,9 +32,9 @@
       line-height: 23px;
       left: -5px;
     }
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       width: 746px;
-      max-width: none;
+      max-width: 100%;
       min-height: 546px;
       padding: 112px 0 98px;
       font-size: 40px;
@@ -43,7 +43,7 @@
     }
 
     &::after {
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         @include pseudo;
         position: absolute;
         top: 0;
@@ -76,7 +76,7 @@
     cursor: default;
     @include font-smooth;
     @include no-select;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       margin-bottom: 0;
       font-size: 32px;
       line-height: 40px;

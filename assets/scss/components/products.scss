@@ -94,6 +94,10 @@
     position: relative;
     // Pin shift via `top`: a transform would change layering
     top: var(--products-pin-shift, 0px);
+    // Portrait tablets: between the phone and desktop sizes
+    @include media-breakpoint-between(md, lg) {
+      height: 800px;
+    }
     @include media-breakpoint-up(lg) {
       height: 900px;
       margin-top: 80px;
@@ -141,6 +145,11 @@
     @include reveal($duration-reveal, $stagger * 2);
     opacity: 0;
     backdrop-filter: blur(10px);
+    @include media-breakpoint-between(md, lg) {
+      width: 184px;
+      height: 380px;
+      border-radius: 30px;
+    }
     @include media-breakpoint-up(lg) {
       width: 254px;
       height: 524px;
@@ -156,6 +165,11 @@
       border-radius: 18px;
       z-index: 4;
       transition-delay: $stagger * 5;
+      @include media-breakpoint-between(md, lg) {
+        width: 140px;
+        height: 291px;
+        border-radius: 25px;
+      }
       @include media-breakpoint-up(lg) {
         width: 191px;
         height: 400px;
@@ -166,6 +180,11 @@
         width: 88px;
         height: 196px;
         border-radius: 12px;
+        @include media-breakpoint-between(md, lg) {
+          width: 123px;
+          height: 274px;
+          border-radius: 17px;
+        }
         @include media-breakpoint-up(lg) {
           width: 167px;
           height: 376px;
@@ -192,6 +211,11 @@
     object-fit: cover;
     @include no-select;
     @include no-drag;
+    @include media-breakpoint-between(md, lg) {
+      width: 168px;
+      height: 364px;
+      border-radius: 22px;
+    }
     @include media-breakpoint-up(lg) {
       width: 230px;
       height: 500px;
@@ -208,12 +232,18 @@
     opacity: 1;
     &:nth-child(2) {
       transform: scale(1) translate3d(95px, 0, 0);
+      @include media-breakpoint-between(md, lg) {
+        transform: scale(1) translate3d(133px, 0, 0);
+      }
       @include media-breakpoint-up(lg) {
         transform: scale(1) translate3d(190px, 0, 0);
       }
     }
     &:nth-child(3) {
       transform: scale(1) translate3d(-95px, 0, 0);
+      @include media-breakpoint-between(md, lg) {
+        transform: scale(1) translate3d(-133px, 0, 0);
+      }
       @include media-breakpoint-up(lg) {
         transform: scale(1) translate3d(-190px, 0, 0);
       }
