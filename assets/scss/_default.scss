@@ -55,6 +55,14 @@ body {
   }
 }
 
+// Below-the-fold artwork isn't requested until the first screen has loaded (initLoader)
+html.defer-bg {
+  .success__swirl, .success__galaxy, .commit::after, .cards__card::before, .products__animation::after,
+  .team::after, .join__bg::after, .contacts::before, .footer::before {
+    background-image: none !important;
+  }
+}
+
 // Anchor links are disabled while an anchor scroll runs (initAnchors)
 body.is-navigating a[href^="#"] {
   pointer-events: none;

@@ -22,8 +22,10 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <link href="/assets/fonts/clash.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
-    <link href="/assets/fonts/inter.woff" rel="preload" crossorigin="anonymous" as="font" type="font/woff">
+    <link href="/assets/fonts/inter.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
 
+    <!-- Below-the-fold artwork waits for the first screen (see initLoader); without JS it loads as usual -->
+    <script>document.documentElement.classList.add('defer-bg');</script>
     <link href="/assets/scss/style.scss" rel="stylesheet">
     <script src="/assets/js/main.js" type="module"></script>
 

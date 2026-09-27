@@ -114,14 +114,24 @@ const initLoader = () => {
     preloadedImages.push(image);
   });
 
-  const images = getImageUrls();
-  let loaded = 0; // share of settled images, 0..1
-  images.forEach(src => loadImage(src).then(() => {
-    loaded += 1 / images.length;
-  }));
+  // The loader waits for the first screen only. Then the deferred artwork below is released
+  // and downloads / decodes in the background during the loader and the intro.
+  const critical = getImageUrls();
+  let loaded = 0; // share of settled critical images, 0..1
+  let restStarted = false;
+  const loadRest = () => {
+    if (restStarted) return;
+    restStarted = true;
+    doc.classList.remove('defer-bg');
+    requestAnimationFrame(() => getImageUrls().filter(src => !critical.includes(src)).forEach(loadImage));
+  };
+  Promise.all(critical.map(src => loadImage(src).then(() => {
+    loaded += 1 / critical.length;
+  }))).then(loadRest);
   // After the timeout the bar just eases to 100%
   setTimeout(() => {
     loaded = 1;
+    loadRest();
   }, LOADER_TIMEOUT);
 
   // Hide the loader, then fade the page in

@@ -1,7 +1,7 @@
 {
   "name": "toggle",
   "version": "1.0.0",
-  "description": "markup for Toggle website",
+  "description": "ToggleApps marketing website",
   "private": true,
   "type": "module",
   "scripts": {

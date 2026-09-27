@@ -325,4 +325,23 @@
       }
     }
   }
+
+  // Slides down as the page fades in after the loader; `translate` keeps their own transforms
+  body.revealing & {
+    &__brand, &__menu-space, &__join {
+      animation: header-in 1.2s $ease-out-quint backwards;
+    }
+    // A light cascade on desktop; on phones the three corners arrive together
+    @include media-breakpoint-up(lg) {
+      &__menu-space {animation-delay: .1s;}
+      &__join {animation-delay: .2s;}
+    }
+  }
+}
+
+@keyframes header-in {
+  from {
+    opacity: 0;
+    translate: 0 -24px;
+  }
 }
