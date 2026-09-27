@@ -100,7 +100,7 @@ const initLoader = () => {
       }
     }
     for (const img of document.querySelectorAll('img:not([loading="lazy"])')) {
-      urls.add(img.src);
+      urls.add(img.currentSrc || img.src); // the <picture> source picked for this screen
     }
     return [...urls];
   };

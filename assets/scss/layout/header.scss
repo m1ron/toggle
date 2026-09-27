@@ -44,35 +44,24 @@
       @include user-select;
     }
 
-
     img {
-      height: auto;
-      display: none;
+      width: 99px;
+      height: 23px;
+      display: block;
       position: relative;
       @include user-select;
       @include user-drag;
-
-      &.d {
-        @include media-breakpoint-up(lg) {
-          width: 119px;
-          display: block;
-        }
-        @include media-breakpoint-up(xl) {
-          width: 147px;
-          height: 35px;
-        }
+      @include media-breakpoint-down(xss) {
+        width: 91px;
+        height: 21px;
       }
-
-      &.m {
-        width: 99px;
-        height: 23px;
-        @include media-breakpoint-down(xss) {
-          width: 91px;
-          height: 21px;
-        }
-        @include media-breakpoint-down(lg) {
-          display: block;
-        }
+      @include media-breakpoint-up(lg) {
+        width: 119px;
+        height: auto;
+      }
+      @include media-breakpoint-up(xl) {
+        width: 147px;
+        height: 35px;
       }
     }
   }

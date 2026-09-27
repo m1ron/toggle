@@ -46,8 +46,11 @@
 <header class="header">
     <h1 class="header__brand">
         <span>toggle apps</span>
-        <img class="m" src="assets/img/logo-mobile.png" width="91" height="22" alt="">
-        <img class="d" src="assets/img/logo.png" width="147" height="35" alt="">
+        <!-- Each screen downloads only its own logo -->
+        <picture>
+            <source media="(min-width: 992px)" srcset="assets/img/logo.png" width="147" height="35">
+            <img src="assets/img/logo-mobile.png" width="91" height="22" alt="">
+        </picture>
     </h1>
     <div class="header__menu">
         <nav class="header__menu-space" aria-label="Main">
