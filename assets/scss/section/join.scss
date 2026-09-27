@@ -3,7 +3,7 @@
 
 /* ===== JOIN ===== */
 
-// Registered so the button glow (inside a gradient) can transition on hover
+// Registered so the glow inside the gradient can transition
 @property --join-glow {
   syntax: '<number>';
   inherits: false;
@@ -171,7 +171,7 @@
         left: -1.5px;
         z-index: -1.5;
         background: linear-gradient(45deg, rgba(white, .8), rgba(white, .4), rgba(white, .8));
-        mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
+        @include ring-mask;
         @include media-breakpoint-up(lg) {
           border-radius: 64px;
         }
@@ -189,7 +189,7 @@
       z-index: -1;
       background: url('#{$img}/join.webp') no-repeat center bottom;
       background-size: 600px auto;
-      // Barely-there parallax (see initJoin): the glow drifts inside the card, the rounded shape stays put
+      // Parallax via background-position, so the rounded shape stays put
       background-position: center calc(100% + var(--join-parallax, 0px));
       @include media-breakpoint-up(lg) {
         border-radius: 64px;
@@ -263,7 +263,7 @@
     box-shadow: 0 15px 20px rgba(black, .4), 0 4px 10px rgba(black, .4);
     @include font-smooth;
     outline: none;
-    // Soft pop-in with a slight overshoot, paused until the section is revealed
+    // Paused until the section is revealed
     animation: join-button-in $duration-reveal-s $ease-out-back $stagger * 3 both;
     animation-play-state: paused;
 
@@ -280,7 +280,7 @@
     &::before {
       padding: 1px;
       background: linear-gradient(to bottom, rgba(white, .5), rgba(white, .2));
-      mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;
+      @include ring-mask;
       inset: 0;
       z-index: -2;
     }

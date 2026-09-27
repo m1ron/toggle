@@ -15,7 +15,6 @@
     top: 150px;
     left: 50%;
     transform: translate3d(-50%, -50vh, 0);
-    background: red;
     @include media-breakpoint-up(lg) {
       top: 300px;
     }
@@ -51,7 +50,7 @@
 
     p {
       margin: 0;
-      // Soft pins (see softPin() in main.js): the heading's own and the whole section's
+      // Soft pin shifts: the heading's and the section's
       transform: translate3d(0, calc(var(--pin-shift, 0px) + var(--products-pin-shift, 0px)), 0);
     }
   }
@@ -91,8 +90,7 @@
   &__animation {
     height: 640px;
     position: relative;
-    // Soft pin (see softPin() in main.js). `top` rather than transform: a transform would make this block
-    // a stacking context and change how the screenshots and their glow layer with the heading copy
+    // Soft pin via `top`: a transform would change how the screenshots layer with the heading
     top: var(--products-pin-shift, 0px);
     @include media-breakpoint-up(lg) {
       height: 900px;
@@ -115,7 +113,7 @@
       background-size: auto 90%;
       opacity: 0;
       transform: translate3d(-50%, -50%, 0);
-      // Barely-there parallax: the glow is the farthest layer and drifts against the phones (±10px)
+      // Parallax: the farthest layer, drifts against the phones
       translate: 0 calc(var(--screens-parallax, 0px) * -.66);
       transition: opacity $duration-reveal $ease-out-quint;
       @include media-breakpoint-up(lg) {
@@ -139,7 +137,7 @@
     background: rgba(black, .3);
     box-shadow: 0 6px 18px rgba(black, .67);
     transform: scale(.95) translate3d(0, 0, 0);
-    // Barely-there parallax (see initProducts): `translate` adds up with the reveal transforms
+    // Parallax; `translate` adds up with the reveal transforms
     translate: 0 var(--screens-parallax, 0px);
     @include reveal($duration-reveal, $stagger * 2);
     opacity: 0;

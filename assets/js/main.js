@@ -4,9 +4,8 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Always open at the top: the intro, section entrances and pins are built to be played from the start.
-// A deep link (/#contacts) is kept and scrolled to after the intro instead of jumping there on load.
-// (set through ScrollTrigger, which otherwise restores its remembered 'auto')
+// Always open at the top; a deep link (/#contacts) is scrolled to after the intro.
+// Set through ScrollTrigger, which otherwise restores its remembered 'auto'.
 ScrollTrigger.clearScrollMemory('manual');
 const initialHash = location.hash;
 if (initialHash) history.replaceState(null, '', location.pathname + location.search);
@@ -17,14 +16,41 @@ const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/
   // iPadOS 13+ reports itself as a Mac
   || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 
-// Users who asked the OS for less motion get no parallax, no soft pins and a short intro
+// No parallax, no soft pins and a short intro
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Parallax layers catch up with the scroll over this many seconds instead of following it 1:1
+// Parallax layers catch up with the scroll over this many seconds
 const PARALLAX_SCRUB = .8;
 
 // Section entrances start when the section top passes the lower quarter of the viewport
 const REVEAL_START = 'top 75%';
+
+// Adds .animated (the CSS entrance) once the section reaches REVEAL_START
+const reveal = (section, onEnter) => ScrollTrigger.create({
+  trigger: section,
+  start: REVEAL_START,
+  onEnter: () => {
+    section.classList.add('animated');
+    onEnter?.();
+  },
+});
+
+// Scroll-linked CSS variable with PARALLAX_SCRUB smoothing; off for reduced motion
+const parallax = (target, prop, from, to, scrollTrigger) => {
+  if (prefersReducedMotion) return;
+  gsap.fromTo(target, { [prop]: from }, {
+    [prop]: to,
+    ease: 'none',
+    scrollTrigger: { ...scrollTrigger, scrub: PARALLAX_SCRUB },
+  });
+};
+
+// Enter / Space for elements with role="button"
+const onKeyActivate = (el, fn) => el.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  e.preventDefault();
+  fn();
+});
 
 const debounce = (fn, delay = 150) => {
   let timer;
@@ -44,13 +70,13 @@ const onWidthResize = (fn) => {
   }));
 };
 
-// Keeps preloaded images alive so their decoded bitmaps are not garbage collected
+// Keeps decoded preloaded images from being garbage collected
 const preloadedImages = [];
 
-// Minimum time the progress bar takes to fill, so the loader is visible even on fast connections
+// Minimum loader fill time, so it's seen even on fast connections
 const LOADER_MIN_DURATION = prefersReducedMotion ? .3 : 1.6; // s
 
-// Safety net for stalled requests (e.g. a bad mobile connection): show the site anyway
+// Show the site anyway if some requests stall
 const LOADER_TIMEOUT = 10000; // ms
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -60,8 +86,7 @@ const initLoader = () => {
   const percent = loader.querySelector('.loader__percent');
   const bar = loader.querySelector('.loader__progress div');
 
-  // Everything the page shows at the current viewport size: CSS backgrounds
-  // (resolved through media queries, so phones get the mobile variants) and eager <img>s
+  // CSS backgrounds in use at this viewport size (phones get the mobile variants) and eager <img>s
   const getImageUrls = () => {
     const urls = new Set();
     for (const el of document.querySelectorAll('body *')) {
@@ -77,8 +102,7 @@ const initLoader = () => {
     return [...urls];
   };
 
-  // Download and decode up front, so sections don't decode big bitmaps mid-scroll.
-  // decode() can stall (e.g. in a background tab), so don't wait for it longer than a second.
+  // Decode up front so sections don't decode big bitmaps mid-scroll (at most 1s: decode() can stall)
   const loadImage = (src) => new Promise((resolve) => {
     const image = new Image();
     image.onload = () => {
@@ -95,7 +119,7 @@ const initLoader = () => {
   images.forEach(src => loadImage(src).then(() => {
     loaded += 1 / images.length;
   }));
-  // Treat loading as complete after the timeout: the bar eases to 100% and the page shows as usual
+  // After the timeout the bar just eases to 100%
   setTimeout(() => {
     loaded = 1;
   }, LOADER_TIMEOUT);
@@ -110,15 +134,15 @@ const initLoader = () => {
     loader.classList.add('hidden');
     document.body.classList.remove('loading');
     document.body.classList.add('revealing');
-    // Longest hero entrance: button delay + $duration-intro (see hero.scss), plus a margin
+    // Longest hero entrance: button delay + $duration-intro, plus a margin
     await wait(600 + 1800 + 200);
     document.body.classList.remove('revealing');
 
-    // Deep link: now that the intro has played, travel to the section like a menu click would
+    // Deep link: travel there like a menu click
     if (initialHash) navigate(initialHash);
   };
 
-  // The displayed progress follows the real one, but never faster than LOADER_MIN_DURATION allows
+  // Displayed progress follows the real one, never faster than LOADER_MIN_DURATION
   const ease = gsap.parseEase('power1.inOut');
   let startTime = null;
   let shown = 0;
@@ -189,7 +213,7 @@ const splitToLetters = (el) => {
   wrapChars(el, el.innerText);
 };
 
-// Height of the stars.svg tile (keep in sync with $stars-tile in _var.scss)
+// stars.svg tile height, keep in sync with $stars-tile
 const STARS_TILE = 1441;
 
 const initParallax = (lenis) => {
@@ -197,20 +221,19 @@ const initParallax = (lenis) => {
   const layer = document.querySelector('.stars__layer');
   const speed = .15;
   const onScroll = ({ scroll }) => {
-    // The layer is fixed to the viewport; shift it within one tile so the pattern stays seamless
+    // Fixed layer, shifted within one tile so the pattern stays seamless
     layer.style.transform = `translate3d(0, ${-(scroll * speed % STARS_TILE)}px, 0)`;
   };
   onScroll(lenis);
   lenis.on('scroll', onScroll);
 };
 
-// In-page anchor navigation: a steady, fairly slow scroll so the section animations play out on the way.
-// Speed profile is a trapezoid: ease in, constant NAV_SPEED, ease out; duration follows the distance.
+// Anchor scroll: ease in, steady NAV_SPEED, ease out, so the section animations play out on the way
 const NAV_SPEED = 1200;   // px/s
 const NAV_EASE_IN = .6;   // s
 const NAV_EASE_OUT = .9;  // s
 
-// Normalised position for a trapezoid speed profile (ramp fractions `a` and `b` of the duration, a + b <= 1)
+// Position easing for a trapezoid speed profile; `a`, `b`: ramp fractions of the duration (a + b <= 1)
 const trapezoid = (a, b) => {
   const peak = 1 / (1 - (a + b) / 2);
   return (t) => {
@@ -229,7 +252,7 @@ const initAnchors = (lenis) => {
     navigating = false;
     clearTimeout(endTimer);
     document.body.classList.remove('is-navigating');
-    // The clicked link keeps its hover look during the scroll, then fades back (hover transition)
+    // The clicked link keeps its hover look during the scroll
     if (activeLink) {
       activeLink.classList.remove('is-active');
       activeLink.blur(); // :focus looks the same as :hover
@@ -239,14 +262,14 @@ const initAnchors = (lenis) => {
     window.removeEventListener('touchstart', finish);
   };
 
-  // Scrolls to the section of `hash`; `link` keeps its hover look on the way (defaults to the menu item)
+  // `link` keeps its hover look on the way (defaults to the menu item)
   const navigate = (hash, link = document.querySelector(`.header__menu-nav a[href="${hash}"]`)) => {
     const target = hash.length > 1 && document.getElementById(hash.slice(1));
     // Other links are disabled until this scroll is over
     if (!target || navigating) return;
 
     const distance = Math.abs(target.getBoundingClientRect().top);
-    // Full ramps + cruise at NAV_SPEED; short hops that never reach it turn into a softer triangle
+    // Short hops never reach NAV_SPEED and become a triangle profile
     const ramps = NAV_EASE_IN + NAV_EASE_OUT;
     const duration = Math.max(distance / NAV_SPEED + ramps / 2, ramps);
 
@@ -254,7 +277,7 @@ const initAnchors = (lenis) => {
     document.body.classList.add('is-navigating');
     activeLink = link;
     link?.classList.add('is-active');
-    // The user taking over (wheel / touch) interrupts the scroll, give the menu back right away
+    // Wheel / touch interrupts the scroll: give the menu back
     window.addEventListener('wheel', finish, { passive: true });
     window.addEventListener('touchstart', finish, { passive: true });
     endTimer = setTimeout(finish, (duration + .2) * 1000); // safety net if onComplete never fires
@@ -300,14 +323,19 @@ const initMenu = () => {
     }, 400);
   };
 
-  toggle.addEventListener('click', () => {
-    menu.classList.contains('active') ? close() : open();
-  });
+  const onToggle = () => {
+    const opening = !menu.classList.contains('active');
+    opening ? open() : close();
+    toggle.setAttribute('aria-expanded', opening);
+  };
+  toggle.addEventListener('click', onToggle);
+  onKeyActivate(toggle, onToggle);
 
   // Close the mobile menu after navigating to a section
   menu.addEventListener('click', (e) => {
     if (e.target.closest('a') && menu.classList.contains('active')) {
       close();
+      toggle.setAttribute('aria-expanded', false);
     }
   });
 };
@@ -330,7 +358,7 @@ const initHero = () => {
     window.addEventListener('resize', onResize);
   }
 
-  // Barely-there parallax: the content lags slightly behind while the hero scrolls away
+  // Parallax: the content lags slightly behind
   if (!prefersReducedMotion) gsap.to('.hero__content', {
     y: () => hero.offsetHeight * .12,
     ease: 'none',
@@ -354,49 +382,28 @@ const initAbout = () => {
   splitToLines(p);
   onWidthResize(() => splitToLines(p));
 
-  // Barely-there parallax for the background glow (::before), starts from its design position
-  if (!prefersReducedMotion) gsap.to(about, {
-    '--about-parallax': '100px',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: about,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: PARALLAX_SCRUB,
-    },
-  });
+  // Background glow (::before)
+  parallax(about, '--about-parallax', '0px', '100px', { trigger: about, start: 'top bottom', end: 'bottom top' });
 
-  ScrollTrigger.create({
-    trigger: '.about',
-    start: REVEAL_START,
-    onEnter: () => {
-      about.classList.add('animated');
-      setTimeout(() => {
-        about.classList.add('done')
-      }, 1000);
-    }
-  });
+  reveal(about);
 }
 
-// Pin with eased entry and exit: instead of stopping dead, the section content keeps moving
-// and decelerates into place (and later accelerates out) over a short stretch of scroll.
-// The content is shifted through the --pin-shift variable (see .success / .commit styles).
+// Pin with eased entry and exit: the content decelerates into place and accelerates out
+// instead of stopping dead. The shift is applied in CSS through a variable (--pin-shift).
 const SOFT_PIN_SHIFT = prefersReducedMotion ? 0 : 140; // px the content travels during each ramp
 
-// `anchor: 'center'` pins when the section centre reaches the viewport centre (default: its top at the top).
-// `start` (shift => scroll position) overrides the anchor for pins that begin at a computed point.
-// `reparent` moves the element to <body> while pinned, for pins inside another pinned (transformed) element;
-// then `content` (a child) should carry the shift, because unpinning restores the pinned element's inline styles.
-// `property` names the CSS variable that carries the shift (distinct names let nested pins add up).
+// anchor: 'top' (top at top) or 'center'; start: shift => position, overrides the anchor;
+// reparent: move to <body> while pinned (pins inside a pinned element), then `content` should carry
+// the shift since unpinning resets inline styles; property: variable name, so nested shifts add up.
 const softPin = (section, end, {
   anchor = 'top', start, shift: shiftOption = SOFT_PIN_SHIFT, reparent = false, content = section, property = '--pin-shift',
 } = {}) => {
   const shift = prefersReducedMotion ? 0 : shiftOption;
-  // A ramp twice as long as the shift makes quadratic easing (GSAP's power1) start/end at exactly the scroll speed
+  // Ramp = 2 × shift: quadratic easing (power1) then starts / ends at exactly the scroll speed
   const ramp = shift * 2;
 
-  // The content ends 2 × shift higher than the section box, pull the next section up to match.
-  // Must be set before the pin is created: ScrollTrigger moves the margins onto the pin spacer.
+  // The content ends 2 × shift higher: pull the next section up. Set before creating the pin,
+  // which moves the margins onto the spacer.
   if (shift) section.style.marginBottom = `${-2 * shift}px`;
 
   const pin = ScrollTrigger.create({
@@ -429,27 +436,15 @@ const initSuccess = () => {
 
   splitToLetters(title);
 
-  ScrollTrigger.create({
-    trigger: '.success',
-    start: REVEAL_START,
-    onEnter: self => {
-      self.trigger.classList.add('animated');
-    },
-  });
+  reveal(success);
 
   const pin = softPin(success, '150% top');
 
-  // Barely-there parallax: the background artwork drifts while the title stays put,
-  // passing its design position exactly in the middle of the pinned stretch
-  if (!prefersReducedMotion) gsap.fromTo(success, { '--success-drift': '20px' }, {
-    '--success-drift': '-20px',
-    ease: 'none',
-    scrollTrigger: { start: () => pin.start, end: () => pin.end, scrub: PARALLAX_SCRUB },
-  });
+  // Artwork drift while pinned, at its design position mid-way
+  parallax(success, '--success-drift', '20px', '-20px', { start: () => pin.start, end: () => pin.end });
 
-  // Letters light up while pinned. Positions are taken from the pin itself: a trigger on the pinned
-  // element that starts after the pin would otherwise be pushed below the whole pinned stretch.
-  // Same range as before the soft pin: from 'top top' to '147.5% top'.
+  // Letters light up while pinned ('top top' to '147.5% top'). Positions come from the pin: a trigger
+  // on the pinned element starting after the pin would be pushed below the whole pinned stretch.
   ScrollTrigger.create({
     start: () => pin.start + SOFT_PIN_SHIFT,
     end: () => pin.start + SOFT_PIN_SHIFT + success.offsetHeight * 1.475,
@@ -461,7 +456,7 @@ const initSuccess = () => {
 
 // Card switch duration in ms, matches $card-switch in commit.scss
 const CARD_SWITCH = 400;
-// When the two cards are the same size: 50% progress of the CSS `ease` curve is reached at 29.3% of the time
+// When the two cards are the same size: `ease` reaches 50% at 29.3% of the time
 const CARD_CROSS = CARD_SWITCH * .293;
 
 const initCommit = () => {
@@ -476,9 +471,8 @@ const initCommit = () => {
     el.style.zIndex = i + 1 === front ? 3 : i + 1 === middle ? 2 : 1;
   });
 
-  // Switches the visible card. The outgoing card stays in front until both cards are the same size,
-  // i.e. when they pass each other (CARD_CROSS), then the incoming one comes forward. The third card
-  // only moves from one side to the other behind them.
+  // The outgoing card stays in front until they pass each other (CARD_CROSS), then the incoming one
+  // comes forward; the third card moves behind them
   const setCard = (n) => {
     if (n === current) return;
     const previous = current;
@@ -490,16 +484,9 @@ const initCommit = () => {
     swapTimer = setTimeout(() => setDepth(n, previous), CARD_CROSS);
   };
 
-  ScrollTrigger.create({
-    trigger: '.commit',
-    start: REVEAL_START,
-    onEnter: () => {
-      commit.classList.add('animated');
-      setCard(1);
-      setTimeout(() => {
-        cards.setAttribute('data-loading', false);
-      }, CARD_SWITCH);
-    }
+  reveal(commit, () => {
+    setCard(1);
+    setTimeout(() => cards.setAttribute('data-loading', false), CARD_SWITCH);
   });
 
   ScrollTrigger.create({
@@ -520,7 +507,7 @@ const initCommit = () => {
 
   const pin = softPin(commit, '200% top');
 
-  // The progress bar fills at a constant pace over the whole pinned stretch
+  // Progress bar: constant pace over the pinned stretch
   gsap.fromTo(cards, { '--cards-progress': 0 }, {
     '--cards-progress': 1,
     ease: 'none',
@@ -543,15 +530,14 @@ const initProducts = () => {
   let offsetX = 0, offsetY = 0, flight = 0;
   const scale = 2.25;
 
-  // Offset of an element inside an ancestor, whatever offsetParent is in between
-  // (the paragraph's transform makes it the offsetParent of the title)
+  // Offset inside an ancestor through any offsetParent (the paragraph's transform makes it one)
   const topWithin = (el, ancestor) => {
     let top = 0;
     for (let e = el; e && e !== ancestor; e = e.offsetParent) top += e.offsetTop;
     return top;
   };
 
-  // Where the white "Our mobile applications" copy flies to: centred, over the middle of the screenshots
+  // Where the white copy flies to: centred over the screenshots
   const calculateOffsets = () => {
     offsetX = 0;
     if (window.innerWidth >= 540) {
@@ -561,7 +547,7 @@ const initProducts = () => {
     const m = parseFloat(window.getComputedStyle(animation).marginTop);
     const toAnimationCentre = (heading.clientHeight - titleTop) + animation.clientHeight * .5 + m;
     offsetY = toAnimationCentre - title.clientHeight * scale / 2;
-    // Distance from the paragraph centre to the screenshots' centre: how far to scroll during the flight
+    // Paragraph centre to screenshots centre: the flight's scroll distance
     flight = toAnimationCentre - (paragraph.offsetHeight / 2 - (titleTop - paragraph.offsetTop));
   };
 
@@ -578,23 +564,16 @@ const initProducts = () => {
   // Recalculate before every ScrollTrigger refresh (fires on resize too)
   ScrollTrigger.addEventListener('refreshInit', calculateOffsets);
 
-  ScrollTrigger.create({
-    trigger: '.products',
-    start: REVEAL_START,
-    onEnter: self => {
-      self.trigger.classList.add('animated');
-    },
-  });
+  reveal(products);
 
-  // 1. The heading pins at the screen centre and its text greys out, the white copy stays put
-  // Reparented: .products itself gets pinned later, and its transform would break a nested fixed pin
+  // 1. The heading pins at the centre and greys out, the white copy stays put.
+  // Reparented: .products is pinned later and its transform would break a nested fixed pin.
   const headingPin = softPin(heading, () => `+=${HEADING_PIN()}`, {
     anchor: 'center', shift: HEADING_SHIFT, reparent: true, content: paragraph,
   });
   const headingShift = prefersReducedMotion ? 0 : HEADING_SHIFT;
 
-  // One even fade from the moment it pins until it's halfway from the centre to the top of the screen
-  // (the exit ramp has already moved the text up by headingShift when the pin ends)
+  // Even fade until halfway to the top (the exit ramp already moved the text by headingShift)
   gsap.fromTo(paragraph, { color: 'rgba(255, 255, 255, 1)' }, {
     color: 'rgba(255, 255, 255, 0)',
     ease: 'none',
@@ -605,8 +584,7 @@ const initProducts = () => {
     },
   });
 
-  // 2. Once the grey heading moves on, the white copy flies down to the screenshots. It is still on its way
-  // when the screenshots reach the centre: the section pins there and the copy lands during the pin.
+  // 2. The white copy flies to the screenshots and lands while the section is pinned
   const LANDING = () => window.innerHeight * .6; // extra flight while the section is pinned
   const HOLD = () => window.innerHeight * .1;    // short pause after landing before moving on
   const screensCentred = () => headingPin.end + flight - headingShift;
@@ -617,7 +595,6 @@ const initProducts = () => {
       end: () => screensCentred() + LANDING(),
       scrub: true,
       invalidateOnRefresh: true,
-      id: 'scrub',
     },
     color: 'rgba(255, 255, 255, .3)',
     scale: scale,
@@ -626,8 +603,8 @@ const initProducts = () => {
     ease: 'power1.inOut', // eases away from the heading and settles softly onto the screenshots
   });
 
-  // 3. The section pins (soft entry and exit) while the copy lands, then leaves almost right away.
-  // Its own variable: the paragraph (with the white copy) adds it to the heading's --pin-shift.
+  // 3. Section pin: the copy lands, then it leaves almost right away.
+  // Own variable: the paragraph adds it to the heading's --pin-shift.
   const PRODUCTS_SHIFT = 80;
   const productsShift = prefersReducedMotion ? 0 : PRODUCTS_SHIFT;
   softPin(products, () => screensCentred() + productsShift * 3 + LANDING() + HOLD(), {
@@ -636,18 +613,11 @@ const initProducts = () => {
     property: '--products-pin-shift',
   });
 
-  // Barely-there parallax for the screenshots: the centre phone drifts ±15px, the side ones twice as much
-  if (!prefersReducedMotion) gsap.fromTo(animation, { '--screens-parallax': '15px' }, {
-    '--screens-parallax': '-15px',
-    ease: 'none',
-    // From the block's top entering at the bottom to its bottom leaving at the top, pinned stretch included.
-    // Explicit positions: triggers inside a pinned section don't get the pin length right on their own.
-    scrollTrigger: {
-      start: () => screensCentred() - (window.innerHeight + animation.offsetHeight) / 2,
-      end: () => screensCentred() + productsShift * 3 + LANDING() + HOLD()
-        + (window.innerHeight + animation.offsetHeight) / 2 - productsShift * 2,
-      scrub: PARALLAX_SCRUB,
-    },
+  // Screenshots (side phones move twice as much in CSS). Explicit range, pinned stretch included:
+  // triggers inside a pinned section don't get the pin length right on their own
+  parallax(animation, '--screens-parallax', '15px', '-15px', {
+    start: () => screensCentred() - (window.innerHeight + animation.offsetHeight) / 2,
+    end: () => screensCentred() + productsShift + LANDING() + HOLD() + (window.innerHeight + animation.offsetHeight) / 2,
   });
 }
 
@@ -663,39 +633,17 @@ const initTeam = () => {
     onToggle: self => team.classList.toggle('offscreen', !self.isActive)
   });
 
-  ScrollTrigger.create({
-    trigger: '.team',
-    start: REVEAL_START,
-    onEnter: self => {
-      self.trigger.classList.add('animated');
-    },
-  });
+  reveal(team);
 
   splitToLines(p);
   onWidthResize(() => splitToLines(p));
 }
 
 const initJoin = () => {
-  // Barely-there parallax for the glow inside the card. It only ever sinks below the bottom edge
-  // (where it gets clipped) and rises to its design position: never above it, so no gap opens underneath
-  if (!prefersReducedMotion) gsap.fromTo('.join', { '--join-parallax': '25px' }, {
-    '--join-parallax': '0px',
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.join',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: PARALLAX_SCRUB,
-    },
-  });
+  // Glow inside the card: only ever sinks below the bottom edge, so no gap opens underneath
+  parallax('.join', '--join-parallax', '25px', '0px', { trigger: '.join', start: 'top bottom', end: 'bottom top' });
 
-  ScrollTrigger.create({
-    trigger: '.join',
-    start: REVEAL_START,
-    onEnter: self => {
-      self.trigger.classList.add('animated');
-    },
-  });
+  reveal(document.querySelector('.join'));
 }
 
 const initContacts = () => {
@@ -721,16 +669,13 @@ const initContacts = () => {
     }, 2000);
   };
   copy.addEventListener('click', copyEmail);
+  onKeyActivate(copy, copyEmail);
   emailField.addEventListener('click', copyEmail);
 
-  // The ray: grows and brightens from the section entering until it's fully in view
-  if (!prefersReducedMotion) gsap.fromTo(contacts, { '--contacts-parallax': 0 }, {
-    '--contacts-parallax': 1,
-    ease: 'none',
-    scrollTrigger: { trigger: contacts, start: 'top bottom', end: 'bottom bottom', scrub: PARALLAX_SCRUB },
-  });
+  // The ray grows and brightens until the section is fully in view
+  parallax(contacts, '--contacts-parallax', 0, 1, { trigger: contacts, start: 'top bottom', end: 'bottom bottom' });
 
-  // The glows follow the mouse a little while the section is on screen (mouse devices only)
+  // The glows follow the mouse (mouse devices only, while on screen)
   if (!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const toX = gsap.quickTo(contacts, '--pointer-x', { duration: 1.2, ease: 'power3.out' });
     const toY = gsap.quickTo(contacts, '--pointer-y', { duration: 1.2, ease: 'power3.out' });
@@ -742,32 +687,16 @@ const initContacts = () => {
     }, { passive: true });
   }
 
-  // Footer artwork fades in with a slight zoom while the footer is uncovered.
-  // Here rather than in initFooter: the trigger has to be created after the pins above it.
-  if (!prefersReducedMotion) gsap.fromTo('.footer', { '--footer-reveal': 0 }, {
-    '--footer-reveal': 1,
-    ease: 'none',
-    scrollTrigger: { trigger: contacts, start: 'bottom bottom', end: 'max', scrub: PARALLAX_SCRUB },
-  });
+  // Footer artwork and the horizon glow come in as the footer is uncovered.
+  // Created here rather than in initFooter: these triggers must come after the pins above.
+  parallax('.footer', '--footer-reveal', 0, 1, { trigger: contacts, start: 'bottom bottom', end: 'max' });
 
-  // The horizon glow at the bottom rises into place from a bit before the footer shows to the end of the page
-  if (!prefersReducedMotion) gsap.fromTo(contacts, { '--contacts-arc': 0 }, {
-    '--contacts-arc': 1,
-    ease: 'none',
-    scrollTrigger: { trigger: contacts, start: 'bottom bottom+=300', end: 'max', scrub: PARALLAX_SCRUB },
-  });
+  parallax(contacts, '--contacts-arc', 0, 1, { trigger: contacts, start: 'bottom bottom+=300', end: 'max' });
 
-  ScrollTrigger.create({
-    trigger: '.contacts',
-    start: REVEAL_START,
-    onEnter: self => {
-      self.trigger.classList.add('animated');
-    },
-  });
+  reveal(contacts);
 }
 
-// The footer sits fixed under the page and is uncovered as the page scrolls away.
-// Only when it fits the screen, otherwise its lower part could never be reached.
+// Footer fixed under the page, uncovered as it scrolls away; only if it fits the screen
 const initFooter = () => {
   const footer = document.querySelector('.footer');
   const update = () => {
@@ -786,9 +715,8 @@ function initApp() {
     document.body.classList.add('mobile');
   }
 
-  // Drive Lenis from the GSAP ticker so scrolling and ScrollTrigger update in the same frame
-  // Every wheel step glides for 1.8s with Lenis' default easeOutExpo: quick response, long soft stop;
-  // a slightly shorter step per wheel notch makes it feel softer still
+  // Driven by the GSAP ticker, so scrolling and ScrollTrigger update in the same frame.
+  // Each wheel step glides for 1.8s (easeOutExpo); a shorter step per notch feels softer.
   const lenis = new Lenis({ duration: 1.8, wheelMultiplier: .85 });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));

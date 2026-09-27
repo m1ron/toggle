@@ -16,7 +16,7 @@
     padding-bottom: 40px;
   }
 
-  // Background artwork: fades in with a slight zoom-out while the footer is uncovered (--footer-reveal, see initFooter)
+  // Artwork fades in with a slight zoom as the footer is uncovered (--footer-reveal)
   &::before {
     @include pseudo;
     position: absolute;
@@ -33,7 +33,7 @@
     }
   }
 
-  // Revealed from under the page (see initFooter): fixed at the bottom, the page scrolls away over it
+  // Fixed under the page, uncovered as it scrolls away (initFooter)
   body.footer-reveal & {
     position: fixed;
     right: 0;

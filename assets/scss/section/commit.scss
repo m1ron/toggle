@@ -3,7 +3,7 @@
 
 /* ===== COMMIT ===== */
 
-// Card switch duration; the JS swaps card depth halfway through (CARD_SWITCH in main.js)
+// Card switch duration, keep in sync with CARD_SWITCH (main.js)
 $card-switch: .4s;
 .commit {
   min-height: 620px;
@@ -23,7 +23,7 @@ $card-switch: .4s;
     margin: 0 auto;
     position: relative;
     z-index: 5;
-    transform: translate3d(0, var(--pin-shift, 0px), 0); // soft pin, see softPin() in main.js
+    transform: translate3d(0, var(--pin-shift, 0px), 0);
     @include media-breakpoint-down(xss) {
       width: 290px;
       font-size: 18px;
@@ -99,13 +99,10 @@ $card-switch: .4s;
     z-index: -2;
     opacity: .7;
     background: url('#{$img}/dots.svg') no-repeat center center;
-    transform: translate3d(0, var(--pin-shift, 0px), 0); // soft pin, see softPin() in main.js
+    transform: translate3d(0, var(--pin-shift, 0px), 0);
     background-size: auto 100%;
   }
 
-  .pin-spacer > & {
-    //z-index: -1;
-  }
 
   &.animated .cards {opacity: 1;}
   &.animated .cards__progress {transform: translate3d(-12px, 0, 0);}
@@ -217,7 +214,7 @@ $card-switch: .4s;
     .cards__title {opacity: 0;}
   }
 
-  // Positions of the back cards. Depth order while switching is set from JS (setCard in main.js)
+  // Back card positions (depth order is set in setCard)
   &[data-card="1"][data-loading="false"] .cards__card:nth-child(2),
   &[data-card="2"][data-loading="false"] .cards__card:nth-child(3),
   &[data-card="3"][data-loading="false"] .cards__card:nth-child(1) {
@@ -293,7 +290,7 @@ $card-switch: .4s;
       transition: transform .8s ease;
     }
 
-    // Fills at a constant pace with the scroll while the section is pinned (--cards-progress, see initCommit)
+    // Fills with the scroll while pinned (--cards-progress)
     &::after {
       @include pseudo;
       width: 100%;

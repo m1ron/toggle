@@ -3,8 +3,7 @@
 
 /* ===== SUCCESS ===== */
 
-// A letter turns white with a short glow that fades in and out.
-// The animation runs once when the letter lights up (and again if it lights up after scrolling back).
+// A letter lights up with a short glow
 %success-letter-lit {
   opacity: 1;
   animation: success-letter-glow 1.2s $ease-out-cubic;
@@ -19,8 +18,7 @@
   min-height: 620px;
   height: 100vh;
   position: relative;
-  // Own stacking layer above the about section: its background glow (::before, parallaxed)
-  // reaches into this section and must stay behind the swirl
+  // Above the about glow, which reaches into this section
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -31,9 +29,6 @@
     margin-top: 50px;
   }
 
-  .pin-spacer > & {
-    //z-index: -1;
-  }
 
   &__title {
     max-width: 350px;
@@ -48,7 +43,7 @@
     @include user-select;
     cursor: default;
     opacity: 0;
-    transform: translate3d(0, var(--pin-shift, 0px), 0); // soft pin, see softPin() in main.js
+    transform: translate3d(0, var(--pin-shift, 0px), 0);
     transition: opacity $duration-reveal $ease-out-quint $stagger * 3;
     @include media-breakpoint-down(xss) {
       width: 290px;
@@ -86,7 +81,7 @@
     right: -20px;
     bottom: 0;
     left: -20px;
-    // Soft pin shift (see softPin() in main.js) plus a slow drift while the section is pinned
+    // Soft pin shift plus a drift while pinned
     transform: translate3d(0, calc(var(--pin-shift, 0px) + var(--success-drift, 0px)), 0);
   }
 

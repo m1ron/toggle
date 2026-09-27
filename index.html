@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>toggle apps — Think Smart. Make Simple</title>
@@ -35,6 +34,9 @@
     <meta name="apple-mobile-web-app-title" content="toggle apps">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="manifest" href="/favicon/site.webmanifest">
+
+    <!-- Without JS: no loader, show the page -->
+    <noscript><style>.loader {display: none;} html body.loading :is(.header, .main, .footer) {opacity: 1;}</style></noscript>
 </head>
 
 <body class="locked loading">
@@ -42,12 +44,12 @@
 <header class="header">
     <h1 class="header__brand">
         <span>toggle apps</span>
-        <img class="m" src="assets/img/logo-mobile.png" width="91" height="22" alt="toggle apps">
-        <img class="d" src="assets/img/logo.png" width="147" height="35" alt="toggle apps">
+        <img class="m" src="assets/img/logo-mobile.png" width="91" height="22" alt="">
+        <img class="d" src="assets/img/logo.png" width="147" height="35" alt="">
     </h1>
     <div class="header__menu">
-        <div class="header__menu-space">
-            <div class="header__menu-toggle"></div>
+        <nav class="header__menu-space" aria-label="Main">
+            <div class="header__menu-toggle" role="button" tabindex="0" aria-label="Menu" aria-expanded="false"></div>
             <ul class="header__menu-nav">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -55,18 +57,18 @@
                 <li><a href="#team">Team</a></li>
                 <li><a href="#contacts">Contacts</a></li>
             </ul>
-        </div>
+        </nav>
         <a href="#join" class="header__join">Join us</a>
     </div>
 </header>
 
 <main class="main">
-    <article class="wrapper">
+    <div class="wrapper">
 
         <header id="home" class="hero">
             <div class="hero__content">
                 <figure class="hero__logo">
-                    <video width="97" height="60" playsinline autoplay muted loop poster="" preload="none">
+                    <video width="97" height="60" playsinline autoplay muted loop preload="none">
                         <source src="assets/img/logo.mp4" type="video/mp4">
                     </video>
                 </figure>
@@ -126,13 +128,13 @@
             </div>
             <div class="products__animation">
                 <figure class="products__screenshot">
-                    <img src="assets/img/application-1.jpg" srcset="assets/img/application-1.jpg, assets/img/application-1@2x.jpg 2x, assets/img/application-1@3x.jpg 3x" width="120" height="260" alt="Application" loading="lazy" draggable="false">
+                    <img src="assets/img/application-1.jpg" srcset="assets/img/application-1.jpg, assets/img/application-1@2x.jpg 2x, assets/img/application-1@3x.jpg 3x" width="120" height="260" alt="App screen: TV remote control" loading="lazy" draggable="false">
                 </figure>
                 <figure class="products__screenshot">
-                    <img src="assets/img/application-2.jpg" srcset="assets/img/application-2.jpg, assets/img/application-2@2x.jpg 2x, assets/img/application-2@3x.jpg 3x" width="88" height="196" alt="Application" loading="lazy" draggable="false">
+                    <img src="assets/img/application-2.jpg" srcset="assets/img/application-2.jpg, assets/img/application-2@2x.jpg 2x, assets/img/application-2@3x.jpg 3x" width="88" height="196" alt="App screen: streaming apps on the TV" loading="lazy" draggable="false">
                 </figure>
                 <figure class="products__screenshot">
-                    <img src="assets/img/application-3.jpg" srcset="assets/img/application-3.jpg, assets/img/application-3@2x.jpg 2x, assets/img/application-3@3x.jpg 3x" width="88" height="196" alt="Application" loading="lazy" draggable="false">
+                    <img src="assets/img/application-3.jpg" srcset="assets/img/application-3.jpg, assets/img/application-3@2x.jpg 2x, assets/img/application-3@3x.jpg 3x" width="88" height="196" alt="App screen: connect your smart TV" loading="lazy" draggable="false">
                 </figure>
             </div>
         </div>
@@ -171,13 +173,13 @@
             <div id="contacts" class="contacts__anchor"></div>
             <div class="contacts__form">
                 <p class="contacts__title">Any questions? Let’s talk</p>
-                <span class="contacts__copy"><span>Copy</span><span aria-hidden="true">Copied</span></span>
+                <span class="contacts__copy" role="button" tabindex="0" aria-label="Copy the email address"><span>Copy</span><span aria-hidden="true">Copied</span></span>
                 <div class="contacts__email">hello@toggleapps.io</div>
             </div>
         </section>
 
         <div class="stars"><div class="stars__layer"></div></div>
-    </article>
+    </div>
 </main>
 
 <footer class="footer">

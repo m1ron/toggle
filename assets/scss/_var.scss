@@ -21,23 +21,14 @@ $grid-breakpoints: (
 $img: '/assets/img';
 $fonts: '/assets/fonts';
 
-// Height of the stars.svg tile (keep in sync with STARS_TILE in main.js)
+// stars.svg tile height, keep in sync with STARS_TILE (main.js)
 $stars-tile: 1441px;
 
 // Fonts
 $font-default: 'Clash Display', sans-serif;
 $font-secondary: 'Inter', sans-serif;
 
-// Colors
-$color-black: #080522;
-$color-mute: #2c2d3a;
-$color-black-marlin: #393741;
-$color-dark-gray: #75728a;
-$color-gray: #959fb1;
-$color-sky: #5ddcff;
-$color-blueish: #ecf0f2;
-
-// Motion: one set of curves, durations and stagger for the whole page
+// Motion
 $ease-out-quint: cubic-bezier(.22, 1, .36, 1);     // entrances
 $ease-out-cubic: cubic-bezier(.33, 1, .68, 1);     // hovers and small UI feedback
 $ease-in-out-cubic: cubic-bezier(.65, 0, .35, 1);  // state changes, elements passing each other
@@ -53,12 +44,13 @@ $effect-hover: .8s $ease-out-cubic;
 
 // Mixins
 @mixin pseudo {content: '';display: block;overflow: hidden;}
-@mixin clearfix {content: '';display: table;clear: both;}
 @mixin font-smooth {-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 @mixin user-select {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 @mixin user-drag {-webkit-user-drag: none;user-drag: none;}
+// Keeps only the padding ring of the element's background: gradient borders
+@mixin ring-mask {mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;}
 
-// Entrance: transform eases over the full duration, opacity arrives a bit earlier on the same curve
+// Entrance: opacity arrives a bit before the transform
 @mixin reveal($duration: $duration-reveal, $delay: 0s) {
   transition: opacity $duration * .6 $ease-out-quint $delay, transform $duration $ease-out-quint $delay;
 }
