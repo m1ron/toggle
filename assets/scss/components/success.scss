@@ -75,7 +75,7 @@
     }
   }
 
-  &.is-revealed &__title {
+  &.is-revealed &__title, .no-js & &__title {
     opacity: 1;
   }
 
@@ -103,7 +103,7 @@
     transition: opacity $duration-reveal $ease-out-quint;
   }
 
-  &.is-revealed &__swirl {
+  &.is-revealed &__swirl, .no-js & &__swirl {
     opacity: 1;
   }
 
@@ -130,7 +130,7 @@
     }
   }
 
-  &.is-revealed &__galaxy {
+  &.is-revealed &__galaxy, .no-js & &__galaxy {
     opacity: 1;
     transform: scale(1);
   }
@@ -161,7 +161,7 @@
     }
   }
 
-  &.is-revealed &__eclipse {
+  &.is-revealed &__eclipse, .no-js & &__eclipse {
     opacity: 1;
     transform: scale(1);
   }

@@ -80,7 +80,7 @@
     transition: opacity $duration-reveal $ease-out-quint;
   }
 
-  &.is-revealed {
+  &.is-revealed, .no-js & {
     &::before, &::after, .join__content::before, .join__content::after {
       opacity: 1;
     }
@@ -211,7 +211,7 @@
     }
   }
 
-  &.is-revealed &__bg {
+  &.is-revealed &__bg, .no-js & &__bg {
     transform: scale(1);
     opacity: 1;
   }
@@ -222,7 +222,7 @@
     @include reveal($duration-reveal-s, $stagger);
   }
 
-  &.is-revealed &__space {
+  &.is-revealed &__space, .no-js & &__space {
     transform: none;
     opacity: 1;
   }
@@ -309,7 +309,7 @@
     }
   }
 
-  &.is-revealed &__button {
+  &.is-revealed &__button, .no-js & &__button {
     animation-play-state: running;
   }
 }

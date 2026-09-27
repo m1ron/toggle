@@ -161,7 +161,7 @@ $card-switch: .4s;
     transition: opacity .35s ease;
   }
 
-  &.is-revealed {opacity: 1;}
+  &.is-revealed, .no-js & {opacity: 1;}
 
   &__progress {
     width: 2px;
@@ -191,7 +191,7 @@ $card-switch: .4s;
     @include media-breakpoint-between(md, lg) {
       margin-left: 330px;
     }
-    .cards.is-revealed & {transform: translate3d(-12px, 0, 0);}
+    .cards.is-revealed &, .no-js .cards & {transform: translate3d(-12px, 0, 0);}
 
     // --cards-progress
   }

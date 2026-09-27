@@ -231,10 +231,10 @@
     }
   }
 
-  &.is-revealed &__animation {
+  &.is-revealed &__animation, .no-js & &__animation {
     &::after {opacity: 1;}
   }
-  &.is-revealed &__screenshot {
+  &.is-revealed &__screenshot, .no-js & &__screenshot {
     transform: scale(1);
     opacity: 1;
     &:nth-child(2) {

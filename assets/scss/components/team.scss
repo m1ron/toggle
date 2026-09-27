@@ -97,7 +97,7 @@
     }
   }
 
-  &.is-revealed &__line {
+  &.is-revealed &__line, .no-js & &__line {
     opacity: 1;
     transform: none;
   }
@@ -172,10 +172,10 @@
     @include no-drag;
   }
 
-  &.is-revealed::after,
-  &.is-revealed &__title {transform: scale(1);opacity: 1;}
-  &.is-revealed &__members {transform: scale(1);}
-  &.is-revealed &__member {opacity: 1;animation-play-state: running;}
+  &.is-revealed::after, .no-js &::after,
+  &.is-revealed &__title, .no-js & &__title {transform: scale(1);opacity: 1;}
+  &.is-revealed &__members, .no-js & &__members {transform: scale(1);}
+  &.is-revealed &__member, .no-js & &__member {opacity: 1;animation-play-state: running;}
   &.is-revealed.is-offscreen &__member {animation-play-state: paused;}
 }
 

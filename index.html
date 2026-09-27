@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +15,8 @@
     <link href="/assets/fonts/clash.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
     <link href="/assets/fonts/inter.woff2" rel="preload" crossorigin="anonymous" as="font" type="font/woff2">
 
-    <!-- Below-the-fold artwork waits for the first screen (initLoader) -->
-    <script>document.documentElement.classList.add('is-bg-deferred');</script>
+    <!-- JS is on (no-js shows every section revealed); below-the-fold artwork waits for the first screen (initLoader) -->
+    <script>document.documentElement.classList.replace('no-js', 'is-bg-deferred');</script>
 
     <link href="/assets/scss/style.scss" rel="stylesheet">
     <script src="/assets/js/main.js" type="module"></script>

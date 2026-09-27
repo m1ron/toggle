@@ -50,7 +50,7 @@
       margin-bottom: 19px;
     }
 
-    &.is-loaded {
+    &.is-loaded, .no-js & {
       opacity: 1;
     }
 

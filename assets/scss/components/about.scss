@@ -180,8 +180,8 @@
     left: -.05em;
   }
 
-  &.is-revealed &__card {transform: scale(1);opacity: 1;}
-  &.is-revealed &__shine {display: block;}
+  &.is-revealed &__card, .no-js & &__card {transform: scale(1);opacity: 1;}
+  &.is-revealed &__shine, .no-js & &__shine {display: block;}
   // Cascade: by rows on mobile, by card on desktop
   &.is-revealed &__stat:nth-child(1) &__card {transition-delay: 0s;}
   &.is-revealed &__stat:nth-child(2) &__card, &.is-revealed &__stat:nth-child(3) &__card {transition-delay: $stagger;}
@@ -239,7 +239,7 @@
     }
   }
 
-  &.is-revealed &__line {
+  &.is-revealed &__line, .no-js & &__line {
     opacity: 1;
     transform: none;
   }
