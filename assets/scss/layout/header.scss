@@ -261,6 +261,8 @@
     text-decoration: none;
     display: block;
     overflow: hidden;
+    // Own layer: without it iOS Safari clips the blurred glow below to a rectangle, not the rounded corners
+    transform: translateZ(0);
     position: fixed;
     top: 20px;
     right: 20px;

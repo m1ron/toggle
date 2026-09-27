@@ -146,6 +146,8 @@
     left: 0;
     z-index: -1;
     overflow: hidden;
+    // Own layer: without it Safari clips the moving glow to a rectangle, not the rounded corners
+    transform: translateZ(0);
     @include media-breakpoint-up(lg) {
       border-radius: 64px;
     }
