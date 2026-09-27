@@ -10,9 +10,11 @@ const lenis = new Lenis({
   duration: 1.8,
   wheelMultiplier: .85,
   smoothWheel: !prefersReducedMotion,
-  // Touch too: Lenis smooths the finger scroll (native otherwise), a bit crisper than the wheel
+  // Touch too (native otherwise): the page follows the finger, then glides on. The glide's reach
+  // (velocity ** touchInertiaExponent) and its slow fade (syncTouchLerp) are a bit longer than the defaults
   syncTouch: !prefersReducedMotion,
-  syncTouchLerp: .085,
+  syncTouchLerp: .05,
+  touchInertiaExponent: 1.8,
   // Contents links; the gap under the fixed header comes from scroll-margin-top
   anchors: { immediate: prefersReducedMotion },
 });

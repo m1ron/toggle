@@ -22,18 +22,20 @@ import { initContacts } from './components/contacts.js';
 
 // Order matters: each pin shifts the triggers created after it
 function initApp() {
-  // TEMPORARY, for testing on real devices: ?pin=transform, ?touch=native
-  const params = new URLSearchParams(location.search);
-  if (params.get('pin') === 'transform') ScrollTrigger.defaults({ pinType: 'transform' });
+  // Pins move by transform in the same frame as Lenis scrolls (with `fixed`, iOS Safari showed a jump
+  // when pinning). Reduced motion scrolls natively, where fixed pins keep up better.
+  ScrollTrigger.defaults({ pinType: prefersReducedMotion ? 'fixed' : 'transform' });
 
   // On the GSAP ticker: scroll and ScrollTrigger update in the same frame. Native wheel for reduced motion
   const lenis = new Lenis({
     duration: 1.8,
     wheelMultiplier: .85,
     smoothWheel: !prefersReducedMotion,
-    // Touch too: Lenis smooths the finger scroll (native otherwise), a bit crisper than the wheel
-    syncTouch: !prefersReducedMotion && params.get('touch') !== 'native',
-    syncTouchLerp: .085,
+    // Touch too (native otherwise): the page follows the finger, then glides on. The glide's reach
+    // (velocity ** touchInertiaExponent) and its slow fade (syncTouchLerp) are a bit longer than the defaults
+    syncTouch: !prefersReducedMotion,
+    syncTouchLerp: .05,
+    touchInertiaExponent: 1.8,
   });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
