@@ -15,9 +15,15 @@
   @include media-breakpoint-up(md) {
     min-height: 900px;
   }
-  // Short screens (phones in landscape): exactly the viewport, so the pinned content is centred in it
+  // Short screens (phones and tablets in landscape): exactly the viewport, so the pinned content is
+  // centred in it; from md the minimum is 900px, which still fits its content at 768px
   @media (max-height: 619.98px) {
     min-height: 0;
+  }
+  @include media-breakpoint-up(md) {
+    @media (max-height: 899.98px) {
+      min-height: 0;
+    }
   }
 
   &__content {

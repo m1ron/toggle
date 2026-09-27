@@ -55,6 +55,12 @@
       font-size: 40px;
       line-height: 50px;
     }
+    // Portrait tablets: between the phone and desktop sizes
+    @include media-breakpoint-between(md, lg) {
+      max-width: 560px;
+      font-size: 32px;
+      line-height: 40px;
+    }
   }
 
   // Letters from splitToLetters, lit with the scroll (is-lit, success.js)

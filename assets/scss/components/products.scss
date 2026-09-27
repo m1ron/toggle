@@ -38,6 +38,13 @@
     letter-spacing: .02em;
     text-align: center;
     @include font-smooth;
+    // Portrait tablets: between the phone and desktop sizes
+    @include media-breakpoint-between(md, lg) {
+      max-width: 680px;
+      min-height: 380px;
+      font-size: 29px;
+      line-height: 37px;
+    }
     @include media-breakpoint-up(lg) {
       max-width: 860px;
       min-height: 400px;
@@ -96,7 +103,7 @@
     top: var(--products-pin-shift, 0px);
     // Portrait tablets: between the phone and desktop sizes
     @include media-breakpoint-between(md, lg) {
-      height: 800px;
+      height: 860px;
     }
     @include media-breakpoint-up(lg) {
       height: 900px;
@@ -146,9 +153,9 @@
     opacity: 0;
     backdrop-filter: blur(10px);
     @include media-breakpoint-between(md, lg) {
-      width: 184px;
-      height: 380px;
-      border-radius: 30px;
+      width: 210px;
+      height: 434px;
+      border-radius: 34px;
     }
     @include media-breakpoint-up(lg) {
       width: 254px;
@@ -166,9 +173,9 @@
       z-index: 4;
       transition-delay: $stagger * 5;
       @include media-breakpoint-between(md, lg) {
-        width: 140px;
-        height: 291px;
-        border-radius: 25px;
+        width: 160px;
+        height: 332px;
+        border-radius: 28px;
       }
       @include media-breakpoint-up(lg) {
         width: 191px;
@@ -181,9 +188,9 @@
         height: 196px;
         border-radius: 12px;
         @include media-breakpoint-between(md, lg) {
-          width: 123px;
-          height: 274px;
-          border-radius: 17px;
+          width: 140px;
+          height: 312px;
+          border-radius: 19px;
         }
         @include media-breakpoint-up(lg) {
           width: 167px;
@@ -212,9 +219,9 @@
     @include no-select;
     @include no-drag;
     @include media-breakpoint-between(md, lg) {
-      width: 168px;
-      height: 364px;
-      border-radius: 22px;
+      width: 192px;
+      height: 416px;
+      border-radius: 26px;
     }
     @include media-breakpoint-up(lg) {
       width: 230px;
@@ -233,7 +240,7 @@
     &:nth-child(2) {
       transform: scale(1) translate3d(95px, 0, 0);
       @include media-breakpoint-between(md, lg) {
-        transform: scale(1) translate3d(133px, 0, 0);
+        transform: scale(1) translate3d(152px, 0, 0);
       }
       @include media-breakpoint-up(lg) {
         transform: scale(1) translate3d(190px, 0, 0);
@@ -242,7 +249,7 @@
     &:nth-child(3) {
       transform: scale(1) translate3d(-95px, 0, 0);
       @include media-breakpoint-between(md, lg) {
-        transform: scale(1) translate3d(-133px, 0, 0);
+        transform: scale(1) translate3d(-152px, 0, 0);
       }
       @include media-breakpoint-up(lg) {
         transform: scale(1) translate3d(-190px, 0, 0);

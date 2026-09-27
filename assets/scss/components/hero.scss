@@ -28,6 +28,10 @@
       top: -35px;
       @include font-smooth;
     }
+    // The lift suits tall screens; on shorter ones (landscape tablets) the content sits too high
+    @media (max-height: 899.98px) {
+      top: 0;
+    }
 
     > *:last-child {margin-bottom: 0;}
   }
