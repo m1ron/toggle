@@ -1,7 +1,8 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Footer: fixed under the page on tall screens, artwork fades in as it's uncovered.
 
-/* ===== FOOTER ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
 .footer {
   padding: 40px 20px;
   margin: 0;
@@ -16,7 +17,7 @@
     padding-bottom: 40px;
   }
 
-  // Artwork fades in with a slight zoom as the footer is uncovered (--footer-reveal)
+  // Fades in with a slight zoom (--footer-reveal)
   &::before {
     @include pseudo;
     position: absolute;
@@ -34,7 +35,7 @@
     }
   }
 
-  // Fixed under the page, uncovered as it scrolls away (initFooter)
+  // Fixed under the page (initFooter)
   body.footer-reveal & {
     position: fixed;
     right: 0;

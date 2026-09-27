@@ -1,9 +1,9 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Join: glass card with a glow at the bottom and Explore careers button.
 
-/* ===== JOIN ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
 
-// Registered so the glow inside the gradient can transition
+// Registered: can transition
 @property --join-glow {
   syntax: '<number>';
   inherits: false;
@@ -189,7 +189,7 @@
       z-index: -1;
       background: url('#{$img}/join.webp') no-repeat center bottom;
       background-size: 600px auto;
-      // Parallax via background-position, so the rounded shape stays put
+      // Parallax via background-position: the shape stays put
       background-position: center calc(100% + var(--join-parallax, 0px));
       @include media-breakpoint-up(lg) {
         border-radius: 64px;

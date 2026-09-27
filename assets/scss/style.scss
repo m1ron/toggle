@@ -1,10 +1,12 @@
+// Entry: vendor, core, layout, then components in page order.
+
 @use 'vendor/normalize';
 @use 'vendor/lenis';
 
-@use 'var';
-@use 'fonts';
-@use 'breakpoints';
-@use 'default';
+@use 'core/var';
+@use 'core/fonts';
+@use 'core/breakpoints';
+@use 'core/default';
 
 @use 'layout/loader';
 @use 'layout/main';
@@ -12,11 +14,11 @@
 @use 'layout/wrapper';
 @use 'layout/footer';
 
-@use 'section/hero';
-@use 'section/about';
-@use 'section/success';
-@use 'section/commit';
-@use 'section/products';
-@use 'section/team';
-@use 'section/join';
-@use 'section/contacts';
+@use 'components/hero';
+@use 'components/about';
+@use 'components/success';
+@use 'components/commit';
+@use 'components/products';
+@use 'components/team';
+@use 'components/join';
+@use 'components/contacts';

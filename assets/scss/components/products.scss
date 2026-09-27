@@ -1,7 +1,8 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Products: pinned heading with the flying title copy, app screenshots with parallax.
 
-/* ===== PRODUCTS ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
 .products {
   position: relative;
   @include media-breakpoint-up(lg) {
@@ -50,7 +51,7 @@
 
     p {
       margin: 0;
-      // Soft pin shifts: the heading's and the section's
+      // Heading and section pin shifts
       transform: translate3d(0, calc(var(--pin-shift, 0px) + var(--products-pin-shift, 0px)), 0);
     }
   }
@@ -90,7 +91,7 @@
   &__animation {
     height: 640px;
     position: relative;
-    // Soft pin via `top`: a transform would change how the screenshots layer with the heading
+    // Pin shift via `top`: a transform would change layering
     top: var(--products-pin-shift, 0px);
     @include media-breakpoint-up(lg) {
       height: 900px;
@@ -114,7 +115,7 @@
       background-size: auto 90%;
       opacity: 0;
       transform: translate3d(-50%, -50%, 0);
-      // Parallax: the farthest layer, drifts against the phones
+      // Farthest layer, drifts against the phones
       translate: 0 calc(var(--screens-parallax, 0px) * -.66);
       transition: opacity $duration-reveal $ease-out-quint;
       @include media-breakpoint-up(lg) {
@@ -138,7 +139,7 @@
     background: rgba(black, .3);
     box-shadow: 0 6px 18px rgba(black, .67);
     transform: scale(.95);
-    // Parallax; `translate` adds up with the reveal transforms
+    // Parallax; `translate` adds to the reveal transform
     translate: 0 var(--screens-parallax, 0px);
     @include reveal($duration-reveal, $stagger * 2);
     opacity: 0;
@@ -178,7 +179,7 @@
     }
 
     &:nth-child(2), &:nth-child(3) {
-      translate: 0 calc(var(--screens-parallax, 0px) * 2); // side phones: a deeper layer
+      translate: 0 calc(var(--screens-parallax, 0px) * 2); // deeper layer
       width: 100px;
       height: 208px;
       border-radius: 18px;

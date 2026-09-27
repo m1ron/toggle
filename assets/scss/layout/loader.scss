@@ -1,7 +1,8 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Loader: progress bar and percent over a black screen.
 
-/* ===== LOADER ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
 .loader {
   position: fixed;
   top: 0;

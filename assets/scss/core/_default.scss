@@ -1,7 +1,7 @@
+// Base styles: page, loader states, deferred artwork, focus, reduced motion, typography.
+
 @use 'var' as *;
 @use 'breakpoints' as *;
-
-/* ===== DEFAULT ===== */
 
 :root {
   --page-height: 100%;
@@ -12,7 +12,7 @@
   -webkit-tap-highlight-color: rgba(black, 0);
 }
 
-// No default focus ring: every focusable element shows its hover state on :focus-visible instead
+// No focus ring: :focus-visible shows the hover state
 :focus, :focus-visible {
   outline: none;
 }
@@ -60,7 +60,7 @@ body {
   }
 }
 
-// Below-the-fold artwork isn't requested until the first screen has loaded (initLoader)
+// Below-the-fold artwork waits for the first screen (initLoader)
 html.defer-bg {
   .success__swirl, .success__galaxy, .commit::after, .cards__card::before, .products__animation::after,
   .team::after, .join__bg::after, .contacts::before, .footer::before {
@@ -68,7 +68,7 @@ html.defer-bg {
   }
 }
 
-// Anchor links are disabled while an anchor scroll runs (initAnchors)
+// No anchor clicks during an anchor scroll
 body.is-navigating a[href^="#"] {
   pointer-events: none;
 }
@@ -95,7 +95,7 @@ p {
   margin: 0 0 1em;
 }
 
-// Buttons take their look from their own classes
+// Button reset
 button {
   padding: 0;
   border: 0;

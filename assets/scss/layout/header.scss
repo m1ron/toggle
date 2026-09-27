@@ -1,7 +1,8 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Header: fixed logo, menu (a pill on desktop, a dropdown on mobile), Join us; slides in after the loader.
 
-/* ===== HEADER ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
 .header {
   min-width: $min-width;
   max-width: $max-width;
@@ -15,14 +16,14 @@
   &__brand {
     margin: 0;
     overflow: hidden;
-    position: fixed; // stays visible while scrolling (as on production)
+    position: fixed;
     top: 31px;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
     @include media-breakpoint-down(xss) {
       top: 33px;
     }
-    // Fixed boxes ignore the body's min-width: keep the brand centred in the 320px page
+    // Fixed boxes ignore body min-width
     @media (max-width: #{$min-width - .02px}) {
       left: $min-width * .5;
     }
@@ -222,7 +223,7 @@
             padding: 9px 27px;
           }
 
-          // .is-active: held during the anchor scroll
+          // .is-active: during the anchor scroll
           &:hover, &:focus-visible, &.is-active {
             opacity: 1;
             text-shadow: 0 0 8px rgba(white, .65), 0 0 8px rgba(white, .65);
@@ -319,12 +320,12 @@
     }
   }
 
-  // Slides down as the page fades in after the loader; `translate` keeps their own transforms
+  // Slides down after the loader; `translate` keeps own transforms
   body.revealing & {
     &__brand, &__menu-space, &__join {
       animation: header-in 1.2s $ease-out-quint backwards;
     }
-    // A light cascade on desktop; on phones the three corners arrive together
+    // Cascade on desktop, together on phones
     @include media-breakpoint-up(lg) {
       &__menu-space {animation-delay: .1s;}
       &__join {animation-delay: .2s;}

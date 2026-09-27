@@ -25,15 +25,20 @@ npm run preview   # serves dist/ at http://localhost:4180
 
 ## Project structure
 ```
-index.html                the whole page markup
-assets/js/main.js         loader, smooth scroll and each section's animation (init* functions)
+index.html                  the whole page markup
+assets/js/
+  main.js                   entry: Lenis, init order
+  core/                     env, utils, motion helpers (reveal, parallax, softPin), text splitting
+  layout/                   loader, header (menu, anchor scroll), stars, footer
+  components/               one module per page section
 assets/scss/
-  _var.scss               breakpoints, colours, motion tokens (easings, durations), mixins
-  _default.scss           base styles, loader states, reduced motion
-  layout/                 header, main, footer, loader
-  section/                one file per page section
-assets/img, assets/fonts  processed and hashed by Vite
-public/                   copied as is: favicons, og-image.jpg, robots.txt
+  style.scss                entry
+  core/                     variables, motion tokens, mixins, breakpoints, fonts, base styles
+  layout/                   loader, header, main, wrapper, footer
+  components/               one file per page section, same names as in js/
+  vendor/                   normalize, lenis
+assets/img, assets/fonts    processed and hashed by Vite
+public/                     copied as is: favicons, og-image.jpg, robots.txt
 ```
 
 ## Animation techniques

@@ -1,7 +1,8 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Team: black hole artwork, title, avatars on orbits.
 
-/* ===== TEAM ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
 .team {
   height: 612px;
   margin-top: -113px;
@@ -132,7 +133,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    // A denser fill instead of backdrop-filter: blurring the backdrop under eight moving orbits is costly
+    // Solid fill: backdrop-filter on moving orbits is costly
     background: linear-gradient(180deg, rgba(#1c1c3a, .55) 0%, rgba(black, .5) 100%);
     box-shadow: 0 4px 6px rgba(black, .38), inset 0 1px 1px rgba(white, .25);
     animation: orbit 16s forwards infinite;

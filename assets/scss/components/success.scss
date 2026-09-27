@@ -1,9 +1,9 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Success: letters that light up with the scroll over the eclipse, galaxy and swirl artwork.
 
-/* ===== SUCCESS ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
 
-// A letter lights up with a short glow
+// Letter glow
 %success-letter-lit {
   opacity: 1;
   animation: success-letter-glow 1.2s $ease-out-cubic;
@@ -18,7 +18,7 @@
   min-height: 620px;
   height: 100vh;
   position: relative;
-  // Above the about glow, which reaches into this section
+  // Above the about glow
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -80,7 +80,7 @@
     right: -20px;
     bottom: 0;
     left: -20px;
-    // Soft pin shift plus a drift while pinned
+    // Pin shift + drift
     transform: translate3d(0, calc(var(--pin-shift, 0px) + var(--success-drift, 0px)), 0);
   }
 

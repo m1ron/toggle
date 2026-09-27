@@ -1,4 +1,6 @@
-// ===== VARIABLES =====
+// Variables and mixins: breakpoints, paths, fonts, motion tokens (easings, durations),
+// background images with AVIF, gradient borders, reveal.
+
 $min-width: 320px;
 $max-width: 1920px;
 
@@ -21,7 +23,7 @@ $grid-breakpoints: (
 $img: '/assets/img';
 $fonts: '/assets/fonts';
 
-// stars.svg tile height, keep in sync with STARS_TILE (main.js)
+// stars.svg tile height, = STARS_TILE (stars.js)
 $stars-tile: 1441px;
 
 // Fonts
@@ -30,16 +32,16 @@ $font-secondary: 'Inter', sans-serif;
 
 // Motion
 $ease-out-quint: cubic-bezier(.22, 1, .36, 1);     // entrances
-$ease-out-cubic: cubic-bezier(.33, 1, .68, 1);     // hovers and small UI feedback
-$ease-in-out-cubic: cubic-bezier(.65, 0, .35, 1);  // state changes, elements passing each other
-$ease-out-back: cubic-bezier(.34, 1.4, .64, 1);    // gentle overshoot, used sparingly
+$ease-out-cubic: cubic-bezier(.33, 1, .68, 1);     // hovers, UI feedback
+$ease-in-out-cubic: cubic-bezier(.65, 0, .35, 1);  // state changes
+$ease-out-back: cubic-bezier(.34, 1.4, .64, 1);    // gentle overshoot
 
 $duration-intro: 1.8s;     // hero entrance after the loader
 $duration-reveal: 1.5s;    // large blocks
-$duration-reveal-s: 1.1s;  // text lines, cards, small elements
-$stagger: .15s;            // step between items of a cascade
+$duration-reveal-s: 1.1s;  // text lines, cards
+$stagger: .15s;            // cascade step
 
-// Hover / focus feedback on buttons and links
+// Hover / focus
 $effect-hover: .8s $ease-out-cubic;
 
 // Mixins
@@ -47,8 +49,7 @@ $effect-hover: .8s $ease-out-cubic;
 @mixin font-smooth {-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 @mixin user-select {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 @mixin user-drag {-webkit-user-drag: none;user-drag: none;}
-// AVIF with the original file as fallback: image-set() only where type() is supported
-// (a separate @supports block, so minifiers can't merge the fallback away)
+// AVIF with a fallback; own @supports so minifiers keep the fallback
 @mixin bg-image($name, $fallback-ext) {
   $type: 'image/webp';
   @if $fallback-ext == 'png' {
@@ -60,10 +61,10 @@ $effect-hover: .8s $ease-out-cubic;
   }
 }
 
-// Keeps only the padding ring of the element's background: gradient borders
+// Gradient borders: keeps only the padding ring
 @mixin ring-mask {mask: linear-gradient(black 0 0) exclude, linear-gradient(black 0 0) content-box;}
 
-// Entrance: opacity arrives a bit before the transform
+// Entrance: opacity leads the transform
 @mixin reveal($duration: $duration-reveal, $delay: 0s) {
   transition: opacity $duration * .6 $ease-out-quint $delay, transform $duration $ease-out-quint $delay;
 }

@@ -1,3 +1,5 @@
+// Fonts: Clash Display (variable) and an Inter subset for the stat numbers.
+
 @use 'var';
 
 @font-face {
@@ -14,6 +16,6 @@
   font-display: swap;
   font-style: normal;
   src: url('#{var.$fonts}/inter.woff2') format('woff2');
-  // Subset for the stat numbers: space % + , . 0-9 B K M
+  // Subset: stat numbers only
   unicode-range: U+20, U+25, U+2B-2C, U+2E, U+30-39, U+42, U+4B, U+4D;
 }

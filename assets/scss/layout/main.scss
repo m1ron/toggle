@@ -1,20 +1,21 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Main: covers the fixed footer, divider line, starry background layer.
 
-/* ===== MAIN ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
 .main {
   width: 100%;
   overflow: hidden;
   position: relative;
   z-index: 1;
 
-  // Covers the fixed footer and leaves room to uncover it (initFooter)
+  // Covers the fixed footer, leaves room to uncover it
   body.footer-reveal & {
     margin-bottom: var(--footer-height, 0px);
     background: black;
   }
 
-  // Divider above the footer; on the page edge so it's visible while the footer is uncovered
+  // Divider above the footer
   &::after {
     @include pseudo;
     height: 1px;
@@ -35,10 +36,10 @@
     bottom: 0;
     left: 0;
     z-index: -1;
-    // Clips the fixed layer to .main (a transform here would break position: fixed)
+    // Clips the fixed layer (a transform would break fixed)
     clip-path: inset(0);
 
-    // Fixed to the viewport, moved with transform only
+    // Moved by transform only
     &__layer {
       height: calc(100vh + #{$stars-tile});
       height: calc(100lvh + #{$stars-tile});

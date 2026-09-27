@@ -1,9 +1,9 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Commit: card stack switched by the scroll (data-card), progress bar.
 
-/* ===== COMMIT ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
 
-// Card switch duration, keep in sync with CARD_SWITCH (main.js)
+// = CARD_SWITCH (commit.js)
 $card-switch: .4s;
 .commit {
   min-height: 620px;
@@ -213,7 +213,7 @@ $card-switch: .4s;
     .cards__title {opacity: 0;}
   }
 
-  // Back card positions (depth order is set in setCard)
+  // Back card positions (z-order: setDepth)
   &[data-card="1"][data-loading="false"] .cards__card:nth-child(2),
   &[data-card="2"][data-loading="false"] .cards__card:nth-child(3),
   &[data-card="3"][data-loading="false"] .cards__card:nth-child(1) {
@@ -288,7 +288,7 @@ $card-switch: .4s;
       transition: transform .8s ease;
     }
 
-    // Fills with the scroll while pinned (--cards-progress)
+    // --cards-progress
     &::after {
       @include pseudo;
       width: 100%;

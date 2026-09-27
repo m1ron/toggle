@@ -1,7 +1,8 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Hero: logo video, gradient title, Let's connect button, entrance after the loader.
 
-/* ===== HERO ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
 .hero {
   height: 100vh;
   min-height: 400px;
@@ -180,7 +181,7 @@
     }
   }
 
-  // Entrance after the loader is gone
+  // Entrance after the loader
   body.revealing & {
     &__title,
     &__subheading,
@@ -193,7 +194,7 @@
   }
 }
 
-// `from` only: animates to the element's own values
+// `from` only: ends at own values
 @keyframes hero-in {
   from {
     opacity: 0;

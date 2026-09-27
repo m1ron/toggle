@@ -1,9 +1,9 @@
-@use '../var' as *;
-@use '../breakpoints' as *;
+// Contacts: email field with Copy, the ray and glows following the mouse, arc rising with the footer.
 
-/* ===== CONTACTS ===== */
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
 
-// Registered so the border colours can transition
+// Registered: can transition
 @property --email-glow {
   syntax: '<number>';
   inherits: false;
@@ -33,7 +33,7 @@
     width: 100%;
     max-width: 350px;
     transform: translate(0, -18px);
-    // Parallax; `translate` adds up with the transform
+    // Parallax; `translate` adds to transform
     translate: 0 calc((1 - var(--contacts-parallax, 1)) * 40px);
     position: relative;
     z-index: 10;
@@ -65,7 +65,7 @@
     top: 12px;
     right: 12px;
     z-index: 10;
-    // Both labels in one grid cell: constant width
+    // Both labels in one cell: constant width
     display: grid;
     justify-items: center;
 
@@ -119,7 +119,7 @@
 
   }
 
-  // The Copy button and the email field share hover / focus / active
+  // Copy and email share hover / focus / active
   &__form:has(&__copy:hover, &__copy:focus-visible, &__email:hover) {
     .contacts__copy::before {opacity: .2;}
     .contacts__copy::after {opacity: .15;}
@@ -140,7 +140,7 @@
     position: relative;
     z-index: 1;
     text-shadow: 0 0 15px rgba(black, .5);
-    cursor: pointer; // copies the address on click, like the Copy button
+    cursor: pointer; // copies on click
     @include font-smooth;
     @include media-breakpoint-down(xss) {
       font-size: 16px;
@@ -165,7 +165,7 @@
       }
     }
 
-    // Coloured border crossfades over the plain one (--email-glow)
+    // Coloured border crossfade (--email-glow)
     &::before {
       --glow: var(--email-glow);
       --plain: calc(1 - var(--email-glow));
@@ -232,7 +232,7 @@
     background: 50% 0 no-repeat;
     @include bg-image('ray', 'webp');
     background-size: auto 100%;
-    // Grows from its top edge (stays joined to the join glow) and brightens
+    // Grows from the top edge, joined to the join glow
     transform: scale(calc(.85 + .15 * var(--contacts-parallax, 1)), calc(.8 + .2 * var(--contacts-parallax, 1)));
     transform-origin: 50% 0;
     opacity: calc(.6 + .4 * var(--contacts-parallax, 1));
@@ -256,7 +256,7 @@
     @include bg-image('about-mobile', 'webp');
     background-size: 100% auto;
     transform: scaleX(-1) translate3d(50%, 0, 0);
-    // Rises into place as the footer is uncovered, drifts against the mouse
+    // Rises with the footer, drifts against the mouse
     translate: calc(var(--pointer-x, 0) * -15px) calc((1 - var(--contacts-arc, 1)) * 35%);
     @include media-breakpoint-up(lg) {
       width: 206%;
