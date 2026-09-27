@@ -31,7 +31,6 @@
   }
 
   &__form {
-    --contacts-parallax: inherit;
     // No will-change here: its own layer would hide the ray from the email field's backdrop-filter
     width: 100%;
     max-width: 350px;

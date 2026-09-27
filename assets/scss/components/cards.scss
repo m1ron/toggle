@@ -192,6 +192,7 @@ $card-switch: .4s;
     // --cards-progress
     &::after {
       --cards-progress: inherit;
+      will-change: transform;
       @include pseudo;
       width: 100%;
       height: 100%;

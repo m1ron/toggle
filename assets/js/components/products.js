@@ -105,7 +105,8 @@ export const initProducts = () => {
   });
 
   // Screenshots; explicit range: triggers inside a pin miss its length
-  parallax(animation, '--screens-parallax', '15px', '-15px', {
+  // The glow (::after) and each screenshot
+  parallax([animation, ...animation.querySelectorAll('.products__screenshot')], '--screens-parallax', '15px', '-15px', {
     start: () => screensCentred() - (window.innerHeight + animation.offsetHeight) / 2,
     end: () => screensCentred() + productsShift + LANDING() + HOLD() + (window.innerHeight + animation.offsetHeight) / 2,
   });

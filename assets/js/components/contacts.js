@@ -35,7 +35,8 @@ export const initContacts = () => {
   emailField.addEventListener('click', copyEmail);
 
   // Ray grows while the section comes in
-  parallax(contacts, '--contacts-parallax', 0, 1, { trigger: contacts, start: 'top bottom', end: 'bottom bottom' });
+  // The section for the ray (::before), and the form
+  parallax([contacts, contacts.querySelector('.contacts__form')], '--contacts-parallax', 0, 1, { trigger: contacts, start: 'top bottom', end: 'bottom bottom' });
 
   // Glows follow the mouse (fine pointers, on screen)
   if (!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {

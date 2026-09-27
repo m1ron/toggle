@@ -55,7 +55,8 @@ export const initCommit = () => {
     onLeaveBack: () => setCard(2)
   });
 
-  const pin = softPin(commit, '200% top');
+  // The section for its ::after (dots), the content itself
+  const pin = softPin(commit, '200% top', { content: [commit, commit.querySelector('.commit__content')] });
 
   // Progress bar over the pin
   gsap.fromTo(cards.querySelector('.cards__progress'), { '--cards-progress': 0 }, {

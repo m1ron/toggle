@@ -27,7 +27,8 @@ html {
 }
 
 // Scroll-driven variables (set by GSAP every frame). Not inherited: a change restyles only the element
-// holding it, not the whole section below; consumers one level down take it with `--x: inherit`.
+// holding it, not the whole section below. JS sets them on each element that uses them; only the holder's
+// own ::before / ::after take them with `--x: inherit` (Safari doesn't update children that do so).
 @property --pin-shift {syntax: '<length>'; inherits: false; initial-value: 0px;}
 @property --products-pin-shift {syntax: '<length>'; inherits: false; initial-value: 0px;}
 @property --screens-parallax {syntax: '<length>'; inherits: false; initial-value: 0px;}
