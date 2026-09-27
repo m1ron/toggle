@@ -244,9 +244,8 @@
     transform: none;
   }
 
-  &::before {
-    --about-parallax: inherit;
-    @include pseudo;
+  &__glow {
+    overflow: hidden;
     height: 65vw;
     min-height: 258px;
     max-height: 415px;

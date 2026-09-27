@@ -149,22 +149,21 @@
     @include media-breakpoint-up(lg) {
       border-radius: 64px;
     }
+  }
 
-    &::after {
-      --join-parallax: inherit;
-      @include pseudo;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: url('#{$img}/join-glow.webp') no-repeat center bottom;
-      background-size: 600px auto;
-      transform: translate3d(0, var(--join-parallax, 0px), 0);
-      will-change: transform;
-      @include media-breakpoint-up(lg) {
-        background-size: 766px auto;
-      }
+  &__glow-image {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('#{$img}/join-glow.webp') no-repeat center bottom;
+    background-size: 600px auto;
+    transform: translate3d(0, var(--join-parallax, 0px), 0);
+    will-change: transform;
+    @include media-breakpoint-up(lg) {
+      background-size: 766px auto;
     }
   }
 

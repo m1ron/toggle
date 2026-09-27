@@ -190,22 +190,22 @@ $card-switch: .4s;
     .cards.is-revealed & {transform: translate3d(-12px, 0, 0);}
 
     // --cards-progress
-    &::after {
-      --cards-progress: inherit;
-      will-change: transform;
-      @include pseudo;
-      width: 100%;
-      height: 100%;
-      border-radius: 1px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: linear-gradient(180deg, rgba(white, 0) 0%, rgba(white, .7) 100%);
-      transform: scaleY(var(--cards-progress, 0));
-      transform-origin: top center;
-      @include media-breakpoint-up(lg) {
-        border-radius: 2px;
-      }
+  }
+
+  &__fill {
+    will-change: transform;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(white, 0) 0%, rgba(white, .7) 100%);
+    transform: scaleY(var(--cards-progress, 0));
+    transform-origin: top center;
+    @include media-breakpoint-up(lg) {
+      border-radius: 2px;
     }
   }
 }

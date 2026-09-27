@@ -87,15 +87,14 @@
     opacity: 1;
   }
 
-  &::after {
-    @include pseudo;
+  &__dots {
+    overflow: hidden;
     position: absolute;
     top: 0;
     right: -10px;
     bottom: 0;
     left: -10px;
     z-index: -2;
-    --pin-shift: inherit;
     opacity: .7;
     background: url('#{$img}/dots.svg') no-repeat center center;
     transform: translate3d(0, var(--pin-shift, 0px), 0);

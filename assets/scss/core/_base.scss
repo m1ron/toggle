@@ -27,8 +27,8 @@ html {
 }
 
 // Scroll-driven variables (set by GSAP every frame). Not inherited: a change restyles only the element
-// holding it, not the whole section below. JS sets them on each element that uses them; only the holder's
-// own ::before / ::after take them with `--x: inherit` (Safari doesn't update children that do so).
+// holding it, not the whole section below. JS sets them on each element that uses them, which is never a
+// pseudo-element: Safari doesn't update a child or ::before / ::after that takes them with `inherit`.
 @property --pin-shift {syntax: '<length>'; inherits: false; initial-value: 0px;}
 @property --products-pin-shift {syntax: '<length>'; inherits: false; initial-value: 0px;}
 @property --success-drift {syntax: '<length>'; inherits: false; initial-value: 0px;}
@@ -81,8 +81,8 @@ body {
 
 // Below-the-fold artwork waits for the first screen (initLoader)
 html.is-bg-deferred {
-  .success__swirl, .success__galaxy, .commit::after, .cards__card::before, .products__animation::after,
-  .team::after, .join__bg::after, .contacts::before, .footer::before {
+  .success__swirl, .success__galaxy, .commit__dots, .cards__card::before, .products__animation::after,
+  .team::after, .join__glow-image, .contacts__ray, .footer__art {
     background-image: none !important;
   }
 }

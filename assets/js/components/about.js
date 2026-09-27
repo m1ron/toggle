@@ -12,7 +12,7 @@ export const initAbout = () => {
   onWidthResize(() => splitToLines(p, 'about__line'));
 
   // Background glow (::before)
-  parallax(about, '--about-parallax', '0px', '100px', { trigger: about, start: 'top bottom', end: 'bottom top' });
+  parallax(about.querySelector('.about__glow'), '--about-parallax', '0px', '100px', { trigger: about, start: 'top bottom', end: 'bottom top' });
 
   reveal(about);
 };

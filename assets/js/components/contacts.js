@@ -10,6 +10,8 @@ export const initContacts = () => {
   const contacts = document.querySelector('.contacts');
   const copy = contacts.querySelector('.contacts__copy');
   const emailField = contacts.querySelector('.contacts__email');
+  const ray = contacts.querySelector('.contacts__ray');
+  const arc = contacts.querySelector('.contacts__arc');
   const email = atob(emailField.dataset.email);
   emailField.textContent = email;
 
@@ -35,25 +37,28 @@ export const initContacts = () => {
   emailField.addEventListener('click', copyEmail);
 
   // Ray grows while the section comes in
-  // The section for the ray (::before), and the form
-  parallax([contacts, contacts.querySelector('.contacts__form')], '--contacts-parallax', 0, 1, { trigger: contacts, start: 'top bottom', end: 'bottom bottom' });
+  parallax([ray, contacts.querySelector('.contacts__form')], '--contacts-parallax', 0, 1, { trigger: contacts, start: 'top bottom', end: 'bottom bottom' });
 
   // Glows follow the mouse (fine pointers, on screen)
   if (!prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    const toX = gsap.quickTo(contacts, '--pointer-x', { duration: 1.2, ease: 'power3.out' });
-    const toY = gsap.quickTo(contacts, '--pointer-y', { duration: 1.2, ease: 'power3.out' });
+    const follow = { duration: 1.2, ease: 'power3.out' };
+    const rayX = gsap.quickTo(ray, '--pointer-x', follow);
+    const rayY = gsap.quickTo(ray, '--pointer-y', follow);
+    const arcX = gsap.quickTo(arc, '--pointer-x', follow);
     const inView = ScrollTrigger.create({ trigger: contacts, start: 'top bottom', end: 'max' });
     window.addEventListener('mousemove', (e) => {
       if (!inView.isActive) return;
-      toX(e.clientX / window.innerWidth * 2 - 1);
-      toY(e.clientY / window.innerHeight * 2 - 1);
+      const x = e.clientX / window.innerWidth * 2 - 1;
+      rayX(x);
+      arcX(x);
+      rayY(e.clientY / window.innerHeight * 2 - 1);
     }, { passive: true });
   }
 
   // Footer artwork and arc; here, not in initFooter: must follow the pins
-  parallax('.footer', '--footer-reveal', 0, 1, { trigger: contacts, start: 'bottom bottom', end: 'max' });
+  parallax('.footer__art', '--footer-reveal', 0, 1, { trigger: contacts, start: 'bottom bottom', end: 'max' });
 
-  parallax(contacts, '--contacts-arc', 0, 1, { trigger: contacts, start: 'bottom bottom+=300', end: 'max' });
+  parallax(arc, '--contacts-arc', 0, 1, { trigger: contacts, start: 'bottom bottom+=300', end: 'max' });
 
   reveal(contacts);
 };

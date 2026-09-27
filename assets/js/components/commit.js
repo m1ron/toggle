@@ -55,11 +55,11 @@ export const initCommit = () => {
     onLeaveBack: () => setCard(2)
   });
 
-  // The section for its ::after (dots), the content itself
-  const pin = softPin(commit, '200% top', { content: [commit, commit.querySelector('.commit__content')] });
+  // The shift goes on the elements that use it
+  const pin = softPin(commit, '200% top', { content: [commit.querySelector('.commit__content'), commit.querySelector('.commit__dots')] });
 
   // Progress bar over the pin
-  gsap.fromTo(cards.querySelector('.cards__progress'), { '--cards-progress': 0 }, {
+  gsap.fromTo(cards.querySelector('.cards__fill'), { '--cards-progress': 0 }, {
     '--cards-progress': 1,
     ease: 'none',
     scrollTrigger: { start: () => pin.start, end: () => pin.end, scrub: true },

@@ -18,10 +18,9 @@
   }
 
   // Fades in with a slight zoom (--footer-reveal)
-  &::before {
-    --footer-reveal: inherit;
+  &__art {
     will-change: transform, opacity;
-    @include pseudo;
+    overflow: hidden;
     position: absolute;
     inset: 0;
     z-index: -1;

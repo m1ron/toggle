@@ -223,11 +223,8 @@
     }
   }
 
-  &::before {
-    --contacts-parallax: inherit;
-    --pointer-x: inherit;
-    --pointer-y: inherit;
-    @include pseudo;
+  &__ray {
+    overflow: hidden;
     position: absolute;
     top: 0;
     right: -20px;
@@ -246,10 +243,8 @@
     translate: calc(var(--pointer-x, 0) * 12px) calc(var(--pointer-y, 0) * 6px);
   }
 
-  &::after {
-    --contacts-arc: inherit;
-    --pointer-x: inherit;
-    @include pseudo;
+  &__arc {
+    overflow: hidden;
     width: 180%;
     min-width: $min-width;
     max-width: 640px;
