@@ -64,7 +64,7 @@
 
     span {
       position: relative;
-      transition: opacity .3s $ease-out-cubic;
+      transition: opacity .5s $ease-out-cubic;
       transform: translate3d(0, 0, 0);
       opacity: .5;
     }

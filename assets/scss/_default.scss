@@ -52,8 +52,13 @@ body {
     .header, .main, .footer {opacity: 0;}
   }
   &.revealing {
-    .header, .main, .footer {transition: opacity $duration-reveal-s $ease-out-cubic;}
+    .header, .main, .footer {transition: opacity 1s $ease-out-cubic;}
   }
+}
+
+// While an in-page link is scrolling the page, the other links are disabled (see initAnchors)
+body.is-navigating a[href^="#"] {
+  pointer-events: none;
 }
 
 // Reduced motion: no movement, only quick fades; one-off and looping animations jump to their end

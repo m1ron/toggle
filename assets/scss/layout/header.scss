@@ -232,7 +232,8 @@
             padding: 9px 27px;
           }
 
-          &:hover, &:focus {
+          // .is-active: held while the page scrolls to this link's section (see initAnchors)
+          &:hover, &:focus, &.is-active {
             opacity: 1;
             text-shadow: 0 0 8px rgba(white, .65), 0 0 8px rgba(white, .65);
           }
@@ -314,7 +315,7 @@
       opacity: .4;
     }
 
-    &:hover, &:focus {
+    &:hover, &:focus, &.is-active {
       text-shadow: 0 0 3px rgba(white, .5);
       box-shadow: 0px -2px 8px rgba(#2259e4, .55), 0px 2px 12px rgba(#9f1885, .65), inset 0px -2px 24px rgba(white, .15);
       opacity: 1;

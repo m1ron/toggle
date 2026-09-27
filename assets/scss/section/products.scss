@@ -51,6 +51,8 @@
 
     p {
       margin: 0;
+      // Soft pins (see softPin() in main.js): the heading's own and the whole section's
+      transform: translate3d(0, calc(var(--pin-shift, 0px) + var(--products-pin-shift, 0px)), 0);
     }
   }
 
@@ -89,6 +91,9 @@
   &__animation {
     height: 640px;
     position: relative;
+    // Soft pin (see softPin() in main.js). `top` rather than transform: a transform would make this block
+    // a stacking context and change how the screenshots and their glow layer with the heading copy
+    top: var(--products-pin-shift, 0px);
     @include media-breakpoint-up(lg) {
       height: 900px;
       margin-top: 80px;
@@ -131,7 +136,9 @@
     z-index: 5;
     background: rgba(black, .3);
     box-shadow: 0 6px 18px rgba(black, .67);
-    transform: scale(.95) translate3d(0, 0, 0);;
+    transform: scale(.95) translate3d(0, 0, 0);
+    // Barely-there parallax (see initProducts): `translate` adds up with the reveal transforms
+    translate: 0 var(--screens-parallax, 0px);
     @include reveal($duration-reveal, $stagger * 2);
     opacity: 0;
     backdrop-filter: blur(10px);
@@ -170,6 +177,7 @@
     }
 
     &:nth-child(2), &:nth-child(3) {
+      translate: 0 calc(var(--screens-parallax, 0px) * 2); // side phones: a deeper layer
       width: 100px;
       height: 208px;
       border-radius: 18px;

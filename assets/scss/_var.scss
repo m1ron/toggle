@@ -43,13 +43,13 @@ $ease-out-cubic: cubic-bezier(.33, 1, .68, 1);     // hovers and small UI feedba
 $ease-in-out-cubic: cubic-bezier(.65, 0, .35, 1);  // state changes, elements passing each other
 $ease-out-back: cubic-bezier(.34, 1.4, .64, 1);    // gentle overshoot, used sparingly
 
-$duration-intro: 1.6s;     // hero entrance after the loader
-$duration-reveal: 1.2s;    // large blocks
-$duration-reveal-s: .8s;   // text lines, cards, small elements
-$stagger: .12s;            // step between items of a cascade
+$duration-intro: 1.8s;     // hero entrance after the loader
+$duration-reveal: 1.5s;    // large blocks
+$duration-reveal-s: 1.1s;  // text lines, cards, small elements
+$stagger: .15s;            // step between items of a cascade
 
 // Hover / focus feedback on buttons and links
-$effect-hover: .6s $ease-out-cubic;
+$effect-hover: .8s $ease-out-cubic;
 
 // Mixins
 @mixin pseudo {content: '';display: block;overflow: hidden;}

@@ -197,12 +197,6 @@
     &__subheading {animation-delay: .4s;}
     &__button {animation-delay: .6s;}
   }
-  // Repeat visit: no initial pause
-  body.revealing.revisit & {
-    &__title {animation-delay: 0s;}
-    &__subheading {animation-delay: .2s;}
-    &__button {animation-delay: .4s;}
-  }
 }
 
 // Only `from`: animates to the element's own opacity/transform
