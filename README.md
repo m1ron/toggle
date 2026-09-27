@@ -85,11 +85,17 @@ No address is in the markup. `data-email` holds it base64-encoded and JS decodes
 The last 2 versions of evergreen browsers (`browserslist` in `package.json`). The minimum supported width is 320px.
 
 ## Deploy
-Any static hosting works: deploy the `dist/` folder.
+The demo is hosted on **Cloudflare Pages**, built from this repository on every push to `main`. Any static hosting works: deploy the `dist/` folder.
 
-- Set `SITE_URL` (e.g. `https://example.com`) in the hosting build environment. It's used for the absolute Open Graph URLs (`og:url`, `og:image`); without it those tags and the `og:image` details are omitted.
-- The legal pages are folders with an `index.html`; static hosts serve `/privacy-policy/` from it (and usually redirect the address without the trailing slash).
-- Recommended: long-term caching (`Cache-Control: public, max-age=31536000, immutable`) for `/assets/*`; the file names there contain content hashes.
+Cloudflare Pages settings:
+- Build command `npm run build`, output directory `dist`, root directory empty.
+- Environment variables: `NODE_VERSION` = `22`, `SITE_URL` = the demo address, e.g. `https://toggle.example.com` (used for the absolute Open Graph URLs; without it those tags and the `og:image` details are omitted).
+- Custom domain: add the subdomain in the project's Custom domains; with DNS elsewhere, point a `CNAME` for it to `<project>.pages.dev`.
+
+What the host takes care of:
+- `404.html` is served for any missing address.
+- `/privacy-policy` redirects to `/privacy-policy/` (the pages are folders with an `index.html`).
+- `public/_headers` caches `/assets/*` for a year (`immutable`: the file names contain content hashes) and adds basic security headers.
 
 ## License
 This is a portfolio copy of the client's live site. The design, texts, images and the toggle apps brand belong to toggle apps sp. z o.o.; the repository is published for reference only and isn't licensed for reuse.
