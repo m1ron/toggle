@@ -69,5 +69,8 @@ The last 2 versions of evergreen browsers (`browserslist` in `package.json`). Th
 ## Deploy
 Any static hosting works: deploy the `dist/` folder.
 
-- Set `SITE_URL` (e.g. `https://example.com`) in the hosting build environment. It's used for the absolute Open Graph URLs (`og:url`, `og:image`); without it those tags are omitted.
+- Set `SITE_URL` (e.g. `https://example.com`) in the hosting build environment. It's used for the absolute Open Graph URLs (`og:url`, `og:image`); without it those tags and the `og:image` details are omitted.
 - Recommended: long-term caching (`Cache-Control: public, max-age=31536000, immutable`) for `/assets/*`; the file names there contain content hashes.
+
+## License
+This is a portfolio copy of the client's live site. The design, texts, images and the toggle apps brand belong to toggle apps sp. z o.o.; the repository is published for reference only and isn't licensed for reuse.

@@ -1,14 +1,14 @@
 import { defineConfig } from 'vite';
 
 // Public URL of the deployed site (set on the hosting platform), used for Open Graph tags.
-// Without it the tags that need an absolute URL are dropped instead of pointing nowhere.
+// Without it the tags that need an absolute URL (and the og:image details) are dropped.
 const siteUrl = (process.env.SITE_URL || '').replace(/\/$/, '');
 
 const siteUrlPlugin = {
   name: 'site-url',
   transformIndexHtml: (html) => siteUrl
     ? html.replaceAll('%SITE_URL%', siteUrl)
-    : html.replace(/^.*%SITE_URL%.*\n/gm, ''),
+    : html.replace(/^.*(%SITE_URL%|og:image:).*\n/gm, ''),
 };
 
 // The whole stylesheet (~14 KB gzipped) goes inline: no render-blocking request.

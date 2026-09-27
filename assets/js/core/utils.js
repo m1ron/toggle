@@ -1,6 +1,6 @@
 // Small helpers: debounce, width-only resize listener, promise-based wait.
 
-export const debounce = (fn, delay = 150) => {
+const debounce = (fn, delay = 150) => {
   let timer;
   return (...args) => {
     clearTimeout(timer);
