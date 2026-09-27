@@ -26,7 +26,7 @@
     justify-content: space-between;
     gap: 12px;
     @include font-smooth;
-    @include user-select;
+    @include no-select;
     cursor: default;
     @include media-breakpoint-down(xss) {
       font-size: 14px;

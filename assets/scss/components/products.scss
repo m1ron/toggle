@@ -82,7 +82,7 @@
     right: 0;
     color: white;
     cursor: default;
-    @include user-select;
+    @include no-select;
     @include media-breakpoint-up(sm) {
       transform-origin: top left;
     }
@@ -168,8 +168,8 @@
       left: 0;
       z-index: 5;
       object-fit: cover;
-      @include user-select;
-      @include user-drag;
+      @include no-select;
+      @include no-drag;
       @include media-breakpoint-up(lg) {
         width: 230px;
         height: 500px;

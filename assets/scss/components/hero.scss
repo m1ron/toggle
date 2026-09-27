@@ -64,8 +64,8 @@
       position: relative;
       z-index: 1;
       cursor: default;
-      @include user-select;
-      @include user-drag;
+      @include no-select;
+      @include no-drag;
       @include media-breakpoint-up(lg) {
         width: 128px;
         height: 80px;
@@ -78,8 +78,8 @@
       margin: 0 auto;
       display: block;
       cursor: default;
-      @include user-select;
-      @include user-drag;
+      @include no-select;
+      @include no-drag;
       @include media-breakpoint-up(lg) {
         height: 122px;
       }
@@ -151,8 +151,8 @@
     backdrop-filter: blur(10px);
     opacity: .95;
     transition: box-shadow $effect-hover, text-shadow $effect-hover, opacity $effect-hover;
-    @include user-select;
-    @include user-drag;
+    @include no-select;
+    @include no-drag;
     @include font-smooth;
     @include media-breakpoint-up(lg) {
       margin-top: 40px;

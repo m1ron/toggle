@@ -73,7 +73,7 @@ $card-switch: .4s;
     @include reveal($duration-reveal-s);
     cursor: default;
     @include font-smooth;
-    @include user-select;
+    @include no-select;
     @include media-breakpoint-up(lg) {
       margin-bottom: 0;
       font-size: 32px;
@@ -132,7 +132,7 @@ $card-switch: .4s;
     gap: 56px;
     font-size: 16px;
     line-height: 20px;
-    @include user-select;
+    @include no-select;
     @include font-smooth;
     cursor: default;
     transform: translate3d(-50%, -50%, 0);
@@ -247,8 +247,8 @@ $card-switch: .4s;
     filter: none;
     transition: opacity $card-switch linear, filter $card-switch linear, transform $card-switch ease;
     transform: translate3d(0, -23px, 0);
-    @include user-select;
-    @include user-drag;
+    @include no-select;
+    @include no-drag;
     @include media-breakpoint-up(lg) {
       width: 150px;
       height: 150px;

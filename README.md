@@ -36,7 +36,6 @@ assets/scss/
   core/                     variables, motion tokens, mixins, breakpoints, fonts, base styles
   layout/                   loader, header, main, stars, wrapper, footer
   components/               one file per page section, same names as in js/
-  vendor/                   normalize, lenis
 assets/img, assets/fonts    processed and hashed by Vite
 public/                     copied as is: favicons, og-image.jpg, robots.txt
 ```

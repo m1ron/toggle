@@ -40,7 +40,7 @@
     position: relative;
     z-index: 5;
     @include font-smooth;
-    @include user-select;
+    @include no-select;
     cursor: default;
     opacity: 0;
     transform: translate3d(0, var(--pin-shift, 0px), 0);

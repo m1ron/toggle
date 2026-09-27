@@ -1,7 +1,4 @@
-// Entry: vendor, core, layout, then components in page order.
-
-@use 'vendor/normalize';
-@use 'vendor/lenis';
+// Entry: core, layout, then components in page order.
 
 @use 'core/var';
 @use 'core/fonts';

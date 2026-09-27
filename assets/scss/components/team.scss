@@ -60,7 +60,7 @@
     @include reveal($duration-reveal);
     cursor: default;
     @include font-smooth;
-    @include user-select;
+    @include no-select;
     @include media-breakpoint-up(lg) {
       max-width: 240px;
       font-size: 30px;
@@ -151,8 +151,8 @@
       width: 100%;
       height: 100%;
       display: block;
-      @include user-select;
-      @include user-drag;
+      @include no-select;
+      @include no-drag;
     }
 
     &:nth-child(1) {animation-name: orbit-1;}

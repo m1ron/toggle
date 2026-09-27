@@ -45,10 +45,29 @@ $stagger: .15s;            // cascade step
 $effect-hover: .8s $ease-out-cubic;
 
 // Mixins
-@mixin pseudo {content: '';display: block;overflow: hidden;}
-@mixin font-smooth {-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
-@mixin user-select {-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
-@mixin user-drag {-webkit-user-drag: none;user-drag: none;}
+@mixin pseudo {
+  content: '';
+  display: block;
+  overflow: hidden;
+}
+
+// Grayscale antialiasing on macOS (Safari / Chrome, Firefox)
+@mixin font-smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// No text selection and no iOS long-press menu; autoprefixer adds -webkit-user-select
+@mixin no-select {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+// No image dragging (WebKit / Blink; images also get draggable="false")
+@mixin no-drag {
+  -webkit-user-drag: none;
+}
+
 // AVIF with a fallback; own @supports so minifiers keep the fallback
 @mixin bg-image($name, $fallback-ext) {
   $type: 'image/webp';

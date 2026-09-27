@@ -41,8 +41,8 @@
       height: 23px;
       display: block;
       position: relative;
-      @include user-select;
-      @include user-drag;
+      @include no-select;
+      @include no-drag;
       @include media-breakpoint-down(xss) {
         width: 91px;
         height: 21px;
@@ -170,7 +170,7 @@
       letter-spacing: .04em;
       text-align: center;
       transition: max-height .4s $ease-out-cubic;
-      @include user-select;
+      @include no-select;
       @include media-breakpoint-down(lg) {
         display: none;
         visibility: hidden;
@@ -274,8 +274,8 @@
     background: linear-gradient(black, black) padding-box, conic-gradient(from 180deg at 50% 50%, #6faad7 0deg, #6faad7 30deg, #6a20da 55deg, #1b8dd4 100deg, #2634ef 155deg, #2634ef 210deg, #f60494 265deg, #ba0fa1 285deg, #6faad7 330deg, #6faad7 360deg) border-box;
     opacity: .95;
     transition: box-shadow $effect-hover, text-shadow $effect-hover, opacity $effect-hover;
-    @include user-select;
-    @include user-drag;
+    @include no-select;
+    @include no-drag;
     @include media-breakpoint-down(xss) {
       padding-right: 16px;
       padding-left: 16px;
