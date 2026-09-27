@@ -4,10 +4,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
+import './core/start.js'; // first: GSAP setup, scroll reset, deep link
 import { isMobile, prefersReducedMotion } from './core/env.js';
 import { initLoader } from './layout/loader.js';
 import { initStars } from './layout/stars.js';
-import { initAnchors, initMenu } from './layout/header.js';
+import { initAnchors } from './layout/anchors.js';
+import { initMenu } from './layout/menu.js';
 import { initFooter } from './layout/footer.js';
 import { initHero } from './components/hero.js';
 import { initAbout } from './components/about.js';

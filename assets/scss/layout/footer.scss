@@ -145,7 +145,7 @@
     opacity: .6;
     text-decoration: none;
     transition: opacity $effect-hover;
-    &:hover, &:focus-visible {opacity: 1;}
+    &:hover, &:focus-visible, &[aria-current] {opacity: 1;}
   }
 
   &__logo {

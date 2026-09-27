@@ -11,8 +11,10 @@ const siteUrlPlugin = {
     : html.replace(/^.*(%SITE_URL%|og:image:).*\n/gm, ''),
 };
 
-// The whole stylesheet (~14 KB gzipped) goes inline: no render-blocking request.
+// Each page's stylesheet goes inline (~14 KB gzipped): no render-blocking request.
 // A "critical" subset isn't worth it here: the entire page is in the markup, so it would be ~80% of the file anyway.
+// Pages may share a stylesheet (privacy / terms), so the files are removed only once all pages are done.
+const inlined = new Set();
 const inlineCssPlugin = {
   name: 'inline-css',
   apply: 'build',
@@ -21,9 +23,15 @@ const inlineCssPlugin = {
     return html.replace(/<link rel="stylesheet"[^>]*href="\/([^"]+\.css)"[^>]*>/g, (link, fileName) => {
       const asset = bundle[fileName];
       if (!asset) return link;
-      delete bundle[fileName];
+      inlined.add(fileName);
       return `<style>${asset.source}</style>`;
     });
+  },
+  generateBundle: {
+    order: 'post',
+    handler(options, bundle) {
+      for (const fileName of inlined) delete bundle[fileName];
+    },
   },
 };
 
@@ -40,5 +48,14 @@ export default defineConfig({
   },
   css: {
     devSourcemap: true,
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        privacy: 'privacy-policy/index.html',
+        terms: 'terms-of-service/index.html',
+      },
+    },
   },
 });

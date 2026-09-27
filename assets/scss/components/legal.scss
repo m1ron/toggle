@@ -1,0 +1,267 @@
+// Legal: Privacy Policy and Terms of Service. Wave glow and gradient title as on the home page,
+// contents in a glass card, sections split by gradient lines.
+
+@use '../core/var' as *;
+@use '../core/breakpoints' as *;
+
+.legal {
+  min-height: 100vh;
+  padding: 136px 20px 96px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  @include media-breakpoint-up(lg) {
+    padding: 196px 40px 140px;
+  }
+
+  // Top glow, the wave from About
+  &::before {
+    @include pseudo;
+    height: 415px;
+    position: absolute;
+    top: -150px;
+    right: -20px;
+    left: -20px;
+    z-index: -1;
+    background: no-repeat top center;
+    @include bg-image('wave-mobile', 'webp');
+    background-size: auto 100%;
+    pointer-events: none;
+    @include media-breakpoint-up(lg) {
+      height: 760px;
+      top: -330px;
+      @include bg-image('wave', 'webp');
+    }
+  }
+
+  // Shade under the fixed header once the text scrolls beneath it (.is-scrolled, legal.js)
+  &::after {
+    @include pseudo;
+    height: 110px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    background: linear-gradient(black 35%, rgba(black, 0));
+    opacity: 0;
+    transition: opacity .6s $ease-out-cubic;
+    pointer-events: none;
+    @include media-breakpoint-up(lg) {
+      height: 130px;
+    }
+  }
+  &.is-scrolled::after {opacity: 1;}
+
+  &__document {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  &__intro {
+    margin-bottom: 48px;
+    text-align: center;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 72px;
+    }
+  }
+
+  &__title {
+    margin: 0 0 16px;
+    font-size: 36px;
+    line-height: 110%;
+    font-weight: 600;
+    letter-spacing: 0;
+    background: linear-gradient(180deg, white 0%, rgba(white, .3) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    @include font-smooth;
+    @include media-breakpoint-up(lg) {
+      font-size: 64px;
+    }
+  }
+
+  &__updated {
+    margin: 0;
+    font-size: 14px;
+    letter-spacing: .04em;
+    opacity: .5;
+  }
+
+  // Rich text from the documents: inline strong / em are styled here
+  &__body {
+    font-size: 15px;
+    line-height: 24px;
+    letter-spacing: .02em;
+    color: rgba(white, .7);
+    @include font-smooth;
+    @include media-breakpoint-up(lg) {
+      font-size: 17px;
+      line-height: 28px;
+    }
+
+    strong {
+      font-weight: 600;
+      color: white;
+    }
+  }
+
+  &__text {
+    margin: 0 0 16px;
+  }
+
+  &__toc {
+    padding: 28px 24px 18px;
+    border: 1.5px solid rgba(white, .1);
+    border-radius: 32px;
+    margin: 40px 0 56px;
+    background: rgba(black, .3);
+    box-shadow: 0 0 40px rgba(black, .15);
+    @include media-breakpoint-up(lg) {
+      padding: 40px 48px 30px;
+      border-radius: 44px;
+      margin-bottom: 72px;
+    }
+  }
+
+  &__toc-title {
+    margin: 0 0 18px;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: white;
+    opacity: .5;
+  }
+
+  &__toc-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    counter-reset: toc;
+    @include media-breakpoint-up(md) {
+      columns: 2;
+      column-gap: 40px;
+    }
+  }
+
+  &__toc-item {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    break-inside: avoid;
+    counter-increment: toc;
+    font-size: 15px;
+    line-height: 22px;
+
+    &::before {
+      content: counter(toc, decimal-leading-zero);
+      min-width: 20px;
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      color: white;
+      opacity: .35;
+    }
+  }
+
+  &__toc-link {
+    text-decoration: none;
+    color: rgba(white, .8);
+
+    &:hover, &:focus-visible {
+      color: white;
+      text-shadow: 0 0 8px rgba(white, .65);
+    }
+  }
+
+  &__section {
+    padding-top: 40px;
+    margin-top: 40px;
+    position: relative;
+    // Clear of the fixed header when jumped to
+    scroll-margin-top: 100px;
+
+    // Same line as the Join card divider
+    &::before {
+      @include pseudo;
+      height: 1px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      background: linear-gradient(to right, rgba(#59efd4, 0) 0%, rgba(#59b0ef, 1) 48%, rgba(#59efd4, 0) 100%);
+      opacity: .25;
+    }
+  }
+
+  &__heading {
+    margin: 0 0 20px;
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 600;
+    color: white;
+    @include media-breakpoint-up(lg) {
+      font-size: 26px;
+      line-height: 32px;
+    }
+  }
+
+  &__subheading {
+    margin: 28px 0 12px;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    color: white;
+    @include media-breakpoint-up(lg) {
+      font-size: 19px;
+      line-height: 26px;
+    }
+  }
+
+  &__list {
+    padding: 0;
+    margin: 0 0 16px;
+    list-style: none;
+  }
+
+  &__item {
+    padding-left: 24px;
+    margin-bottom: 10px;
+    position: relative;
+
+    // Glowing dot in the brand gradient
+    &::before {
+      @include pseudo;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      position: absolute;
+      top: .75em;
+      left: 4px;
+      background: conic-gradient(from 180deg, #6faad7, #6a20da, #2634ef, #f60494, #6faad7);
+      box-shadow: 0 0 8px rgba(#6a20da, .8);
+    }
+  }
+
+  &__link {
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: rgba(white, .35);
+    text-underline-offset: .2em;
+    word-break: break-word;
+    cursor: pointer;
+
+    &:hover, &:focus-visible {
+      text-decoration: none;
+    }
+  }
+
+  &__other {
+    margin: 64px 0 0;
+    font-size: 15px;
+    text-align: center;
+    color: rgba(white, .7);
+  }
+}

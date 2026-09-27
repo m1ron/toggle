@@ -1,16 +1,5 @@
-// Environment: GSAP setup, scroll reset with deep-link capture,
-// the mobile and reduced-motion flags.
-
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-// Always open at the top; a deep link is scrolled to after the intro
-ScrollTrigger.clearScrollMemory('manual');
-export const initialHash = location.hash;
-if (initialHash) history.replaceState(null, '', location.pathname + location.search);
-window.scrollTo(0, 0);
+// Environment flags: the root element, touch devices, reduced motion. No side effects,
+// so the legal pages can use it too.
 
 export const doc = document.documentElement;
 export const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)

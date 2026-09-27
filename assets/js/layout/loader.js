@@ -2,7 +2,8 @@
 // then builds the page underneath and fades it in.
 
 import gsap from 'gsap';
-import { doc, initialHash, prefersReducedMotion } from '../core/env.js';
+import { doc, prefersReducedMotion } from '../core/env.js';
+import { initialHash } from '../core/start.js';
 import { wait } from '../core/utils.js';
 
 // Keeps decoded images from being garbage collected

@@ -1,0 +1,12 @@
+// Entry for the legal pages: core, the shared header, stars and footer, the document styles.
+
+@use 'core/var';
+@use 'core/fonts';
+@use 'core/breakpoints';
+@use 'core/base';
+
+@use 'layout/header';
+@use 'layout/stars';
+@use 'layout/footer';
+
+@use 'components/legal';

@@ -25,14 +25,16 @@ npm run preview   # serves dist/ at http://localhost:4180
 
 ## Project structure
 ```
-index.html                  the whole page markup
+index.html                  the home page
+privacy-policy/, terms-of-service/  legal pages, index.html in each (content from the client's site, restyled)
 assets/js/
-  main.js                   entry: Lenis, init order
-  core/                     env, utils, motion helpers (reveal, parallax, softPin), text splitting
-  layout/                   loader, header (menu, anchor scroll), stars, footer
+  main.js                   home page entry: Lenis, init order
+  legal.js                  legal pages entry: Lenis with contents links, menu, stars (no GSAP)
+  core/                     start (home page setup), env, utils, motion helpers, text splitting
+  layout/                   loader, menu, anchors (anchor scroll), stars, footer
   components/               one module per page section
 assets/scss/
-  style.scss                entry
+  style.scss, legal.scss    entries of the home and legal pages
   core/                     variables, motion tokens, mixins, breakpoints, fonts, base styles
   layout/                   loader, header, main, stars, wrapper, footer
   components/               one file per page section, same names as in js/
