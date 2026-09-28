@@ -83,11 +83,6 @@ html.is-bg-deferred {
   }
 }
 
-// No anchor clicks during an anchor scroll
-body.is-navigating a[href^="#"] {
-  pointer-events: none;
-}
-
 // Reduced motion: fades only, animations jump to their end
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

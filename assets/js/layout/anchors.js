@@ -25,10 +25,9 @@ export const initAnchors = (lenis) => {
   const finish = () => {
     navigating = false;
     clearTimeout(endTimer);
-    document.body.classList.remove('is-navigating');
     if (activeLink) {
       activeLink.classList.remove('is-active');
-      activeLink.blur(); // :focus looks the same as :hover
+      activeLink.blur(); // keyboard: :focus-visible looks the same as :hover
       activeLink = null;
     }
     window.removeEventListener('wheel', finish);
@@ -47,7 +46,6 @@ export const initAnchors = (lenis) => {
     const duration = Math.max(distance / NAV_SPEED + ramps / 2, ramps);
 
     navigating = true;
-    document.body.classList.add('is-navigating');
     activeLink = link;
     link?.classList.add('is-active');
     // Wheel / touch interrupts it
